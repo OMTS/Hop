@@ -9,7 +9,7 @@
 import Foundation
 
 
-enum LexerError: Error {
+public enum LexerError: Error {
     case unknownError
     case illegalContent(position: Int)
 }
@@ -37,15 +37,15 @@ public class Lexer {
         chars = Array(program!)
     }
     
-    func getCurrentPosition() -> Int {
+    public func getCurrentPosition() -> Int {
         return nextCharIndex
     }
     
-    func getNextChar() {
+    public func getNextChar() {
         nextCharIndex += 1
     }
     
-    func getChar(at index: Int) -> Character? {
+    public func getChar(at index: Int) -> Character? {
         if index < 0 { return nil }
         if index > chars.count - 1 { return nil }
         return chars[index]
