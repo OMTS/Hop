@@ -56,9 +56,9 @@ Hop: a typed script language
   # s.authors            = { "" => "" }
   # s.social_media_url   = "http://twitter.com/"
 
-  s.ios.deployment_target = "11.4"
+  s.ios.deployment_target = "11.0"
   s.osx.deployment_target = "10.13"
-  s.tvos.deployment_target = "11.4"
+  s.tvos.deployment_target = "11.0"
 
   s.source       = { :git => "https://github.com/OMTS/Hop.git", :tag => "#{s.version}" }
 
