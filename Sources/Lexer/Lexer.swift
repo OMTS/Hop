@@ -17,7 +17,7 @@ public enum LexerError: Error {
 public class Lexer {
     
     private var chars: [Character]!
-    private(set) var nextCharIndex: Int = 0
+    public private(set) var nextCharIndex: Int = 0
     private var lineIndex: Int = 0
     private var currentChar: Character! {
         if nextCharIndex < chars.count {
@@ -25,7 +25,7 @@ public class Lexer {
         }
         return nil
     }
-    var currentTokenValue: Any?
+    public var currentTokenValue: Any?
     
     public init(script: String) {
         chars = Array(script)
