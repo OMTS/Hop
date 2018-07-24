@@ -27,11 +27,11 @@ public class Lexer {
     }
     var currentTokenValue: Any?
     
-    init(script: String) {
+    public init(script: String) {
         chars = Array(script)
     }
     
-    init?(with url: URL) {
+    public init?(with url: URL) {
         let program = self.loadProgram(from: url)
         if program == nil { return nil }
         chars = Array(program!)
