@@ -14,7 +14,7 @@ enum LexerError: Error {
     case illegalContent(position: Int)
 }
 
-class Lexer {
+public class Lexer {
     
     private var chars: [Character]!
     private(set) var nextCharIndex: Int = 0
@@ -51,7 +51,7 @@ class Lexer {
         return chars[index]
     }
     
-    func getNextToken() throws -> Token {
+    public func getNextToken() throws -> Token {
         if currentTokenValue != nil {
             currentTokenValue = nil
         }
