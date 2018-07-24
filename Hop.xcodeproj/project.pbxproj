@@ -163,6 +163,9 @@
 		CB195A772107C21000C16ACE /* InterpreterError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB195A762107C21000C16ACE /* InterpreterError.swift */; };
 		CB195A782107C21000C16ACE /* InterpreterError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB195A762107C21000C16ACE /* InterpreterError.swift */; };
 		CB195A792107C21000C16ACE /* InterpreterError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB195A762107C21000C16ACE /* InterpreterError.swift */; };
+		CB195A7B2107C49C00C16ACE /* Hop.podspec in Resources */ = {isa = PBXBuildFile; fileRef = CB195A7A2107C49C00C16ACE /* Hop.podspec */; };
+		CB195A7C2107C49C00C16ACE /* Hop.podspec in Resources */ = {isa = PBXBuildFile; fileRef = CB195A7A2107C49C00C16ACE /* Hop.podspec */; };
+		CB195A7D2107C49C00C16ACE /* Hop.podspec in Resources */ = {isa = PBXBuildFile; fileRef = CB195A7A2107C49C00C16ACE /* Hop.podspec */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -253,6 +256,7 @@
 		CB195A6E2107C05A00C16ACE /* StandardLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandardLibrary.swift; sourceTree = "<group>"; };
 		CB195A6F2107C05A00C16ACE /* LanguageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageExtensions.swift; sourceTree = "<group>"; };
 		CB195A762107C21000C16ACE /* InterpreterError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterpreterError.swift; sourceTree = "<group>"; };
+		CB195A7A2107C49C00C16ACE /* Hop.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Hop.podspec; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -372,6 +376,7 @@
 		CB1959AD2107BBC600C16ACE /* Deployment */ = {
 			isa = PBXGroup;
 			children = (
+				CB195A7A2107C49C00C16ACE /* Hop.podspec */,
 			);
 			name = Deployment;
 			sourceTree = "<group>";
@@ -673,6 +678,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB195A7B2107C49C00C16ACE /* Hop.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -687,6 +693,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB195A7C2107C49C00C16ACE /* Hop.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -701,6 +708,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB195A7D2107C49C00C16ACE /* Hop.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
