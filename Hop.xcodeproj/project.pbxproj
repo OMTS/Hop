@@ -8,164 +8,161 @@
 
 /* Begin PBXBuildFile section */
 		CB19595E2107B80200C16ACE /* Hop.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1959552107B80200C16ACE /* Hop.framework */; };
-		CB1959632107B80200C16ACE /* HopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959622107B80200C16ACE /* HopTests.swift */; };
 		CB1959652107B80200C16ACE /* Hop.h in Headers */ = {isa = PBXBuildFile; fileRef = CB1959572107B80200C16ACE /* Hop.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CB19597A2107B81600C16ACE /* Hop.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1959712107B81500C16ACE /* Hop.framework */; };
 		CB1959962107B82F00C16ACE /* Hop.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB19598D2107B82F00C16ACE /* Hop.framework */; };
 		CB1959A92107B9CA00C16ACE /* Hop.h in Headers */ = {isa = PBXBuildFile; fileRef = CB1959572107B80200C16ACE /* Hop.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CB1959AA2107B9CB00C16ACE /* Hop.h in Headers */ = {isa = PBXBuildFile; fileRef = CB1959572107B80200C16ACE /* Hop.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CB1959AB2107B9D600C16ACE /* HopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959622107B80200C16ACE /* HopTests.swift */; };
-		CB1959AC2107B9D700C16ACE /* HopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959622107B80200C16ACE /* HopTests.swift */; };
-		CB1959E32107BF6500C16ACE /* Scope.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959B02107BF6500C16ACE /* Scope.swift */; };
-		CB1959E42107BF6500C16ACE /* Scope.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959B02107BF6500C16ACE /* Scope.swift */; };
-		CB1959E52107BF6500C16ACE /* Scope.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959B02107BF6500C16ACE /* Scope.swift */; };
-		CB1959E62107BF6500C16ACE /* Argument.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959B12107BF6500C16ACE /* Argument.swift */; };
-		CB1959E72107BF6500C16ACE /* Argument.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959B12107BF6500C16ACE /* Argument.swift */; };
-		CB1959E82107BF6500C16ACE /* Argument.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959B12107BF6500C16ACE /* Argument.swift */; };
-		CB1959E92107BF6500C16ACE /* SelfParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959B22107BF6500C16ACE /* SelfParameter.swift */; };
-		CB1959EA2107BF6500C16ACE /* SelfParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959B22107BF6500C16ACE /* SelfParameter.swift */; };
-		CB1959EB2107BF6500C16ACE /* SelfParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959B22107BF6500C16ACE /* SelfParameter.swift */; };
-		CB1959EC2107BF6500C16ACE /* Closure.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959B32107BF6500C16ACE /* Closure.swift */; };
-		CB1959ED2107BF6500C16ACE /* Closure.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959B32107BF6500C16ACE /* Closure.swift */; };
-		CB1959EE2107BF6500C16ACE /* Closure.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959B32107BF6500C16ACE /* Closure.swift */; };
-		CB1959EF2107BF6500C16ACE /* Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959B42107BF6500C16ACE /* Type.swift */; };
-		CB1959F02107BF6500C16ACE /* Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959B42107BF6500C16ACE /* Type.swift */; };
-		CB1959F12107BF6500C16ACE /* Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959B42107BF6500C16ACE /* Type.swift */; };
-		CB1959F22107BF6500C16ACE /* Interpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959B52107BF6500C16ACE /* Interpreter.swift */; };
-		CB1959F32107BF6500C16ACE /* Interpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959B52107BF6500C16ACE /* Interpreter.swift */; };
-		CB1959F42107BF6500C16ACE /* Interpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959B52107BF6500C16ACE /* Interpreter.swift */; };
-		CB1959F52107BF6500C16ACE /* Instance.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959B62107BF6500C16ACE /* Instance.swift */; };
-		CB1959F62107BF6500C16ACE /* Instance.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959B62107BF6500C16ACE /* Instance.swift */; };
-		CB1959F72107BF6500C16ACE /* Instance.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959B62107BF6500C16ACE /* Instance.swift */; };
-		CB1959F82107BF6500C16ACE /* Prototype.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959B72107BF6500C16ACE /* Prototype.swift */; };
-		CB1959F92107BF6500C16ACE /* Prototype.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959B72107BF6500C16ACE /* Prototype.swift */; };
-		CB1959FA2107BF6500C16ACE /* Prototype.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959B72107BF6500C16ACE /* Prototype.swift */; };
-		CB1959FB2107BF6500C16ACE /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959B82107BF6500C16ACE /* Package.swift */; };
-		CB1959FC2107BF6500C16ACE /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959B82107BF6500C16ACE /* Package.swift */; };
-		CB1959FD2107BF6500C16ACE /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959B82107BF6500C16ACE /* Package.swift */; };
-		CB1959FE2107BF6500C16ACE /* Null.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959B92107BF6500C16ACE /* Null.swift */; };
-		CB1959FF2107BF6500C16ACE /* Null.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959B92107BF6500C16ACE /* Null.swift */; };
-		CB195A002107BF6500C16ACE /* Null.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959B92107BF6500C16ACE /* Null.swift */; };
-		CB195A012107BF6500C16ACE /* Class.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959BA2107BF6500C16ACE /* Class.swift */; };
-		CB195A022107BF6500C16ACE /* Class.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959BA2107BF6500C16ACE /* Class.swift */; };
-		CB195A032107BF6500C16ACE /* Class.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959BA2107BF6500C16ACE /* Class.swift */; };
-		CB195A042107BF6500C16ACE /* SuperParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959BB2107BF6500C16ACE /* SuperParameter.swift */; };
-		CB195A052107BF6500C16ACE /* SuperParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959BB2107BF6500C16ACE /* SuperParameter.swift */; };
-		CB195A062107BF6500C16ACE /* SuperParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959BB2107BF6500C16ACE /* SuperParameter.swift */; };
-		CB195A072107BF6500C16ACE /* Program.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959BC2107BF6500C16ACE /* Program.swift */; };
-		CB195A082107BF6500C16ACE /* Program.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959BC2107BF6500C16ACE /* Program.swift */; };
-		CB195A092107BF6500C16ACE /* Program.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959BC2107BF6500C16ACE /* Program.swift */; };
-		CB195A0A2107BF6500C16ACE /* Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959BD2107BF6500C16ACE /* Module.swift */; };
-		CB195A0B2107BF6500C16ACE /* Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959BD2107BF6500C16ACE /* Module.swift */; };
-		CB195A0C2107BF6500C16ACE /* Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959BD2107BF6500C16ACE /* Module.swift */; };
-		CB195A0D2107BF6500C16ACE /* Variable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959BE2107BF6500C16ACE /* Variable.swift */; };
-		CB195A0E2107BF6500C16ACE /* Variable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959BE2107BF6500C16ACE /* Variable.swift */; };
-		CB195A0F2107BF6500C16ACE /* Variable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959BE2107BF6500C16ACE /* Variable.swift */; };
-		CB195A102107BF6500C16ACE /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959BF2107BF6500C16ACE /* Token.swift */; };
-		CB195A112107BF6500C16ACE /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959BF2107BF6500C16ACE /* Token.swift */; };
-		CB195A122107BF6500C16ACE /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959BF2107BF6500C16ACE /* Token.swift */; };
-		CB195A132107BF6500C16ACE /* ClassInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959C02107BF6500C16ACE /* ClassInitializer.swift */; };
-		CB195A142107BF6500C16ACE /* ClassInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959C02107BF6500C16ACE /* ClassInitializer.swift */; };
-		CB195A152107BF6500C16ACE /* ClassInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959C02107BF6500C16ACE /* ClassInitializer.swift */; };
-		CB195A162107BF6500C16ACE /* Lexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959C22107BF6500C16ACE /* Lexer.swift */; };
-		CB195A172107BF6500C16ACE /* Lexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959C22107BF6500C16ACE /* Lexer.swift */; };
-		CB195A182107BF6500C16ACE /* Lexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959C22107BF6500C16ACE /* Lexer.swift */; };
-		CB195A192107BF6500C16ACE /* ImportStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959C52107BF6500C16ACE /* ImportStmt.swift */; };
-		CB195A1A2107BF6500C16ACE /* ImportStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959C52107BF6500C16ACE /* ImportStmt.swift */; };
-		CB195A1B2107BF6500C16ACE /* ImportStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959C52107BF6500C16ACE /* ImportStmt.swift */; };
-		CB195A1C2107BF6500C16ACE /* VariableDeclarationStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959C62107BF6500C16ACE /* VariableDeclarationStmt.swift */; };
-		CB195A1D2107BF6500C16ACE /* VariableDeclarationStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959C62107BF6500C16ACE /* VariableDeclarationStmt.swift */; };
-		CB195A1E2107BF6500C16ACE /* VariableDeclarationStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959C62107BF6500C16ACE /* VariableDeclarationStmt.swift */; };
-		CB195A1F2107BF6500C16ACE /* IfStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959C72107BF6500C16ACE /* IfStmt.swift */; };
-		CB195A202107BF6500C16ACE /* IfStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959C72107BF6500C16ACE /* IfStmt.swift */; };
-		CB195A212107BF6500C16ACE /* IfStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959C72107BF6500C16ACE /* IfStmt.swift */; };
-		CB195A222107BF6500C16ACE /* BlockStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959C82107BF6500C16ACE /* BlockStmt.swift */; };
-		CB195A232107BF6500C16ACE /* BlockStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959C82107BF6500C16ACE /* BlockStmt.swift */; };
-		CB195A242107BF6500C16ACE /* BlockStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959C82107BF6500C16ACE /* BlockStmt.swift */; };
-		CB195A252107BF6500C16ACE /* WhileStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959C92107BF6500C16ACE /* WhileStmt.swift */; };
-		CB195A262107BF6500C16ACE /* WhileStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959C92107BF6500C16ACE /* WhileStmt.swift */; };
-		CB195A272107BF6500C16ACE /* WhileStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959C92107BF6500C16ACE /* WhileStmt.swift */; };
-		CB195A282107BF6500C16ACE /* BreakStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959CA2107BF6500C16ACE /* BreakStmt.swift */; };
-		CB195A292107BF6500C16ACE /* BreakStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959CA2107BF6500C16ACE /* BreakStmt.swift */; };
-		CB195A2A2107BF6500C16ACE /* BreakStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959CA2107BF6500C16ACE /* BreakStmt.swift */; };
-		CB195A2B2107BF6500C16ACE /* ForStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959CB2107BF6500C16ACE /* ForStmt.swift */; };
-		CB195A2C2107BF6500C16ACE /* ForStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959CB2107BF6500C16ACE /* ForStmt.swift */; };
-		CB195A2D2107BF6500C16ACE /* ForStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959CB2107BF6500C16ACE /* ForStmt.swift */; };
-		CB195A2E2107BF6500C16ACE /* ReturnStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959CC2107BF6500C16ACE /* ReturnStmt.swift */; };
-		CB195A2F2107BF6500C16ACE /* ReturnStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959CC2107BF6500C16ACE /* ReturnStmt.swift */; };
-		CB195A302107BF6500C16ACE /* ReturnStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959CC2107BF6500C16ACE /* ReturnStmt.swift */; };
-		CB195A312107BF6500C16ACE /* FunctionDeclarationStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959CD2107BF6500C16ACE /* FunctionDeclarationStmt.swift */; };
-		CB195A322107BF6500C16ACE /* FunctionDeclarationStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959CD2107BF6500C16ACE /* FunctionDeclarationStmt.swift */; };
-		CB195A332107BF6500C16ACE /* FunctionDeclarationStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959CD2107BF6500C16ACE /* FunctionDeclarationStmt.swift */; };
-		CB195A342107BF6500C16ACE /* FunctionDeclarationArgument.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959CE2107BF6500C16ACE /* FunctionDeclarationArgument.swift */; };
-		CB195A352107BF6500C16ACE /* FunctionDeclarationArgument.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959CE2107BF6500C16ACE /* FunctionDeclarationArgument.swift */; };
-		CB195A362107BF6500C16ACE /* FunctionDeclarationArgument.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959CE2107BF6500C16ACE /* FunctionDeclarationArgument.swift */; };
-		CB195A372107BF6500C16ACE /* ClassDeclarationStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959CF2107BF6500C16ACE /* ClassDeclarationStmt.swift */; };
-		CB195A382107BF6500C16ACE /* ClassDeclarationStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959CF2107BF6500C16ACE /* ClassDeclarationStmt.swift */; };
-		CB195A392107BF6500C16ACE /* ClassDeclarationStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959CF2107BF6500C16ACE /* ClassDeclarationStmt.swift */; };
-		CB195A3A2107BF6500C16ACE /* ContinueStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959D02107BF6500C16ACE /* ContinueStmt.swift */; };
-		CB195A3B2107BF6500C16ACE /* ContinueStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959D02107BF6500C16ACE /* ContinueStmt.swift */; };
-		CB195A3C2107BF6500C16ACE /* ContinueStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959D02107BF6500C16ACE /* ContinueStmt.swift */; };
-		CB195A3D2107BF6500C16ACE /* ExpressionStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959D12107BF6500C16ACE /* ExpressionStmt.swift */; };
-		CB195A3E2107BF6500C16ACE /* ExpressionStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959D12107BF6500C16ACE /* ExpressionStmt.swift */; };
-		CB195A3F2107BF6500C16ACE /* ExpressionStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959D12107BF6500C16ACE /* ExpressionStmt.swift */; };
-		CB195A402107BF6500C16ACE /* FunctionDeclarationPrototype.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959D22107BF6500C16ACE /* FunctionDeclarationPrototype.swift */; };
-		CB195A412107BF6500C16ACE /* FunctionDeclarationPrototype.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959D22107BF6500C16ACE /* FunctionDeclarationPrototype.swift */; };
-		CB195A422107BF6500C16ACE /* FunctionDeclarationPrototype.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959D22107BF6500C16ACE /* FunctionDeclarationPrototype.swift */; };
-		CB195A432107BF6500C16ACE /* SuperExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959D42107BF6500C16ACE /* SuperExpr.swift */; };
-		CB195A442107BF6500C16ACE /* SuperExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959D42107BF6500C16ACE /* SuperExpr.swift */; };
-		CB195A452107BF6500C16ACE /* SuperExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959D42107BF6500C16ACE /* SuperExpr.swift */; };
-		CB195A462107BF6500C16ACE /* StringExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959D52107BF6500C16ACE /* StringExpr.swift */; };
-		CB195A472107BF6500C16ACE /* StringExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959D52107BF6500C16ACE /* StringExpr.swift */; };
-		CB195A482107BF6500C16ACE /* StringExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959D52107BF6500C16ACE /* StringExpr.swift */; };
-		CB195A492107BF6500C16ACE /* FunctionCallArgument.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959D62107BF6500C16ACE /* FunctionCallArgument.swift */; };
-		CB195A4A2107BF6500C16ACE /* FunctionCallArgument.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959D62107BF6500C16ACE /* FunctionCallArgument.swift */; };
-		CB195A4B2107BF6500C16ACE /* FunctionCallArgument.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959D62107BF6500C16ACE /* FunctionCallArgument.swift */; };
-		CB195A4C2107BF6500C16ACE /* IntegerExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959D72107BF6500C16ACE /* IntegerExpr.swift */; };
-		CB195A4D2107BF6500C16ACE /* IntegerExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959D72107BF6500C16ACE /* IntegerExpr.swift */; };
-		CB195A4E2107BF6500C16ACE /* IntegerExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959D72107BF6500C16ACE /* IntegerExpr.swift */; };
-		CB195A4F2107BF6500C16ACE /* IdentifierExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959D82107BF6500C16ACE /* IdentifierExpr.swift */; };
-		CB195A502107BF6500C16ACE /* IdentifierExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959D82107BF6500C16ACE /* IdentifierExpr.swift */; };
-		CB195A512107BF6500C16ACE /* IdentifierExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959D82107BF6500C16ACE /* IdentifierExpr.swift */; };
-		CB195A522107BF6500C16ACE /* RealExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959D92107BF6500C16ACE /* RealExpr.swift */; };
-		CB195A532107BF6500C16ACE /* RealExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959D92107BF6500C16ACE /* RealExpr.swift */; };
-		CB195A542107BF6500C16ACE /* RealExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959D92107BF6500C16ACE /* RealExpr.swift */; };
-		CB195A552107BF6500C16ACE /* NativeFunctionCallExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959DA2107BF6500C16ACE /* NativeFunctionCallExpr.swift */; };
-		CB195A562107BF6500C16ACE /* NativeFunctionCallExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959DA2107BF6500C16ACE /* NativeFunctionCallExpr.swift */; };
-		CB195A572107BF6500C16ACE /* NativeFunctionCallExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959DA2107BF6500C16ACE /* NativeFunctionCallExpr.swift */; };
-		CB195A582107BF6500C16ACE /* FunctionCallExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959DB2107BF6500C16ACE /* FunctionCallExpr.swift */; };
-		CB195A592107BF6500C16ACE /* FunctionCallExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959DB2107BF6500C16ACE /* FunctionCallExpr.swift */; };
-		CB195A5A2107BF6500C16ACE /* FunctionCallExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959DB2107BF6500C16ACE /* FunctionCallExpr.swift */; };
-		CB195A5B2107BF6500C16ACE /* BinaryOperatorExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959DC2107BF6500C16ACE /* BinaryOperatorExpr.swift */; };
-		CB195A5C2107BF6500C16ACE /* BinaryOperatorExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959DC2107BF6500C16ACE /* BinaryOperatorExpr.swift */; };
-		CB195A5D2107BF6500C16ACE /* BinaryOperatorExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959DC2107BF6500C16ACE /* BinaryOperatorExpr.swift */; };
-		CB195A5E2107BF6500C16ACE /* UnaryOperatorExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959DD2107BF6500C16ACE /* UnaryOperatorExpr.swift */; };
-		CB195A5F2107BF6500C16ACE /* UnaryOperatorExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959DD2107BF6500C16ACE /* UnaryOperatorExpr.swift */; };
-		CB195A602107BF6500C16ACE /* UnaryOperatorExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959DD2107BF6500C16ACE /* UnaryOperatorExpr.swift */; };
-		CB195A612107BF6500C16ACE /* BooleanExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959DE2107BF6500C16ACE /* BooleanExpr.swift */; };
-		CB195A622107BF6500C16ACE /* BooleanExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959DE2107BF6500C16ACE /* BooleanExpr.swift */; };
-		CB195A632107BF6500C16ACE /* BooleanExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959DE2107BF6500C16ACE /* BooleanExpr.swift */; };
-		CB195A642107BF6500C16ACE /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959DF2107BF6500C16ACE /* Parser.swift */; };
-		CB195A652107BF6500C16ACE /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959DF2107BF6500C16ACE /* Parser.swift */; };
-		CB195A662107BF6500C16ACE /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959DF2107BF6500C16ACE /* Parser.swift */; };
-		CB195A672107BF6500C16ACE /* Evaluable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959E12107BF6500C16ACE /* Evaluable.swift */; };
-		CB195A682107BF6500C16ACE /* Evaluable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959E12107BF6500C16ACE /* Evaluable.swift */; };
-		CB195A692107BF6500C16ACE /* Evaluable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959E12107BF6500C16ACE /* Evaluable.swift */; };
-		CB195A6A2107BF6500C16ACE /* Loggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959E22107BF6500C16ACE /* Loggable.swift */; };
-		CB195A6B2107BF6500C16ACE /* Loggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959E22107BF6500C16ACE /* Loggable.swift */; };
-		CB195A6C2107BF6500C16ACE /* Loggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1959E22107BF6500C16ACE /* Loggable.swift */; };
-		CB195A702107C05A00C16ACE /* StandardLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB195A6E2107C05A00C16ACE /* StandardLibrary.swift */; };
-		CB195A712107C05A00C16ACE /* StandardLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB195A6E2107C05A00C16ACE /* StandardLibrary.swift */; };
-		CB195A722107C05A00C16ACE /* StandardLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB195A6E2107C05A00C16ACE /* StandardLibrary.swift */; };
-		CB195A732107C05A00C16ACE /* LanguageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB195A6F2107C05A00C16ACE /* LanguageExtensions.swift */; };
-		CB195A742107C05A00C16ACE /* LanguageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB195A6F2107C05A00C16ACE /* LanguageExtensions.swift */; };
-		CB195A752107C05B00C16ACE /* LanguageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB195A6F2107C05A00C16ACE /* LanguageExtensions.swift */; };
-		CB195A772107C21000C16ACE /* InterpreterError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB195A762107C21000C16ACE /* InterpreterError.swift */; };
-		CB195A782107C21000C16ACE /* InterpreterError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB195A762107C21000C16ACE /* InterpreterError.swift */; };
-		CB195A792107C21000C16ACE /* InterpreterError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB195A762107C21000C16ACE /* InterpreterError.swift */; };
-		CB195A7B2107C49C00C16ACE /* Hop.podspec in Resources */ = {isa = PBXBuildFile; fileRef = CB195A7A2107C49C00C16ACE /* Hop.podspec */; };
-		CB195A7C2107C49C00C16ACE /* Hop.podspec in Resources */ = {isa = PBXBuildFile; fileRef = CB195A7A2107C49C00C16ACE /* Hop.podspec */; };
-		CB195A7D2107C49C00C16ACE /* Hop.podspec in Resources */ = {isa = PBXBuildFile; fileRef = CB195A7A2107C49C00C16ACE /* Hop.podspec */; };
+		CBDFABC7210905DC00D644C2 /* Scope.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB90210905DC00D644C2 /* Scope.swift */; };
+		CBDFABC8210905DC00D644C2 /* Argument.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB91210905DC00D644C2 /* Argument.swift */; };
+		CBDFABC9210905DC00D644C2 /* SelfParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB92210905DC00D644C2 /* SelfParameter.swift */; };
+		CBDFABCA210905DC00D644C2 /* Closure.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB93210905DC00D644C2 /* Closure.swift */; };
+		CBDFABCB210905DC00D644C2 /* Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB94210905DC00D644C2 /* Type.swift */; };
+		CBDFABCC210905DC00D644C2 /* InterpreterError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB95210905DC00D644C2 /* InterpreterError.swift */; };
+		CBDFABCD210905DC00D644C2 /* Interpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB96210905DC00D644C2 /* Interpreter.swift */; };
+		CBDFABCE210905DC00D644C2 /* Instance.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB97210905DC00D644C2 /* Instance.swift */; };
+		CBDFABCF210905DC00D644C2 /* Prototype.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB98210905DC00D644C2 /* Prototype.swift */; };
+		CBDFABD0210905DC00D644C2 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB99210905DC00D644C2 /* Package.swift */; };
+		CBDFABD1210905DC00D644C2 /* Null.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB9A210905DC00D644C2 /* Null.swift */; };
+		CBDFABD2210905DC00D644C2 /* Class.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB9B210905DC00D644C2 /* Class.swift */; };
+		CBDFABD3210905DC00D644C2 /* SuperParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB9C210905DC00D644C2 /* SuperParameter.swift */; };
+		CBDFABD4210905DC00D644C2 /* Program.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB9D210905DC00D644C2 /* Program.swift */; };
+		CBDFABD5210905DC00D644C2 /* Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB9E210905DC00D644C2 /* Module.swift */; };
+		CBDFABD6210905DC00D644C2 /* Variable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB9F210905DC00D644C2 /* Variable.swift */; };
+		CBDFABD7210905DC00D644C2 /* ClassInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABA0210905DC00D644C2 /* ClassInitializer.swift */; };
+		CBDFABD8210905DC00D644C2 /* Lexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABA2210905DC00D644C2 /* Lexer.swift */; };
+		CBDFABD9210905DC00D644C2 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABA3210905DC00D644C2 /* Token.swift */; };
+		CBDFABDA210905DC00D644C2 /* ImportStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABA6210905DC00D644C2 /* ImportStmt.swift */; };
+		CBDFABDB210905DC00D644C2 /* VariableDeclarationStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABA7210905DC00D644C2 /* VariableDeclarationStmt.swift */; };
+		CBDFABDC210905DC00D644C2 /* IfStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABA8210905DC00D644C2 /* IfStmt.swift */; };
+		CBDFABDD210905DC00D644C2 /* BlockStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABA9210905DC00D644C2 /* BlockStmt.swift */; };
+		CBDFABDE210905DC00D644C2 /* WhileStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABAA210905DC00D644C2 /* WhileStmt.swift */; };
+		CBDFABDF210905DC00D644C2 /* BreakStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABAB210905DC00D644C2 /* BreakStmt.swift */; };
+		CBDFABE0210905DC00D644C2 /* ForStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABAC210905DC00D644C2 /* ForStmt.swift */; };
+		CBDFABE1210905DC00D644C2 /* ReturnStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABAD210905DC00D644C2 /* ReturnStmt.swift */; };
+		CBDFABE2210905DC00D644C2 /* FunctionDeclarationStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABAE210905DC00D644C2 /* FunctionDeclarationStmt.swift */; };
+		CBDFABE3210905DC00D644C2 /* FunctionDeclarationArgument.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABAF210905DC00D644C2 /* FunctionDeclarationArgument.swift */; };
+		CBDFABE4210905DC00D644C2 /* ClassDeclarationStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABB0210905DC00D644C2 /* ClassDeclarationStmt.swift */; };
+		CBDFABE5210905DC00D644C2 /* ContinueStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABB1210905DC00D644C2 /* ContinueStmt.swift */; };
+		CBDFABE6210905DC00D644C2 /* ExpressionStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABB2210905DC00D644C2 /* ExpressionStmt.swift */; };
+		CBDFABE7210905DC00D644C2 /* FunctionDeclarationPrototype.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABB3210905DC00D644C2 /* FunctionDeclarationPrototype.swift */; };
+		CBDFABE8210905DC00D644C2 /* SuperExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABB5210905DC00D644C2 /* SuperExpr.swift */; };
+		CBDFABE9210905DC00D644C2 /* StringExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABB6210905DC00D644C2 /* StringExpr.swift */; };
+		CBDFABEA210905DC00D644C2 /* FunctionCallArgument.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABB7210905DC00D644C2 /* FunctionCallArgument.swift */; };
+		CBDFABEB210905DC00D644C2 /* IntegerExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABB8210905DC00D644C2 /* IntegerExpr.swift */; };
+		CBDFABEC210905DC00D644C2 /* IdentifierExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABB9210905DC00D644C2 /* IdentifierExpr.swift */; };
+		CBDFABED210905DC00D644C2 /* RealExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABBA210905DC00D644C2 /* RealExpr.swift */; };
+		CBDFABEE210905DC00D644C2 /* NativeFunctionCallExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABBB210905DC00D644C2 /* NativeFunctionCallExpr.swift */; };
+		CBDFABEF210905DC00D644C2 /* FunctionCallExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABBC210905DC00D644C2 /* FunctionCallExpr.swift */; };
+		CBDFABF0210905DC00D644C2 /* BinaryOperatorExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABBD210905DC00D644C2 /* BinaryOperatorExpr.swift */; };
+		CBDFABF1210905DC00D644C2 /* UnaryOperatorExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABBE210905DC00D644C2 /* UnaryOperatorExpr.swift */; };
+		CBDFABF2210905DC00D644C2 /* BooleanExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABBF210905DC00D644C2 /* BooleanExpr.swift */; };
+		CBDFABF3210905DC00D644C2 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABC0210905DC00D644C2 /* Parser.swift */; };
+		CBDFABF4210905DC00D644C2 /* Evaluable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABC2210905DC00D644C2 /* Evaluable.swift */; };
+		CBDFABF5210905DC00D644C2 /* Loggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABC3210905DC00D644C2 /* Loggable.swift */; };
+		CBDFABF6210905DC00D644C2 /* StandardLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABC5210905DC00D644C2 /* StandardLibrary.swift */; };
+		CBDFABF7210905DC00D644C2 /* LanguageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABC6210905DC00D644C2 /* LanguageExtensions.swift */; };
+		CBDFABF8210905EA00D644C2 /* Scope.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB90210905DC00D644C2 /* Scope.swift */; };
+		CBDFABF9210905EA00D644C2 /* Argument.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB91210905DC00D644C2 /* Argument.swift */; };
+		CBDFABFA210905EA00D644C2 /* SelfParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB92210905DC00D644C2 /* SelfParameter.swift */; };
+		CBDFABFB210905EA00D644C2 /* Closure.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB93210905DC00D644C2 /* Closure.swift */; };
+		CBDFABFC210905EA00D644C2 /* Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB94210905DC00D644C2 /* Type.swift */; };
+		CBDFABFD210905EA00D644C2 /* InterpreterError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB95210905DC00D644C2 /* InterpreterError.swift */; };
+		CBDFABFE210905EA00D644C2 /* Interpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB96210905DC00D644C2 /* Interpreter.swift */; };
+		CBDFABFF210905EA00D644C2 /* Instance.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB97210905DC00D644C2 /* Instance.swift */; };
+		CBDFAC00210905EA00D644C2 /* Prototype.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB98210905DC00D644C2 /* Prototype.swift */; };
+		CBDFAC01210905EA00D644C2 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB99210905DC00D644C2 /* Package.swift */; };
+		CBDFAC02210905EA00D644C2 /* Null.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB9A210905DC00D644C2 /* Null.swift */; };
+		CBDFAC03210905EA00D644C2 /* Class.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB9B210905DC00D644C2 /* Class.swift */; };
+		CBDFAC04210905EA00D644C2 /* SuperParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB9C210905DC00D644C2 /* SuperParameter.swift */; };
+		CBDFAC05210905EA00D644C2 /* Program.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB9D210905DC00D644C2 /* Program.swift */; };
+		CBDFAC06210905EA00D644C2 /* Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB9E210905DC00D644C2 /* Module.swift */; };
+		CBDFAC07210905EA00D644C2 /* Variable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB9F210905DC00D644C2 /* Variable.swift */; };
+		CBDFAC08210905EA00D644C2 /* ClassInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABA0210905DC00D644C2 /* ClassInitializer.swift */; };
+		CBDFAC09210905EB00D644C2 /* Scope.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB90210905DC00D644C2 /* Scope.swift */; };
+		CBDFAC0A210905EB00D644C2 /* Argument.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB91210905DC00D644C2 /* Argument.swift */; };
+		CBDFAC0B210905EB00D644C2 /* SelfParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB92210905DC00D644C2 /* SelfParameter.swift */; };
+		CBDFAC0C210905EB00D644C2 /* Closure.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB93210905DC00D644C2 /* Closure.swift */; };
+		CBDFAC0D210905EB00D644C2 /* Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB94210905DC00D644C2 /* Type.swift */; };
+		CBDFAC0E210905EB00D644C2 /* InterpreterError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB95210905DC00D644C2 /* InterpreterError.swift */; };
+		CBDFAC0F210905EB00D644C2 /* Interpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB96210905DC00D644C2 /* Interpreter.swift */; };
+		CBDFAC10210905EB00D644C2 /* Instance.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB97210905DC00D644C2 /* Instance.swift */; };
+		CBDFAC11210905EB00D644C2 /* Prototype.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB98210905DC00D644C2 /* Prototype.swift */; };
+		CBDFAC12210905EB00D644C2 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB99210905DC00D644C2 /* Package.swift */; };
+		CBDFAC13210905EB00D644C2 /* Null.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB9A210905DC00D644C2 /* Null.swift */; };
+		CBDFAC14210905EB00D644C2 /* Class.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB9B210905DC00D644C2 /* Class.swift */; };
+		CBDFAC15210905EB00D644C2 /* SuperParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB9C210905DC00D644C2 /* SuperParameter.swift */; };
+		CBDFAC16210905EB00D644C2 /* Program.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB9D210905DC00D644C2 /* Program.swift */; };
+		CBDFAC17210905EB00D644C2 /* Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB9E210905DC00D644C2 /* Module.swift */; };
+		CBDFAC18210905EB00D644C2 /* Variable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB9F210905DC00D644C2 /* Variable.swift */; };
+		CBDFAC19210905EB00D644C2 /* ClassInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABA0210905DC00D644C2 /* ClassInitializer.swift */; };
+		CBDFAC1A210905F000D644C2 /* Lexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABA2210905DC00D644C2 /* Lexer.swift */; };
+		CBDFAC1B210905F000D644C2 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABA3210905DC00D644C2 /* Token.swift */; };
+		CBDFAC1C210905F100D644C2 /* Lexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABA2210905DC00D644C2 /* Lexer.swift */; };
+		CBDFAC1D210905F100D644C2 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABA3210905DC00D644C2 /* Token.swift */; };
+		CBDFAC1E210905F900D644C2 /* ImportStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABA6210905DC00D644C2 /* ImportStmt.swift */; };
+		CBDFAC1F210905F900D644C2 /* VariableDeclarationStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABA7210905DC00D644C2 /* VariableDeclarationStmt.swift */; };
+		CBDFAC20210905F900D644C2 /* IfStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABA8210905DC00D644C2 /* IfStmt.swift */; };
+		CBDFAC21210905F900D644C2 /* BlockStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABA9210905DC00D644C2 /* BlockStmt.swift */; };
+		CBDFAC22210905F900D644C2 /* WhileStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABAA210905DC00D644C2 /* WhileStmt.swift */; };
+		CBDFAC23210905F900D644C2 /* BreakStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABAB210905DC00D644C2 /* BreakStmt.swift */; };
+		CBDFAC24210905F900D644C2 /* ForStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABAC210905DC00D644C2 /* ForStmt.swift */; };
+		CBDFAC25210905F900D644C2 /* ReturnStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABAD210905DC00D644C2 /* ReturnStmt.swift */; };
+		CBDFAC26210905F900D644C2 /* FunctionDeclarationStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABAE210905DC00D644C2 /* FunctionDeclarationStmt.swift */; };
+		CBDFAC27210905F900D644C2 /* FunctionDeclarationArgument.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABAF210905DC00D644C2 /* FunctionDeclarationArgument.swift */; };
+		CBDFAC28210905F900D644C2 /* ClassDeclarationStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABB0210905DC00D644C2 /* ClassDeclarationStmt.swift */; };
+		CBDFAC29210905F900D644C2 /* ContinueStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABB1210905DC00D644C2 /* ContinueStmt.swift */; };
+		CBDFAC2A210905F900D644C2 /* ExpressionStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABB2210905DC00D644C2 /* ExpressionStmt.swift */; };
+		CBDFAC2B210905F900D644C2 /* FunctionDeclarationPrototype.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABB3210905DC00D644C2 /* FunctionDeclarationPrototype.swift */; };
+		CBDFAC2C210905FA00D644C2 /* ImportStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABA6210905DC00D644C2 /* ImportStmt.swift */; };
+		CBDFAC2D210905FA00D644C2 /* VariableDeclarationStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABA7210905DC00D644C2 /* VariableDeclarationStmt.swift */; };
+		CBDFAC2E210905FA00D644C2 /* IfStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABA8210905DC00D644C2 /* IfStmt.swift */; };
+		CBDFAC2F210905FA00D644C2 /* BlockStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABA9210905DC00D644C2 /* BlockStmt.swift */; };
+		CBDFAC30210905FA00D644C2 /* WhileStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABAA210905DC00D644C2 /* WhileStmt.swift */; };
+		CBDFAC31210905FA00D644C2 /* BreakStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABAB210905DC00D644C2 /* BreakStmt.swift */; };
+		CBDFAC32210905FA00D644C2 /* ForStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABAC210905DC00D644C2 /* ForStmt.swift */; };
+		CBDFAC33210905FA00D644C2 /* ReturnStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABAD210905DC00D644C2 /* ReturnStmt.swift */; };
+		CBDFAC34210905FA00D644C2 /* FunctionDeclarationStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABAE210905DC00D644C2 /* FunctionDeclarationStmt.swift */; };
+		CBDFAC35210905FA00D644C2 /* FunctionDeclarationArgument.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABAF210905DC00D644C2 /* FunctionDeclarationArgument.swift */; };
+		CBDFAC36210905FA00D644C2 /* ClassDeclarationStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABB0210905DC00D644C2 /* ClassDeclarationStmt.swift */; };
+		CBDFAC37210905FA00D644C2 /* ContinueStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABB1210905DC00D644C2 /* ContinueStmt.swift */; };
+		CBDFAC38210905FA00D644C2 /* ExpressionStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABB2210905DC00D644C2 /* ExpressionStmt.swift */; };
+		CBDFAC39210905FA00D644C2 /* FunctionDeclarationPrototype.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABB3210905DC00D644C2 /* FunctionDeclarationPrototype.swift */; };
+		CBDFAC3A2109060100D644C2 /* SuperExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABB5210905DC00D644C2 /* SuperExpr.swift */; };
+		CBDFAC3B2109060100D644C2 /* StringExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABB6210905DC00D644C2 /* StringExpr.swift */; };
+		CBDFAC3C2109060100D644C2 /* FunctionCallArgument.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABB7210905DC00D644C2 /* FunctionCallArgument.swift */; };
+		CBDFAC3D2109060100D644C2 /* IntegerExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABB8210905DC00D644C2 /* IntegerExpr.swift */; };
+		CBDFAC3E2109060100D644C2 /* IdentifierExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABB9210905DC00D644C2 /* IdentifierExpr.swift */; };
+		CBDFAC3F2109060100D644C2 /* RealExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABBA210905DC00D644C2 /* RealExpr.swift */; };
+		CBDFAC402109060100D644C2 /* NativeFunctionCallExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABBB210905DC00D644C2 /* NativeFunctionCallExpr.swift */; };
+		CBDFAC412109060100D644C2 /* FunctionCallExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABBC210905DC00D644C2 /* FunctionCallExpr.swift */; };
+		CBDFAC422109060100D644C2 /* BinaryOperatorExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABBD210905DC00D644C2 /* BinaryOperatorExpr.swift */; };
+		CBDFAC432109060100D644C2 /* UnaryOperatorExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABBE210905DC00D644C2 /* UnaryOperatorExpr.swift */; };
+		CBDFAC442109060100D644C2 /* BooleanExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABBF210905DC00D644C2 /* BooleanExpr.swift */; };
+		CBDFAC452109060200D644C2 /* SuperExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABB5210905DC00D644C2 /* SuperExpr.swift */; };
+		CBDFAC462109060200D644C2 /* StringExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABB6210905DC00D644C2 /* StringExpr.swift */; };
+		CBDFAC472109060200D644C2 /* FunctionCallArgument.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABB7210905DC00D644C2 /* FunctionCallArgument.swift */; };
+		CBDFAC482109060200D644C2 /* IntegerExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABB8210905DC00D644C2 /* IntegerExpr.swift */; };
+		CBDFAC492109060200D644C2 /* IdentifierExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABB9210905DC00D644C2 /* IdentifierExpr.swift */; };
+		CBDFAC4A2109060200D644C2 /* RealExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABBA210905DC00D644C2 /* RealExpr.swift */; };
+		CBDFAC4B2109060200D644C2 /* NativeFunctionCallExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABBB210905DC00D644C2 /* NativeFunctionCallExpr.swift */; };
+		CBDFAC4C2109060200D644C2 /* FunctionCallExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABBC210905DC00D644C2 /* FunctionCallExpr.swift */; };
+		CBDFAC4D2109060200D644C2 /* BinaryOperatorExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABBD210905DC00D644C2 /* BinaryOperatorExpr.swift */; };
+		CBDFAC4E2109060200D644C2 /* UnaryOperatorExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABBE210905DC00D644C2 /* UnaryOperatorExpr.swift */; };
+		CBDFAC4F2109060200D644C2 /* BooleanExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABBF210905DC00D644C2 /* BooleanExpr.swift */; };
+		CBDFAC502109060500D644C2 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABC0210905DC00D644C2 /* Parser.swift */; };
+		CBDFAC512109060600D644C2 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABC0210905DC00D644C2 /* Parser.swift */; };
+		CBDFAC522109060D00D644C2 /* Evaluable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABC2210905DC00D644C2 /* Evaluable.swift */; };
+		CBDFAC532109060D00D644C2 /* Loggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABC3210905DC00D644C2 /* Loggable.swift */; };
+		CBDFAC542109060E00D644C2 /* Evaluable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABC2210905DC00D644C2 /* Evaluable.swift */; };
+		CBDFAC552109060E00D644C2 /* Loggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABC3210905DC00D644C2 /* Loggable.swift */; };
+		CBDFAC562109061400D644C2 /* StandardLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABC5210905DC00D644C2 /* StandardLibrary.swift */; };
+		CBDFAC572109061400D644C2 /* LanguageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABC6210905DC00D644C2 /* LanguageExtensions.swift */; };
+		CBDFAC582109061500D644C2 /* StandardLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABC5210905DC00D644C2 /* StandardLibrary.swift */; };
+		CBDFAC592109061500D644C2 /* LanguageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABC6210905DC00D644C2 /* LanguageExtensions.swift */; };
+		CBDFAC5C2109064800D644C2 /* HopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAC5B2109064800D644C2 /* HopTests.swift */; };
+		CBDFAC5D2109064800D644C2 /* HopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAC5B2109064800D644C2 /* HopTests.swift */; };
+		CBDFAC5E2109064800D644C2 /* HopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAC5B2109064800D644C2 /* HopTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -197,7 +194,6 @@
 		CB1959572107B80200C16ACE /* Hop.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Hop.h; sourceTree = "<group>"; };
 		CB1959582107B80200C16ACE /* Info-iOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-iOS.plist"; sourceTree = "<group>"; };
 		CB19595D2107B80200C16ACE /* Hop iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Hop iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		CB1959622107B80200C16ACE /* HopTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HopTests.swift; sourceTree = "<group>"; };
 		CB1959642107B80200C16ACE /* Info-iOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-iOS.plist"; sourceTree = "<group>"; };
 		CB1959712107B81500C16ACE /* Hop.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Hop.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB1959742107B81600C16ACE /* Info-tvOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-tvOS.plist"; sourceTree = "<group>"; };
@@ -207,56 +203,56 @@
 		CB1959902107B82F00C16ACE /* Info-MacOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-MacOS.plist"; sourceTree = "<group>"; };
 		CB1959952107B82F00C16ACE /* Hop MacOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Hop MacOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB19599C2107B82F00C16ACE /* Info-MacOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-MacOS.plist"; sourceTree = "<group>"; };
-		CB1959B02107BF6500C16ACE /* Scope.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scope.swift; sourceTree = "<group>"; };
-		CB1959B12107BF6500C16ACE /* Argument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Argument.swift; sourceTree = "<group>"; };
-		CB1959B22107BF6500C16ACE /* SelfParameter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelfParameter.swift; sourceTree = "<group>"; };
-		CB1959B32107BF6500C16ACE /* Closure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Closure.swift; sourceTree = "<group>"; };
-		CB1959B42107BF6500C16ACE /* Type.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Type.swift; sourceTree = "<group>"; };
-		CB1959B52107BF6500C16ACE /* Interpreter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interpreter.swift; sourceTree = "<group>"; };
-		CB1959B62107BF6500C16ACE /* Instance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Instance.swift; sourceTree = "<group>"; };
-		CB1959B72107BF6500C16ACE /* Prototype.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Prototype.swift; sourceTree = "<group>"; };
-		CB1959B82107BF6500C16ACE /* Package.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
-		CB1959B92107BF6500C16ACE /* Null.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Null.swift; sourceTree = "<group>"; };
-		CB1959BA2107BF6500C16ACE /* Class.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Class.swift; sourceTree = "<group>"; };
-		CB1959BB2107BF6500C16ACE /* SuperParameter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuperParameter.swift; sourceTree = "<group>"; };
-		CB1959BC2107BF6500C16ACE /* Program.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Program.swift; sourceTree = "<group>"; };
-		CB1959BD2107BF6500C16ACE /* Module.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Module.swift; sourceTree = "<group>"; };
-		CB1959BE2107BF6500C16ACE /* Variable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Variable.swift; sourceTree = "<group>"; };
-		CB1959BF2107BF6500C16ACE /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
-		CB1959C02107BF6500C16ACE /* ClassInitializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassInitializer.swift; sourceTree = "<group>"; };
-		CB1959C22107BF6500C16ACE /* Lexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lexer.swift; sourceTree = "<group>"; };
-		CB1959C52107BF6500C16ACE /* ImportStmt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImportStmt.swift; sourceTree = "<group>"; };
-		CB1959C62107BF6500C16ACE /* VariableDeclarationStmt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariableDeclarationStmt.swift; sourceTree = "<group>"; };
-		CB1959C72107BF6500C16ACE /* IfStmt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IfStmt.swift; sourceTree = "<group>"; };
-		CB1959C82107BF6500C16ACE /* BlockStmt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockStmt.swift; sourceTree = "<group>"; };
-		CB1959C92107BF6500C16ACE /* WhileStmt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhileStmt.swift; sourceTree = "<group>"; };
-		CB1959CA2107BF6500C16ACE /* BreakStmt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BreakStmt.swift; sourceTree = "<group>"; };
-		CB1959CB2107BF6500C16ACE /* ForStmt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForStmt.swift; sourceTree = "<group>"; };
-		CB1959CC2107BF6500C16ACE /* ReturnStmt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReturnStmt.swift; sourceTree = "<group>"; };
-		CB1959CD2107BF6500C16ACE /* FunctionDeclarationStmt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionDeclarationStmt.swift; sourceTree = "<group>"; };
-		CB1959CE2107BF6500C16ACE /* FunctionDeclarationArgument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionDeclarationArgument.swift; sourceTree = "<group>"; };
-		CB1959CF2107BF6500C16ACE /* ClassDeclarationStmt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassDeclarationStmt.swift; sourceTree = "<group>"; };
-		CB1959D02107BF6500C16ACE /* ContinueStmt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContinueStmt.swift; sourceTree = "<group>"; };
-		CB1959D12107BF6500C16ACE /* ExpressionStmt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpressionStmt.swift; sourceTree = "<group>"; };
-		CB1959D22107BF6500C16ACE /* FunctionDeclarationPrototype.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionDeclarationPrototype.swift; sourceTree = "<group>"; };
-		CB1959D42107BF6500C16ACE /* SuperExpr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuperExpr.swift; sourceTree = "<group>"; };
-		CB1959D52107BF6500C16ACE /* StringExpr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExpr.swift; sourceTree = "<group>"; };
-		CB1959D62107BF6500C16ACE /* FunctionCallArgument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionCallArgument.swift; sourceTree = "<group>"; };
-		CB1959D72107BF6500C16ACE /* IntegerExpr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntegerExpr.swift; sourceTree = "<group>"; };
-		CB1959D82107BF6500C16ACE /* IdentifierExpr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentifierExpr.swift; sourceTree = "<group>"; };
-		CB1959D92107BF6500C16ACE /* RealExpr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealExpr.swift; sourceTree = "<group>"; };
-		CB1959DA2107BF6500C16ACE /* NativeFunctionCallExpr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeFunctionCallExpr.swift; sourceTree = "<group>"; };
-		CB1959DB2107BF6500C16ACE /* FunctionCallExpr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionCallExpr.swift; sourceTree = "<group>"; };
-		CB1959DC2107BF6500C16ACE /* BinaryOperatorExpr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinaryOperatorExpr.swift; sourceTree = "<group>"; };
-		CB1959DD2107BF6500C16ACE /* UnaryOperatorExpr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnaryOperatorExpr.swift; sourceTree = "<group>"; };
-		CB1959DE2107BF6500C16ACE /* BooleanExpr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BooleanExpr.swift; sourceTree = "<group>"; };
-		CB1959DF2107BF6500C16ACE /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
-		CB1959E12107BF6500C16ACE /* Evaluable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Evaluable.swift; sourceTree = "<group>"; };
-		CB1959E22107BF6500C16ACE /* Loggable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Loggable.swift; sourceTree = "<group>"; };
-		CB195A6E2107C05A00C16ACE /* StandardLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandardLibrary.swift; sourceTree = "<group>"; };
-		CB195A6F2107C05A00C16ACE /* LanguageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageExtensions.swift; sourceTree = "<group>"; };
-		CB195A762107C21000C16ACE /* InterpreterError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterpreterError.swift; sourceTree = "<group>"; };
-		CB195A7A2107C49C00C16ACE /* Hop.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Hop.podspec; sourceTree = "<group>"; };
+		CBDFAB90210905DC00D644C2 /* Scope.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scope.swift; sourceTree = "<group>"; };
+		CBDFAB91210905DC00D644C2 /* Argument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Argument.swift; sourceTree = "<group>"; };
+		CBDFAB92210905DC00D644C2 /* SelfParameter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelfParameter.swift; sourceTree = "<group>"; };
+		CBDFAB93210905DC00D644C2 /* Closure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Closure.swift; sourceTree = "<group>"; };
+		CBDFAB94210905DC00D644C2 /* Type.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Type.swift; sourceTree = "<group>"; };
+		CBDFAB95210905DC00D644C2 /* InterpreterError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterpreterError.swift; sourceTree = "<group>"; };
+		CBDFAB96210905DC00D644C2 /* Interpreter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interpreter.swift; sourceTree = "<group>"; };
+		CBDFAB97210905DC00D644C2 /* Instance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Instance.swift; sourceTree = "<group>"; };
+		CBDFAB98210905DC00D644C2 /* Prototype.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Prototype.swift; sourceTree = "<group>"; };
+		CBDFAB99210905DC00D644C2 /* Package.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
+		CBDFAB9A210905DC00D644C2 /* Null.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Null.swift; sourceTree = "<group>"; };
+		CBDFAB9B210905DC00D644C2 /* Class.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Class.swift; sourceTree = "<group>"; };
+		CBDFAB9C210905DC00D644C2 /* SuperParameter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuperParameter.swift; sourceTree = "<group>"; };
+		CBDFAB9D210905DC00D644C2 /* Program.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Program.swift; sourceTree = "<group>"; };
+		CBDFAB9E210905DC00D644C2 /* Module.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Module.swift; sourceTree = "<group>"; };
+		CBDFAB9F210905DC00D644C2 /* Variable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Variable.swift; sourceTree = "<group>"; };
+		CBDFABA0210905DC00D644C2 /* ClassInitializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassInitializer.swift; sourceTree = "<group>"; };
+		CBDFABA2210905DC00D644C2 /* Lexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lexer.swift; sourceTree = "<group>"; };
+		CBDFABA3210905DC00D644C2 /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
+		CBDFABA6210905DC00D644C2 /* ImportStmt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImportStmt.swift; sourceTree = "<group>"; };
+		CBDFABA7210905DC00D644C2 /* VariableDeclarationStmt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariableDeclarationStmt.swift; sourceTree = "<group>"; };
+		CBDFABA8210905DC00D644C2 /* IfStmt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IfStmt.swift; sourceTree = "<group>"; };
+		CBDFABA9210905DC00D644C2 /* BlockStmt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockStmt.swift; sourceTree = "<group>"; };
+		CBDFABAA210905DC00D644C2 /* WhileStmt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhileStmt.swift; sourceTree = "<group>"; };
+		CBDFABAB210905DC00D644C2 /* BreakStmt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BreakStmt.swift; sourceTree = "<group>"; };
+		CBDFABAC210905DC00D644C2 /* ForStmt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForStmt.swift; sourceTree = "<group>"; };
+		CBDFABAD210905DC00D644C2 /* ReturnStmt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReturnStmt.swift; sourceTree = "<group>"; };
+		CBDFABAE210905DC00D644C2 /* FunctionDeclarationStmt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionDeclarationStmt.swift; sourceTree = "<group>"; };
+		CBDFABAF210905DC00D644C2 /* FunctionDeclarationArgument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionDeclarationArgument.swift; sourceTree = "<group>"; };
+		CBDFABB0210905DC00D644C2 /* ClassDeclarationStmt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassDeclarationStmt.swift; sourceTree = "<group>"; };
+		CBDFABB1210905DC00D644C2 /* ContinueStmt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContinueStmt.swift; sourceTree = "<group>"; };
+		CBDFABB2210905DC00D644C2 /* ExpressionStmt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpressionStmt.swift; sourceTree = "<group>"; };
+		CBDFABB3210905DC00D644C2 /* FunctionDeclarationPrototype.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionDeclarationPrototype.swift; sourceTree = "<group>"; };
+		CBDFABB5210905DC00D644C2 /* SuperExpr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuperExpr.swift; sourceTree = "<group>"; };
+		CBDFABB6210905DC00D644C2 /* StringExpr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExpr.swift; sourceTree = "<group>"; };
+		CBDFABB7210905DC00D644C2 /* FunctionCallArgument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionCallArgument.swift; sourceTree = "<group>"; };
+		CBDFABB8210905DC00D644C2 /* IntegerExpr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntegerExpr.swift; sourceTree = "<group>"; };
+		CBDFABB9210905DC00D644C2 /* IdentifierExpr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentifierExpr.swift; sourceTree = "<group>"; };
+		CBDFABBA210905DC00D644C2 /* RealExpr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealExpr.swift; sourceTree = "<group>"; };
+		CBDFABBB210905DC00D644C2 /* NativeFunctionCallExpr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeFunctionCallExpr.swift; sourceTree = "<group>"; };
+		CBDFABBC210905DC00D644C2 /* FunctionCallExpr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionCallExpr.swift; sourceTree = "<group>"; };
+		CBDFABBD210905DC00D644C2 /* BinaryOperatorExpr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinaryOperatorExpr.swift; sourceTree = "<group>"; };
+		CBDFABBE210905DC00D644C2 /* UnaryOperatorExpr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnaryOperatorExpr.swift; sourceTree = "<group>"; };
+		CBDFABBF210905DC00D644C2 /* BooleanExpr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BooleanExpr.swift; sourceTree = "<group>"; };
+		CBDFABC0210905DC00D644C2 /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
+		CBDFABC2210905DC00D644C2 /* Evaluable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Evaluable.swift; sourceTree = "<group>"; };
+		CBDFABC3210905DC00D644C2 /* Loggable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Loggable.swift; sourceTree = "<group>"; };
+		CBDFABC5210905DC00D644C2 /* StandardLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandardLibrary.swift; sourceTree = "<group>"; };
+		CBDFABC6210905DC00D644C2 /* LanguageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageExtensions.swift; sourceTree = "<group>"; };
+		CBDFAC5B2109064800D644C2 /* HopTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HopTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -311,7 +307,6 @@
 		CB1958D82107B6BB00C16ACE = {
 			isa = PBXGroup;
 			children = (
-				CB1959AD2107BBC600C16ACE /* Deployment */,
 				CB1959A52107B88C00C16ACE /* Sources */,
 				CB1959A62107B8DF00C16ACE /* Tests */,
 				CB1958E32107B6BB00C16ACE /* Products */,
@@ -334,11 +329,7 @@
 		CB1959A52107B88C00C16ACE /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				CB1959572107B80200C16ACE /* Hop.h */,
-				CB1959C12107BF6500C16ACE /* Lexer */,
-				CB1959C32107BF6500C16ACE /* Parser */,
-				CB1959AF2107BF6500C16ACE /* Interpreter */,
-				CB195A6D2107C05A00C16ACE /* StdLib */,
+				CBDFAB8E210905DC00D644C2 /* Hop */,
 				CB1959A72107B97F00C16ACE /* Supporting Files */,
 			);
 			path = Sources;
@@ -347,7 +338,7 @@
 		CB1959A62107B8DF00C16ACE /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				CB1959622107B80200C16ACE /* HopTests.swift */,
+				CBDFAC5A2109064800D644C2 /* HopTests */,
 				CB1959A82107B98A00C16ACE /* Supporting Files */,
 			);
 			path = Tests;
@@ -356,6 +347,7 @@
 		CB1959A72107B97F00C16ACE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				CB1959572107B80200C16ACE /* Hop.h */,
 				CB1959582107B80200C16ACE /* Info-iOS.plist */,
 				CB1959742107B81600C16ACE /* Info-tvOS.plist */,
 				CB1959902107B82F00C16ACE /* Info-MacOS.plist */,
@@ -373,114 +365,124 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		CB1959AD2107BBC600C16ACE /* Deployment */ = {
+		CBDFAB8E210905DC00D644C2 /* Hop */ = {
 			isa = PBXGroup;
 			children = (
-				CB195A7A2107C49C00C16ACE /* Hop.podspec */,
+				CBDFABA1210905DC00D644C2 /* Lexer */,
+				CBDFABA4210905DC00D644C2 /* Parser */,
+				CBDFAB8F210905DC00D644C2 /* Interpreter */,
+				CBDFABC4210905DC00D644C2 /* StdLib */,
 			);
-			name = Deployment;
+			path = Hop;
 			sourceTree = "<group>";
 		};
-		CB1959AF2107BF6500C16ACE /* Interpreter */ = {
+		CBDFAB8F210905DC00D644C2 /* Interpreter */ = {
 			isa = PBXGroup;
 			children = (
-				CB195A762107C21000C16ACE /* InterpreterError.swift */,
-				CB1959B52107BF6500C16ACE /* Interpreter.swift */,
-				CB1959BC2107BF6500C16ACE /* Program.swift */,
-				CB1959B82107BF6500C16ACE /* Package.swift */,
-				CB1959BD2107BF6500C16ACE /* Module.swift */,
-				CB1959B02107BF6500C16ACE /* Scope.swift */,
-				CB1959B42107BF6500C16ACE /* Type.swift */,
-				CB1959BE2107BF6500C16ACE /* Variable.swift */,
-				CB1959B92107BF6500C16ACE /* Null.swift */,
-				CB1959B32107BF6500C16ACE /* Closure.swift */,
-				CB1959B72107BF6500C16ACE /* Prototype.swift */,
-				CB1959B12107BF6500C16ACE /* Argument.swift */,
-				CB1959BA2107BF6500C16ACE /* Class.swift */,
-				CB1959C02107BF6500C16ACE /* ClassInitializer.swift */,
-				CB1959B62107BF6500C16ACE /* Instance.swift */,
-				CB1959B22107BF6500C16ACE /* SelfParameter.swift */,
-				CB1959BB2107BF6500C16ACE /* SuperParameter.swift */,
+				CBDFAB90210905DC00D644C2 /* Scope.swift */,
+				CBDFAB91210905DC00D644C2 /* Argument.swift */,
+				CBDFAB92210905DC00D644C2 /* SelfParameter.swift */,
+				CBDFAB93210905DC00D644C2 /* Closure.swift */,
+				CBDFAB94210905DC00D644C2 /* Type.swift */,
+				CBDFAB95210905DC00D644C2 /* InterpreterError.swift */,
+				CBDFAB96210905DC00D644C2 /* Interpreter.swift */,
+				CBDFAB97210905DC00D644C2 /* Instance.swift */,
+				CBDFAB98210905DC00D644C2 /* Prototype.swift */,
+				CBDFAB99210905DC00D644C2 /* Package.swift */,
+				CBDFAB9A210905DC00D644C2 /* Null.swift */,
+				CBDFAB9B210905DC00D644C2 /* Class.swift */,
+				CBDFAB9C210905DC00D644C2 /* SuperParameter.swift */,
+				CBDFAB9D210905DC00D644C2 /* Program.swift */,
+				CBDFAB9E210905DC00D644C2 /* Module.swift */,
+				CBDFAB9F210905DC00D644C2 /* Variable.swift */,
+				CBDFABA0210905DC00D644C2 /* ClassInitializer.swift */,
 			);
-			name = Interpreter;
-			path = Interpreter/Interpreter;
+			path = Interpreter;
 			sourceTree = "<group>";
 		};
-		CB1959C12107BF6500C16ACE /* Lexer */ = {
+		CBDFABA1210905DC00D644C2 /* Lexer */ = {
 			isa = PBXGroup;
 			children = (
-				CB1959BF2107BF6500C16ACE /* Token.swift */,
-				CB1959C22107BF6500C16ACE /* Lexer.swift */,
+				CBDFABA2210905DC00D644C2 /* Lexer.swift */,
+				CBDFABA3210905DC00D644C2 /* Token.swift */,
 			);
 			path = Lexer;
 			sourceTree = "<group>";
 		};
-		CB1959C32107BF6500C16ACE /* Parser */ = {
+		CBDFABA4210905DC00D644C2 /* Parser */ = {
 			isa = PBXGroup;
 			children = (
-				CB1959DF2107BF6500C16ACE /* Parser.swift */,
-				CB1959E02107BF6500C16ACE /* Protocols */,
-				CB1959C42107BF6500C16ACE /* Statements */,
-				CB1959D32107BF6500C16ACE /* Expressions */,
+				CBDFABC0210905DC00D644C2 /* Parser.swift */,
+				CBDFABC1210905DC00D644C2 /* Protocols */,
+				CBDFABA5210905DC00D644C2 /* Statements */,
+				CBDFABB4210905DC00D644C2 /* Expressions */,
 			);
 			path = Parser;
 			sourceTree = "<group>";
 		};
-		CB1959C42107BF6500C16ACE /* Statements */ = {
+		CBDFABA5210905DC00D644C2 /* Statements */ = {
 			isa = PBXGroup;
 			children = (
-				CB1959C52107BF6500C16ACE /* ImportStmt.swift */,
-				CB1959C62107BF6500C16ACE /* VariableDeclarationStmt.swift */,
-				CB1959C72107BF6500C16ACE /* IfStmt.swift */,
-				CB1959C82107BF6500C16ACE /* BlockStmt.swift */,
-				CB1959C92107BF6500C16ACE /* WhileStmt.swift */,
-				CB1959CA2107BF6500C16ACE /* BreakStmt.swift */,
-				CB1959CB2107BF6500C16ACE /* ForStmt.swift */,
-				CB1959CC2107BF6500C16ACE /* ReturnStmt.swift */,
-				CB1959CD2107BF6500C16ACE /* FunctionDeclarationStmt.swift */,
-				CB1959CE2107BF6500C16ACE /* FunctionDeclarationArgument.swift */,
-				CB1959CF2107BF6500C16ACE /* ClassDeclarationStmt.swift */,
-				CB1959D02107BF6500C16ACE /* ContinueStmt.swift */,
-				CB1959D12107BF6500C16ACE /* ExpressionStmt.swift */,
-				CB1959D22107BF6500C16ACE /* FunctionDeclarationPrototype.swift */,
+				CBDFABA6210905DC00D644C2 /* ImportStmt.swift */,
+				CBDFABA7210905DC00D644C2 /* VariableDeclarationStmt.swift */,
+				CBDFABA8210905DC00D644C2 /* IfStmt.swift */,
+				CBDFABA9210905DC00D644C2 /* BlockStmt.swift */,
+				CBDFABAA210905DC00D644C2 /* WhileStmt.swift */,
+				CBDFABAB210905DC00D644C2 /* BreakStmt.swift */,
+				CBDFABAC210905DC00D644C2 /* ForStmt.swift */,
+				CBDFABAD210905DC00D644C2 /* ReturnStmt.swift */,
+				CBDFABAE210905DC00D644C2 /* FunctionDeclarationStmt.swift */,
+				CBDFABAF210905DC00D644C2 /* FunctionDeclarationArgument.swift */,
+				CBDFABB0210905DC00D644C2 /* ClassDeclarationStmt.swift */,
+				CBDFABB1210905DC00D644C2 /* ContinueStmt.swift */,
+				CBDFABB2210905DC00D644C2 /* ExpressionStmt.swift */,
+				CBDFABB3210905DC00D644C2 /* FunctionDeclarationPrototype.swift */,
 			);
 			path = Statements;
 			sourceTree = "<group>";
 		};
-		CB1959D32107BF6500C16ACE /* Expressions */ = {
+		CBDFABB4210905DC00D644C2 /* Expressions */ = {
 			isa = PBXGroup;
 			children = (
-				CB1959D42107BF6500C16ACE /* SuperExpr.swift */,
-				CB1959D52107BF6500C16ACE /* StringExpr.swift */,
-				CB1959D62107BF6500C16ACE /* FunctionCallArgument.swift */,
-				CB1959D72107BF6500C16ACE /* IntegerExpr.swift */,
-				CB1959D82107BF6500C16ACE /* IdentifierExpr.swift */,
-				CB1959D92107BF6500C16ACE /* RealExpr.swift */,
-				CB1959DA2107BF6500C16ACE /* NativeFunctionCallExpr.swift */,
-				CB1959DB2107BF6500C16ACE /* FunctionCallExpr.swift */,
-				CB1959DC2107BF6500C16ACE /* BinaryOperatorExpr.swift */,
-				CB1959DD2107BF6500C16ACE /* UnaryOperatorExpr.swift */,
-				CB1959DE2107BF6500C16ACE /* BooleanExpr.swift */,
+				CBDFABB5210905DC00D644C2 /* SuperExpr.swift */,
+				CBDFABB6210905DC00D644C2 /* StringExpr.swift */,
+				CBDFABB7210905DC00D644C2 /* FunctionCallArgument.swift */,
+				CBDFABB8210905DC00D644C2 /* IntegerExpr.swift */,
+				CBDFABB9210905DC00D644C2 /* IdentifierExpr.swift */,
+				CBDFABBA210905DC00D644C2 /* RealExpr.swift */,
+				CBDFABBB210905DC00D644C2 /* NativeFunctionCallExpr.swift */,
+				CBDFABBC210905DC00D644C2 /* FunctionCallExpr.swift */,
+				CBDFABBD210905DC00D644C2 /* BinaryOperatorExpr.swift */,
+				CBDFABBE210905DC00D644C2 /* UnaryOperatorExpr.swift */,
+				CBDFABBF210905DC00D644C2 /* BooleanExpr.swift */,
 			);
 			path = Expressions;
 			sourceTree = "<group>";
 		};
-		CB1959E02107BF6500C16ACE /* Protocols */ = {
+		CBDFABC1210905DC00D644C2 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				CB1959E12107BF6500C16ACE /* Evaluable.swift */,
-				CB1959E22107BF6500C16ACE /* Loggable.swift */,
+				CBDFABC2210905DC00D644C2 /* Evaluable.swift */,
+				CBDFABC3210905DC00D644C2 /* Loggable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
 		};
-		CB195A6D2107C05A00C16ACE /* StdLib */ = {
+		CBDFABC4210905DC00D644C2 /* StdLib */ = {
 			isa = PBXGroup;
 			children = (
-				CB195A6E2107C05A00C16ACE /* StandardLibrary.swift */,
-				CB195A6F2107C05A00C16ACE /* LanguageExtensions.swift */,
+				CBDFABC5210905DC00D644C2 /* StandardLibrary.swift */,
+				CBDFABC6210905DC00D644C2 /* LanguageExtensions.swift */,
 			);
 			path = StdLib;
+			sourceTree = "<group>";
+		};
+		CBDFAC5A2109064800D644C2 /* HopTests */ = {
+			isa = PBXGroup;
+			children = (
+				CBDFAC5B2109064800D644C2 /* HopTests.swift */,
+			);
+			path = HopTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -678,7 +680,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB195A7B2107C49C00C16ACE /* Hop.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -693,7 +694,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB195A7C2107C49C00C16ACE /* Hop.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -708,7 +708,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB195A7D2107C49C00C16ACE /* Hop.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -726,55 +725,55 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB1959F82107BF6500C16ACE /* Prototype.swift in Sources */,
-				CB195A012107BF6500C16ACE /* Class.swift in Sources */,
-				CB195A312107BF6500C16ACE /* FunctionDeclarationStmt.swift in Sources */,
-				CB195A3D2107BF6500C16ACE /* ExpressionStmt.swift in Sources */,
-				CB1959F22107BF6500C16ACE /* Interpreter.swift in Sources */,
-				CB195A552107BF6500C16ACE /* NativeFunctionCallExpr.swift in Sources */,
-				CB195A4C2107BF6500C16ACE /* IntegerExpr.swift in Sources */,
-				CB195A4F2107BF6500C16ACE /* IdentifierExpr.swift in Sources */,
-				CB195A6A2107BF6500C16ACE /* Loggable.swift in Sources */,
-				CB195A432107BF6500C16ACE /* SuperExpr.swift in Sources */,
-				CB195A192107BF6500C16ACE /* ImportStmt.swift in Sources */,
-				CB195A5E2107BF6500C16ACE /* UnaryOperatorExpr.swift in Sources */,
-				CB195A5B2107BF6500C16ACE /* BinaryOperatorExpr.swift in Sources */,
-				CB195A642107BF6500C16ACE /* Parser.swift in Sources */,
-				CB195A342107BF6500C16ACE /* FunctionDeclarationArgument.swift in Sources */,
-				CB195A1C2107BF6500C16ACE /* VariableDeclarationStmt.swift in Sources */,
-				CB195A252107BF6500C16ACE /* WhileStmt.swift in Sources */,
-				CB195A3A2107BF6500C16ACE /* ContinueStmt.swift in Sources */,
-				CB195A2B2107BF6500C16ACE /* ForStmt.swift in Sources */,
-				CB195A2E2107BF6500C16ACE /* ReturnStmt.swift in Sources */,
-				CB1959FE2107BF6500C16ACE /* Null.swift in Sources */,
-				CB195A282107BF6500C16ACE /* BreakStmt.swift in Sources */,
-				CB195A0D2107BF6500C16ACE /* Variable.swift in Sources */,
-				CB195A732107C05A00C16ACE /* LanguageExtensions.swift in Sources */,
-				CB1959EF2107BF6500C16ACE /* Type.swift in Sources */,
-				CB1959FB2107BF6500C16ACE /* Package.swift in Sources */,
-				CB195A372107BF6500C16ACE /* ClassDeclarationStmt.swift in Sources */,
-				CB195A672107BF6500C16ACE /* Evaluable.swift in Sources */,
-				CB195A102107BF6500C16ACE /* Token.swift in Sources */,
-				CB195A612107BF6500C16ACE /* BooleanExpr.swift in Sources */,
-				CB1959E62107BF6500C16ACE /* Argument.swift in Sources */,
-				CB195A222107BF6500C16ACE /* BlockStmt.swift in Sources */,
-				CB195A702107C05A00C16ACE /* StandardLibrary.swift in Sources */,
-				CB1959EC2107BF6500C16ACE /* Closure.swift in Sources */,
-				CB1959F52107BF6500C16ACE /* Instance.swift in Sources */,
-				CB1959E32107BF6500C16ACE /* Scope.swift in Sources */,
-				CB195A072107BF6500C16ACE /* Program.swift in Sources */,
-				CB195A132107BF6500C16ACE /* ClassInitializer.swift in Sources */,
-				CB195A492107BF6500C16ACE /* FunctionCallArgument.swift in Sources */,
-				CB195A1F2107BF6500C16ACE /* IfStmt.swift in Sources */,
-				CB195A402107BF6500C16ACE /* FunctionDeclarationPrototype.swift in Sources */,
-				CB195A522107BF6500C16ACE /* RealExpr.swift in Sources */,
-				CB195A582107BF6500C16ACE /* FunctionCallExpr.swift in Sources */,
-				CB195A0A2107BF6500C16ACE /* Module.swift in Sources */,
-				CB1959E92107BF6500C16ACE /* SelfParameter.swift in Sources */,
-				CB195A462107BF6500C16ACE /* StringExpr.swift in Sources */,
-				CB195A162107BF6500C16ACE /* Lexer.swift in Sources */,
-				CB195A772107C21000C16ACE /* InterpreterError.swift in Sources */,
-				CB195A042107BF6500C16ACE /* SuperParameter.swift in Sources */,
+				CBDFABD2210905DC00D644C2 /* Class.swift in Sources */,
+				CBDFABCB210905DC00D644C2 /* Type.swift in Sources */,
+				CBDFABE9210905DC00D644C2 /* StringExpr.swift in Sources */,
+				CBDFABCC210905DC00D644C2 /* InterpreterError.swift in Sources */,
+				CBDFABC8210905DC00D644C2 /* Argument.swift in Sources */,
+				CBDFABE2210905DC00D644C2 /* FunctionDeclarationStmt.swift in Sources */,
+				CBDFABF6210905DC00D644C2 /* StandardLibrary.swift in Sources */,
+				CBDFABD4210905DC00D644C2 /* Program.swift in Sources */,
+				CBDFABE0210905DC00D644C2 /* ForStmt.swift in Sources */,
+				CBDFABF1210905DC00D644C2 /* UnaryOperatorExpr.swift in Sources */,
+				CBDFABE6210905DC00D644C2 /* ExpressionStmt.swift in Sources */,
+				CBDFABCA210905DC00D644C2 /* Closure.swift in Sources */,
+				CBDFABDA210905DC00D644C2 /* ImportStmt.swift in Sources */,
+				CBDFABF0210905DC00D644C2 /* BinaryOperatorExpr.swift in Sources */,
+				CBDFABDB210905DC00D644C2 /* VariableDeclarationStmt.swift in Sources */,
+				CBDFABC7210905DC00D644C2 /* Scope.swift in Sources */,
+				CBDFABED210905DC00D644C2 /* RealExpr.swift in Sources */,
+				CBDFABE8210905DC00D644C2 /* SuperExpr.swift in Sources */,
+				CBDFABCF210905DC00D644C2 /* Prototype.swift in Sources */,
+				CBDFABDF210905DC00D644C2 /* BreakStmt.swift in Sources */,
+				CBDFABF2210905DC00D644C2 /* BooleanExpr.swift in Sources */,
+				CBDFABD5210905DC00D644C2 /* Module.swift in Sources */,
+				CBDFABEC210905DC00D644C2 /* IdentifierExpr.swift in Sources */,
+				CBDFABEF210905DC00D644C2 /* FunctionCallExpr.swift in Sources */,
+				CBDFABF4210905DC00D644C2 /* Evaluable.swift in Sources */,
+				CBDFABD1210905DC00D644C2 /* Null.swift in Sources */,
+				CBDFABEA210905DC00D644C2 /* FunctionCallArgument.swift in Sources */,
+				CBDFABDC210905DC00D644C2 /* IfStmt.swift in Sources */,
+				CBDFABF5210905DC00D644C2 /* Loggable.swift in Sources */,
+				CBDFABD0210905DC00D644C2 /* Package.swift in Sources */,
+				CBDFABE5210905DC00D644C2 /* ContinueStmt.swift in Sources */,
+				CBDFABC9210905DC00D644C2 /* SelfParameter.swift in Sources */,
+				CBDFABEB210905DC00D644C2 /* IntegerExpr.swift in Sources */,
+				CBDFABE7210905DC00D644C2 /* FunctionDeclarationPrototype.swift in Sources */,
+				CBDFABD3210905DC00D644C2 /* SuperParameter.swift in Sources */,
+				CBDFABF3210905DC00D644C2 /* Parser.swift in Sources */,
+				CBDFABDD210905DC00D644C2 /* BlockStmt.swift in Sources */,
+				CBDFABD7210905DC00D644C2 /* ClassInitializer.swift in Sources */,
+				CBDFABCE210905DC00D644C2 /* Instance.swift in Sources */,
+				CBDFABE1210905DC00D644C2 /* ReturnStmt.swift in Sources */,
+				CBDFABE4210905DC00D644C2 /* ClassDeclarationStmt.swift in Sources */,
+				CBDFABDE210905DC00D644C2 /* WhileStmt.swift in Sources */,
+				CBDFABD9210905DC00D644C2 /* Token.swift in Sources */,
+				CBDFABCD210905DC00D644C2 /* Interpreter.swift in Sources */,
+				CBDFABF7210905DC00D644C2 /* LanguageExtensions.swift in Sources */,
+				CBDFABD8210905DC00D644C2 /* Lexer.swift in Sources */,
+				CBDFABE3210905DC00D644C2 /* FunctionDeclarationArgument.swift in Sources */,
+				CBDFABD6210905DC00D644C2 /* Variable.swift in Sources */,
+				CBDFABEE210905DC00D644C2 /* NativeFunctionCallExpr.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -782,7 +781,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB1959632107B80200C16ACE /* HopTests.swift in Sources */,
+				CBDFAC5C2109064800D644C2 /* HopTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -790,55 +789,55 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB1959F92107BF6500C16ACE /* Prototype.swift in Sources */,
-				CB195A022107BF6500C16ACE /* Class.swift in Sources */,
-				CB195A322107BF6500C16ACE /* FunctionDeclarationStmt.swift in Sources */,
-				CB195A3E2107BF6500C16ACE /* ExpressionStmt.swift in Sources */,
-				CB1959F32107BF6500C16ACE /* Interpreter.swift in Sources */,
-				CB195A562107BF6500C16ACE /* NativeFunctionCallExpr.swift in Sources */,
-				CB195A4D2107BF6500C16ACE /* IntegerExpr.swift in Sources */,
-				CB195A502107BF6500C16ACE /* IdentifierExpr.swift in Sources */,
-				CB195A6B2107BF6500C16ACE /* Loggable.swift in Sources */,
-				CB195A442107BF6500C16ACE /* SuperExpr.swift in Sources */,
-				CB195A1A2107BF6500C16ACE /* ImportStmt.swift in Sources */,
-				CB195A5F2107BF6500C16ACE /* UnaryOperatorExpr.swift in Sources */,
-				CB195A5C2107BF6500C16ACE /* BinaryOperatorExpr.swift in Sources */,
-				CB195A652107BF6500C16ACE /* Parser.swift in Sources */,
-				CB195A352107BF6500C16ACE /* FunctionDeclarationArgument.swift in Sources */,
-				CB195A1D2107BF6500C16ACE /* VariableDeclarationStmt.swift in Sources */,
-				CB195A262107BF6500C16ACE /* WhileStmt.swift in Sources */,
-				CB195A3B2107BF6500C16ACE /* ContinueStmt.swift in Sources */,
-				CB195A2C2107BF6500C16ACE /* ForStmt.swift in Sources */,
-				CB195A2F2107BF6500C16ACE /* ReturnStmt.swift in Sources */,
-				CB1959FF2107BF6500C16ACE /* Null.swift in Sources */,
-				CB195A292107BF6500C16ACE /* BreakStmt.swift in Sources */,
-				CB195A0E2107BF6500C16ACE /* Variable.swift in Sources */,
-				CB195A742107C05A00C16ACE /* LanguageExtensions.swift in Sources */,
-				CB1959F02107BF6500C16ACE /* Type.swift in Sources */,
-				CB1959FC2107BF6500C16ACE /* Package.swift in Sources */,
-				CB195A382107BF6500C16ACE /* ClassDeclarationStmt.swift in Sources */,
-				CB195A682107BF6500C16ACE /* Evaluable.swift in Sources */,
-				CB195A112107BF6500C16ACE /* Token.swift in Sources */,
-				CB195A622107BF6500C16ACE /* BooleanExpr.swift in Sources */,
-				CB1959E72107BF6500C16ACE /* Argument.swift in Sources */,
-				CB195A232107BF6500C16ACE /* BlockStmt.swift in Sources */,
-				CB195A712107C05A00C16ACE /* StandardLibrary.swift in Sources */,
-				CB1959ED2107BF6500C16ACE /* Closure.swift in Sources */,
-				CB1959F62107BF6500C16ACE /* Instance.swift in Sources */,
-				CB1959E42107BF6500C16ACE /* Scope.swift in Sources */,
-				CB195A082107BF6500C16ACE /* Program.swift in Sources */,
-				CB195A142107BF6500C16ACE /* ClassInitializer.swift in Sources */,
-				CB195A4A2107BF6500C16ACE /* FunctionCallArgument.swift in Sources */,
-				CB195A202107BF6500C16ACE /* IfStmt.swift in Sources */,
-				CB195A412107BF6500C16ACE /* FunctionDeclarationPrototype.swift in Sources */,
-				CB195A532107BF6500C16ACE /* RealExpr.swift in Sources */,
-				CB195A592107BF6500C16ACE /* FunctionCallExpr.swift in Sources */,
-				CB195A0B2107BF6500C16ACE /* Module.swift in Sources */,
-				CB1959EA2107BF6500C16ACE /* SelfParameter.swift in Sources */,
-				CB195A472107BF6500C16ACE /* StringExpr.swift in Sources */,
-				CB195A172107BF6500C16ACE /* Lexer.swift in Sources */,
-				CB195A782107C21000C16ACE /* InterpreterError.swift in Sources */,
-				CB195A052107BF6500C16ACE /* SuperParameter.swift in Sources */,
+				CBDFAC03210905EA00D644C2 /* Class.swift in Sources */,
+				CBDFABFC210905EA00D644C2 /* Type.swift in Sources */,
+				CBDFAC3B2109060100D644C2 /* StringExpr.swift in Sources */,
+				CBDFABFD210905EA00D644C2 /* InterpreterError.swift in Sources */,
+				CBDFABF9210905EA00D644C2 /* Argument.swift in Sources */,
+				CBDFAC26210905F900D644C2 /* FunctionDeclarationStmt.swift in Sources */,
+				CBDFAC562109061400D644C2 /* StandardLibrary.swift in Sources */,
+				CBDFAC05210905EA00D644C2 /* Program.swift in Sources */,
+				CBDFAC24210905F900D644C2 /* ForStmt.swift in Sources */,
+				CBDFAC432109060100D644C2 /* UnaryOperatorExpr.swift in Sources */,
+				CBDFAC2A210905F900D644C2 /* ExpressionStmt.swift in Sources */,
+				CBDFABFB210905EA00D644C2 /* Closure.swift in Sources */,
+				CBDFAC1E210905F900D644C2 /* ImportStmt.swift in Sources */,
+				CBDFAC422109060100D644C2 /* BinaryOperatorExpr.swift in Sources */,
+				CBDFAC1F210905F900D644C2 /* VariableDeclarationStmt.swift in Sources */,
+				CBDFABF8210905EA00D644C2 /* Scope.swift in Sources */,
+				CBDFAC3F2109060100D644C2 /* RealExpr.swift in Sources */,
+				CBDFAC3A2109060100D644C2 /* SuperExpr.swift in Sources */,
+				CBDFAC00210905EA00D644C2 /* Prototype.swift in Sources */,
+				CBDFAC23210905F900D644C2 /* BreakStmt.swift in Sources */,
+				CBDFAC442109060100D644C2 /* BooleanExpr.swift in Sources */,
+				CBDFAC06210905EA00D644C2 /* Module.swift in Sources */,
+				CBDFAC3E2109060100D644C2 /* IdentifierExpr.swift in Sources */,
+				CBDFAC412109060100D644C2 /* FunctionCallExpr.swift in Sources */,
+				CBDFAC522109060D00D644C2 /* Evaluable.swift in Sources */,
+				CBDFAC02210905EA00D644C2 /* Null.swift in Sources */,
+				CBDFAC3C2109060100D644C2 /* FunctionCallArgument.swift in Sources */,
+				CBDFAC20210905F900D644C2 /* IfStmt.swift in Sources */,
+				CBDFAC532109060D00D644C2 /* Loggable.swift in Sources */,
+				CBDFAC01210905EA00D644C2 /* Package.swift in Sources */,
+				CBDFAC29210905F900D644C2 /* ContinueStmt.swift in Sources */,
+				CBDFABFA210905EA00D644C2 /* SelfParameter.swift in Sources */,
+				CBDFAC3D2109060100D644C2 /* IntegerExpr.swift in Sources */,
+				CBDFAC2B210905F900D644C2 /* FunctionDeclarationPrototype.swift in Sources */,
+				CBDFAC04210905EA00D644C2 /* SuperParameter.swift in Sources */,
+				CBDFAC502109060500D644C2 /* Parser.swift in Sources */,
+				CBDFAC21210905F900D644C2 /* BlockStmt.swift in Sources */,
+				CBDFAC08210905EA00D644C2 /* ClassInitializer.swift in Sources */,
+				CBDFABFF210905EA00D644C2 /* Instance.swift in Sources */,
+				CBDFAC25210905F900D644C2 /* ReturnStmt.swift in Sources */,
+				CBDFAC28210905F900D644C2 /* ClassDeclarationStmt.swift in Sources */,
+				CBDFAC22210905F900D644C2 /* WhileStmt.swift in Sources */,
+				CBDFAC1B210905F000D644C2 /* Token.swift in Sources */,
+				CBDFABFE210905EA00D644C2 /* Interpreter.swift in Sources */,
+				CBDFAC572109061400D644C2 /* LanguageExtensions.swift in Sources */,
+				CBDFAC1A210905F000D644C2 /* Lexer.swift in Sources */,
+				CBDFAC27210905F900D644C2 /* FunctionDeclarationArgument.swift in Sources */,
+				CBDFAC07210905EA00D644C2 /* Variable.swift in Sources */,
+				CBDFAC402109060100D644C2 /* NativeFunctionCallExpr.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -846,7 +845,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB1959AB2107B9D600C16ACE /* HopTests.swift in Sources */,
+				CBDFAC5D2109064800D644C2 /* HopTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -854,55 +853,55 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB1959FA2107BF6500C16ACE /* Prototype.swift in Sources */,
-				CB195A032107BF6500C16ACE /* Class.swift in Sources */,
-				CB195A332107BF6500C16ACE /* FunctionDeclarationStmt.swift in Sources */,
-				CB195A3F2107BF6500C16ACE /* ExpressionStmt.swift in Sources */,
-				CB1959F42107BF6500C16ACE /* Interpreter.swift in Sources */,
-				CB195A572107BF6500C16ACE /* NativeFunctionCallExpr.swift in Sources */,
-				CB195A4E2107BF6500C16ACE /* IntegerExpr.swift in Sources */,
-				CB195A512107BF6500C16ACE /* IdentifierExpr.swift in Sources */,
-				CB195A6C2107BF6500C16ACE /* Loggable.swift in Sources */,
-				CB195A452107BF6500C16ACE /* SuperExpr.swift in Sources */,
-				CB195A1B2107BF6500C16ACE /* ImportStmt.swift in Sources */,
-				CB195A602107BF6500C16ACE /* UnaryOperatorExpr.swift in Sources */,
-				CB195A5D2107BF6500C16ACE /* BinaryOperatorExpr.swift in Sources */,
-				CB195A662107BF6500C16ACE /* Parser.swift in Sources */,
-				CB195A362107BF6500C16ACE /* FunctionDeclarationArgument.swift in Sources */,
-				CB195A1E2107BF6500C16ACE /* VariableDeclarationStmt.swift in Sources */,
-				CB195A272107BF6500C16ACE /* WhileStmt.swift in Sources */,
-				CB195A3C2107BF6500C16ACE /* ContinueStmt.swift in Sources */,
-				CB195A2D2107BF6500C16ACE /* ForStmt.swift in Sources */,
-				CB195A302107BF6500C16ACE /* ReturnStmt.swift in Sources */,
-				CB195A002107BF6500C16ACE /* Null.swift in Sources */,
-				CB195A2A2107BF6500C16ACE /* BreakStmt.swift in Sources */,
-				CB195A0F2107BF6500C16ACE /* Variable.swift in Sources */,
-				CB195A752107C05B00C16ACE /* LanguageExtensions.swift in Sources */,
-				CB1959F12107BF6500C16ACE /* Type.swift in Sources */,
-				CB1959FD2107BF6500C16ACE /* Package.swift in Sources */,
-				CB195A392107BF6500C16ACE /* ClassDeclarationStmt.swift in Sources */,
-				CB195A692107BF6500C16ACE /* Evaluable.swift in Sources */,
-				CB195A122107BF6500C16ACE /* Token.swift in Sources */,
-				CB195A632107BF6500C16ACE /* BooleanExpr.swift in Sources */,
-				CB1959E82107BF6500C16ACE /* Argument.swift in Sources */,
-				CB195A242107BF6500C16ACE /* BlockStmt.swift in Sources */,
-				CB195A722107C05A00C16ACE /* StandardLibrary.swift in Sources */,
-				CB1959EE2107BF6500C16ACE /* Closure.swift in Sources */,
-				CB1959F72107BF6500C16ACE /* Instance.swift in Sources */,
-				CB1959E52107BF6500C16ACE /* Scope.swift in Sources */,
-				CB195A092107BF6500C16ACE /* Program.swift in Sources */,
-				CB195A152107BF6500C16ACE /* ClassInitializer.swift in Sources */,
-				CB195A4B2107BF6500C16ACE /* FunctionCallArgument.swift in Sources */,
-				CB195A212107BF6500C16ACE /* IfStmt.swift in Sources */,
-				CB195A422107BF6500C16ACE /* FunctionDeclarationPrototype.swift in Sources */,
-				CB195A542107BF6500C16ACE /* RealExpr.swift in Sources */,
-				CB195A5A2107BF6500C16ACE /* FunctionCallExpr.swift in Sources */,
-				CB195A0C2107BF6500C16ACE /* Module.swift in Sources */,
-				CB1959EB2107BF6500C16ACE /* SelfParameter.swift in Sources */,
-				CB195A482107BF6500C16ACE /* StringExpr.swift in Sources */,
-				CB195A182107BF6500C16ACE /* Lexer.swift in Sources */,
-				CB195A792107C21000C16ACE /* InterpreterError.swift in Sources */,
-				CB195A062107BF6500C16ACE /* SuperParameter.swift in Sources */,
+				CBDFAC14210905EB00D644C2 /* Class.swift in Sources */,
+				CBDFAC0D210905EB00D644C2 /* Type.swift in Sources */,
+				CBDFAC462109060200D644C2 /* StringExpr.swift in Sources */,
+				CBDFAC0E210905EB00D644C2 /* InterpreterError.swift in Sources */,
+				CBDFAC0A210905EB00D644C2 /* Argument.swift in Sources */,
+				CBDFAC34210905FA00D644C2 /* FunctionDeclarationStmt.swift in Sources */,
+				CBDFAC582109061500D644C2 /* StandardLibrary.swift in Sources */,
+				CBDFAC16210905EB00D644C2 /* Program.swift in Sources */,
+				CBDFAC32210905FA00D644C2 /* ForStmt.swift in Sources */,
+				CBDFAC4E2109060200D644C2 /* UnaryOperatorExpr.swift in Sources */,
+				CBDFAC38210905FA00D644C2 /* ExpressionStmt.swift in Sources */,
+				CBDFAC0C210905EB00D644C2 /* Closure.swift in Sources */,
+				CBDFAC2C210905FA00D644C2 /* ImportStmt.swift in Sources */,
+				CBDFAC4D2109060200D644C2 /* BinaryOperatorExpr.swift in Sources */,
+				CBDFAC2D210905FA00D644C2 /* VariableDeclarationStmt.swift in Sources */,
+				CBDFAC09210905EB00D644C2 /* Scope.swift in Sources */,
+				CBDFAC4A2109060200D644C2 /* RealExpr.swift in Sources */,
+				CBDFAC452109060200D644C2 /* SuperExpr.swift in Sources */,
+				CBDFAC11210905EB00D644C2 /* Prototype.swift in Sources */,
+				CBDFAC31210905FA00D644C2 /* BreakStmt.swift in Sources */,
+				CBDFAC4F2109060200D644C2 /* BooleanExpr.swift in Sources */,
+				CBDFAC17210905EB00D644C2 /* Module.swift in Sources */,
+				CBDFAC492109060200D644C2 /* IdentifierExpr.swift in Sources */,
+				CBDFAC4C2109060200D644C2 /* FunctionCallExpr.swift in Sources */,
+				CBDFAC542109060E00D644C2 /* Evaluable.swift in Sources */,
+				CBDFAC13210905EB00D644C2 /* Null.swift in Sources */,
+				CBDFAC472109060200D644C2 /* FunctionCallArgument.swift in Sources */,
+				CBDFAC2E210905FA00D644C2 /* IfStmt.swift in Sources */,
+				CBDFAC552109060E00D644C2 /* Loggable.swift in Sources */,
+				CBDFAC12210905EB00D644C2 /* Package.swift in Sources */,
+				CBDFAC37210905FA00D644C2 /* ContinueStmt.swift in Sources */,
+				CBDFAC0B210905EB00D644C2 /* SelfParameter.swift in Sources */,
+				CBDFAC482109060200D644C2 /* IntegerExpr.swift in Sources */,
+				CBDFAC39210905FA00D644C2 /* FunctionDeclarationPrototype.swift in Sources */,
+				CBDFAC15210905EB00D644C2 /* SuperParameter.swift in Sources */,
+				CBDFAC512109060600D644C2 /* Parser.swift in Sources */,
+				CBDFAC2F210905FA00D644C2 /* BlockStmt.swift in Sources */,
+				CBDFAC19210905EB00D644C2 /* ClassInitializer.swift in Sources */,
+				CBDFAC10210905EB00D644C2 /* Instance.swift in Sources */,
+				CBDFAC33210905FA00D644C2 /* ReturnStmt.swift in Sources */,
+				CBDFAC36210905FA00D644C2 /* ClassDeclarationStmt.swift in Sources */,
+				CBDFAC30210905FA00D644C2 /* WhileStmt.swift in Sources */,
+				CBDFAC1D210905F100D644C2 /* Token.swift in Sources */,
+				CBDFAC0F210905EB00D644C2 /* Interpreter.swift in Sources */,
+				CBDFAC592109061500D644C2 /* LanguageExtensions.swift in Sources */,
+				CBDFAC1C210905F100D644C2 /* Lexer.swift in Sources */,
+				CBDFAC35210905FA00D644C2 /* FunctionDeclarationArgument.swift in Sources */,
+				CBDFAC18210905EB00D644C2 /* Variable.swift in Sources */,
+				CBDFAC4B2109060200D644C2 /* NativeFunctionCallExpr.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -910,7 +909,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB1959AC2107B9D700C16ACE /* HopTests.swift in Sources */,
+				CBDFAC5E2109064800D644C2 /* HopTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -994,6 +993,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TVOS_DEPLOYMENT_TARGET = 11.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -1051,6 +1051,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				TVOS_DEPLOYMENT_TARGET = 11.0;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1075,7 +1076,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "oneMoreThingStudio.Hop-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = com.omts.Hop;
 				PRODUCT_NAME = Hop;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
@@ -1101,7 +1102,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "oneMoreThingStudio.Hop-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = com.omts.Hop;
 				PRODUCT_NAME = Hop;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
@@ -1164,7 +1165,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "oneMoreThingStudio.Hop-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = com.omts.Hop;
 				PRODUCT_NAME = Hop;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
@@ -1191,7 +1192,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "oneMoreThingStudio.Hop-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = com.omts.Hop;
 				PRODUCT_NAME = Hop;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
@@ -1263,7 +1264,7 @@
 					"@loader_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				PRODUCT_BUNDLE_IDENTIFIER = "oneMoreThingStudio.Hop-MacOS";
+				PRODUCT_BUNDLE_IDENTIFIER = com.omts.Hop;
 				PRODUCT_NAME = Hop;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -1291,7 +1292,7 @@
 					"@loader_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				PRODUCT_BUNDLE_IDENTIFIER = "oneMoreThingStudio.Hop-MacOS";
+				PRODUCT_BUNDLE_IDENTIFIER = com.omts.Hop;
 				PRODUCT_NAME = Hop;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
