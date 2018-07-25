@@ -31,12 +31,6 @@ public class Lexer {
         chars = Array(script)
     }
     
-    public init?(with url: URL) {
-        let program = self.loadProgram(from: url)
-        if program == nil { return nil }
-        chars = Array(program!)
-    }
-    
     public func getCurrentPosition() -> Int {
         return nextCharIndex
     }
