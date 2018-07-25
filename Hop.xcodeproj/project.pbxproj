@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0FF7D3D9210900E7002E8439 /* LexerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF7D3D7210900D6002E8439 /* LexerTests.swift */; };
-		0FF7D3DA210900E7002E8439 /* LexerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF7D3D7210900D6002E8439 /* LexerTests.swift */; };
-		0FF7D3DB210900E8002E8439 /* LexerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF7D3D7210900D6002E8439 /* LexerTests.swift */; };
+		0FF7D3E921091930002E8439 /* LexerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF7D3E721091927002E8439 /* LexerTests.swift */; };
+		0FF7D3EA21091932002E8439 /* LexerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF7D3E721091927002E8439 /* LexerTests.swift */; };
+		0FF7D3EB21091932002E8439 /* LexerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF7D3E721091927002E8439 /* LexerTests.swift */; };
 		CB19595E2107B80200C16ACE /* Hop.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1959552107B80200C16ACE /* Hop.framework */; };
 		CB1959652107B80200C16ACE /* Hop.h in Headers */ = {isa = PBXBuildFile; fileRef = CB1959572107B80200C16ACE /* Hop.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CB19597A2107B81600C16ACE /* Hop.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1959712107B81500C16ACE /* Hop.framework */; };
@@ -163,9 +163,6 @@
 		CBDFAC572109061400D644C2 /* LanguageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABC6210905DC00D644C2 /* LanguageExtensions.swift */; };
 		CBDFAC582109061500D644C2 /* StandardLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABC5210905DC00D644C2 /* StandardLibrary.swift */; };
 		CBDFAC592109061500D644C2 /* LanguageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABC6210905DC00D644C2 /* LanguageExtensions.swift */; };
-		CBDFAC5C2109064800D644C2 /* HopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAC5B2109064800D644C2 /* HopTests.swift */; };
-		CBDFAC5D2109064800D644C2 /* HopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAC5B2109064800D644C2 /* HopTests.swift */; };
-		CBDFAC5E2109064800D644C2 /* HopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAC5B2109064800D644C2 /* HopTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -193,7 +190,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0FF7D3D7210900D6002E8439 /* LexerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LexerTests.swift; sourceTree = "<group>"; };
+		0FF7D3E721091927002E8439 /* LexerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LexerTests.swift; sourceTree = "<group>"; };
 		CB1959552107B80200C16ACE /* Hop.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Hop.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB1959572107B80200C16ACE /* Hop.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Hop.h; sourceTree = "<group>"; };
 		CB1959582107B80200C16ACE /* Info-iOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-iOS.plist"; sourceTree = "<group>"; };
@@ -344,7 +341,6 @@
 			children = (
 				CBDFAC5A2109064800D644C2 /* HopTests */,
 				CB1959A82107B98A00C16ACE /* Supporting Files */,
-				0FF7D3D7210900D6002E8439 /* LexerTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -485,6 +481,7 @@
 		CBDFAC5A2109064800D644C2 /* HopTests */ = {
 			isa = PBXGroup;
 			children = (
+				0FF7D3E721091927002E8439 /* LexerTests.swift */,
 				CBDFAC5B2109064800D644C2 /* HopTests.swift */,
 			);
 			path = HopTests;
@@ -786,12 +783,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-<<<<<<< HEAD
-				0FF7D3D9210900E7002E8439 /* LexerTests.swift in Sources */,
-				CB1959632107B80200C16ACE /* HopTests.swift in Sources */,
-=======
-				CBDFAC5C2109064800D644C2 /* HopTests.swift in Sources */,
->>>>>>> develop
+				0FF7D3E921091930002E8439 /* LexerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -855,12 +847,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-<<<<<<< HEAD
-				0FF7D3DA210900E7002E8439 /* LexerTests.swift in Sources */,
-				CB1959AB2107B9D600C16ACE /* HopTests.swift in Sources */,
-=======
-				CBDFAC5D2109064800D644C2 /* HopTests.swift in Sources */,
->>>>>>> develop
+				0FF7D3EA21091932002E8439 /* LexerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -924,12 +911,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-<<<<<<< HEAD
-				0FF7D3DB210900E8002E8439 /* LexerTests.swift in Sources */,
-				CB1959AC2107B9D700C16ACE /* HopTests.swift in Sources */,
-=======
-				CBDFAC5E2109064800D644C2 /* HopTests.swift in Sources */,
->>>>>>> develop
+				0FF7D3EB21091932002E8439 /* LexerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
