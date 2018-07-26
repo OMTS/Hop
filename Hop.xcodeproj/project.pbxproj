@@ -17,6 +17,8 @@
 		CB1959A92107B9CA00C16ACE /* Hop.h in Headers */ = {isa = PBXBuildFile; fileRef = CB1959572107B80200C16ACE /* Hop.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CB1959AA2107B9CB00C16ACE /* Hop.h in Headers */ = {isa = PBXBuildFile; fileRef = CB1959572107B80200C16ACE /* Hop.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CB8BE4992109D41300880C7E /* Messenger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8BE4982109D41300880C7E /* Messenger.swift */; };
+		CB8BE49A2109E1C000880C7E /* Messenger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8BE4982109D41300880C7E /* Messenger.swift */; };
+		CB8BE49B2109E1C000880C7E /* Messenger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8BE4982109D41300880C7E /* Messenger.swift */; };
 		CBDFABC7210905DC00D644C2 /* Scope.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB90210905DC00D644C2 /* Scope.swift */; };
 		CBDFABC8210905DC00D644C2 /* Argument.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB91210905DC00D644C2 /* Argument.swift */; };
 		CBDFABC9210905DC00D644C2 /* SelfParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB92210905DC00D644C2 /* SelfParameter.swift */; };
@@ -816,6 +818,7 @@
 				CBDFAC00210905EA00D644C2 /* Prototype.swift in Sources */,
 				CBDFAC23210905F900D644C2 /* BreakStmt.swift in Sources */,
 				CBDFAC442109060100D644C2 /* BooleanExpr.swift in Sources */,
+				CB8BE49A2109E1C000880C7E /* Messenger.swift in Sources */,
 				CBDFAC06210905EA00D644C2 /* Module.swift in Sources */,
 				CBDFAC3E2109060100D644C2 /* IdentifierExpr.swift in Sources */,
 				CBDFAC412109060100D644C2 /* FunctionCallExpr.swift in Sources */,
@@ -880,6 +883,7 @@
 				CBDFAC11210905EB00D644C2 /* Prototype.swift in Sources */,
 				CBDFAC31210905FA00D644C2 /* BreakStmt.swift in Sources */,
 				CBDFAC4F2109060200D644C2 /* BooleanExpr.swift in Sources */,
+				CB8BE49B2109E1C000880C7E /* Messenger.swift in Sources */,
 				CBDFAC17210905EB00D644C2 /* Module.swift in Sources */,
 				CBDFAC492109060200D644C2 /* IdentifierExpr.swift in Sources */,
 				CBDFAC4C2109060200D644C2 /* FunctionCallExpr.swift in Sources */,
