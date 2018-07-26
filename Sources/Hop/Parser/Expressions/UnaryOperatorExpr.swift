@@ -76,7 +76,7 @@ struct UnaryOperatorExpr: Evaluable {
             guard let evaluatedValue = evaluatedVariable.value else {
                 throw InterpreterError.undefinedVariable
             }
-            return Variable(type: .boolean,
+            return Variable(type: .integer,
                             isConstant: true,
                             value: (evaluatedValue as! Int))
             
@@ -84,7 +84,7 @@ struct UnaryOperatorExpr: Evaluable {
             guard let evaluatedValue = evaluatedVariable.value else {
                 throw InterpreterError.undefinedVariable
             }
-            return Variable(type: .boolean,
+            return Variable(type: .real,
                             isConstant: true,
                             value: (evaluatedValue as! Double))
         } else {
@@ -104,7 +104,7 @@ struct UnaryOperatorExpr: Evaluable {
             guard let evaluatedValue = evaluatedVariable.value else {
                 throw InterpreterError.undefinedVariable
             }
-            return Variable(type: .boolean,
+            return Variable(type: .integer,
                             isConstant: true,
                             value: -(evaluatedValue as! Int))
 
@@ -112,7 +112,7 @@ struct UnaryOperatorExpr: Evaluable {
             guard let evaluatedValue = evaluatedVariable.value else {
                 throw InterpreterError.undefinedVariable
             }
-            return Variable(type: .boolean,
+            return Variable(type: .real,
                             isConstant: true,
                             value: -(evaluatedValue as! Double))
         } else {
