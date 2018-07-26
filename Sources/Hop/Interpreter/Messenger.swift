@@ -15,8 +15,8 @@ public enum MessageType {
 public struct Message {
     
     let type: MessageType
-    let identifier: String?
-    let data: Any
+    public let identifier: String?
+    public let data: Any
     
 }
 
@@ -36,7 +36,7 @@ public class Messenger {
         
         // Register for internal message posting notifications
         NotificationCenter.default.addObserver(forName: Messenger.messagePostingNotification,
-                                               object: self,
+                                               object: nil,
                                                queue: nil) {
                                                 [weak self] (notification) in
                                                 self?.dispatchMessage(from: notification)
