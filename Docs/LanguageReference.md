@@ -64,6 +64,39 @@ var height = 1.90
 var isHappy = true
 ```
 
+#### Nil reference:
+
+* A variable is a container holding a reference to a basic type value or an instance of a class. If mutable, a variable can be undefined while being declared. In that particular case, a variable references a nil content.
+
+* Accessing a nil reference leads to a undefined variable error at runtime.
+
+* For variable susceptible of referencing a nil content during its lifetime, one should test this variable before accessing its content.
+
+```
+var name: String		// name declared but not defined
+
+if name == nil {
+	// name is not defined!
+}
+```
+
+* A defined variable can be relieved from referencing its content.
+
+```
+var name = "Bob"
+
+if name != nil {
+	// That's my Bob!
+}
+
+name = nil
+
+if name == nil {
+	// No Bob anymore, sob...
+}
+
+```
+
 ### Constant
 ___
 
@@ -179,6 +212,29 @@ func add(#a: Int, #b: Int) -> Int {
 }
 
 const c = add(1, 2)
+```
+
+* **nil** return:
+
+```
+func getNameForBadgeId(#badgeId: Int) -> String {
+
+	if badgeId == 0 {
+		return "Bob"
+
+	} else if badgeId == 1 {
+		return "Bill"
+	}
+
+	return nil
+}
+
+const name = getNameForBadgeId(2)
+
+if name == nil {
+	// Unknown dude!
+}
+
 ```
 
 ### Class
