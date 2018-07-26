@@ -9,19 +9,21 @@
 import Foundation
 
 
+public struct InterpreterConfiguration {
+
+    var messenger: Messenger?
+    var isDebug: Bool?
+
+}
+
 public class Interpreter {
 
-    public struct Configuration {
-        var messenger: Messenger?
-        var isDebug: Bool?
-    }
-    
     private var messenger: Messenger?
     private var isDebug: Bool = false
     
     public init() {}
     
-    public init(config: Configuration) {
+    public init(config: InterpreterConfiguration) {
         self.messenger = config.messenger
         if let isDebug = config.isDebug {
             self.isDebug = isDebug
