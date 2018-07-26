@@ -16,6 +16,7 @@
 		CB1959962107B82F00C16ACE /* Hop.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB19598D2107B82F00C16ACE /* Hop.framework */; };
 		CB1959A92107B9CA00C16ACE /* Hop.h in Headers */ = {isa = PBXBuildFile; fileRef = CB1959572107B80200C16ACE /* Hop.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CB1959AA2107B9CB00C16ACE /* Hop.h in Headers */ = {isa = PBXBuildFile; fileRef = CB1959572107B80200C16ACE /* Hop.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CB8BE4992109D41300880C7E /* Messenger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8BE4982109D41300880C7E /* Messenger.swift */; };
 		CBDFABC7210905DC00D644C2 /* Scope.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB90210905DC00D644C2 /* Scope.swift */; };
 		CBDFABC8210905DC00D644C2 /* Argument.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB91210905DC00D644C2 /* Argument.swift */; };
 		CBDFABC9210905DC00D644C2 /* SelfParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB92210905DC00D644C2 /* SelfParameter.swift */; };
@@ -204,6 +205,7 @@
 		CB1959902107B82F00C16ACE /* Info-MacOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-MacOS.plist"; sourceTree = "<group>"; };
 		CB1959952107B82F00C16ACE /* Hop MacOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Hop MacOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB19599C2107B82F00C16ACE /* Info-MacOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-MacOS.plist"; sourceTree = "<group>"; };
+		CB8BE4982109D41300880C7E /* Messenger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messenger.swift; sourceTree = "<group>"; };
 		CBDFAB90210905DC00D644C2 /* Scope.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scope.swift; sourceTree = "<group>"; };
 		CBDFAB91210905DC00D644C2 /* Argument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Argument.swift; sourceTree = "<group>"; };
 		CBDFAB92210905DC00D644C2 /* SelfParameter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelfParameter.swift; sourceTree = "<group>"; };
@@ -387,6 +389,7 @@
 				CBDFAB94210905DC00D644C2 /* Type.swift */,
 				CBDFAB95210905DC00D644C2 /* InterpreterError.swift */,
 				CBDFAB96210905DC00D644C2 /* Interpreter.swift */,
+				CB8BE4982109D41300880C7E /* Messenger.swift */,
 				CBDFAB97210905DC00D644C2 /* Instance.swift */,
 				CBDFAB98210905DC00D644C2 /* Prototype.swift */,
 				CBDFAB99210905DC00D644C2 /* Package.swift */,
@@ -748,6 +751,7 @@
 				CBDFABCF210905DC00D644C2 /* Prototype.swift in Sources */,
 				CBDFABDF210905DC00D644C2 /* BreakStmt.swift in Sources */,
 				CBDFABF2210905DC00D644C2 /* BooleanExpr.swift in Sources */,
+				CB8BE4992109D41300880C7E /* Messenger.swift in Sources */,
 				CBDFABD5210905DC00D644C2 /* Module.swift in Sources */,
 				CBDFABEC210905DC00D644C2 /* IdentifierExpr.swift in Sources */,
 				CBDFABEF210905DC00D644C2 /* FunctionCallExpr.swift in Sources */,

@@ -8,9 +8,27 @@
 
 import Foundation
 
+
 public class Interpreter {
 
-    public static func runScript(_ script: String) throws {
+    public struct Configuration {
+        var messenger: Messenger?
+        var isDebug: Bool?
+    }
+    
+    private var messenger: Messenger?
+    private var isDebug: Bool = false
+    
+    public init() {}
+    
+    public init(config: Configuration) {
+        self.messenger = config.messenger
+        if let isDebug = config.isDebug {
+            self.isDebug = isDebug
+        }
+    }
+    
+    public func runScript(_ script: String) throws {
         let lexer = Lexer(script: script)
         let parser = Parser(with: lexer)
         if let program = try parser.parseProgram() {
@@ -19,3 +37,6 @@ public class Interpreter {
     }
     
 }
+
+
+
