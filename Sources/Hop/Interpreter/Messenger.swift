@@ -31,7 +31,7 @@ public class Messenger {
     static let messagePostingNotification = Notification.Name(rawValue: "com.Messenger.messagePostingNotification")
     static let messageInfoKey = "com.Messenger.messageInfoKey"
     
-    init(sessionId: String?) {
+    public init(sessionId: String?) {
         self.sessionId = sessionId
         
         // Register for internal message posting notifications
