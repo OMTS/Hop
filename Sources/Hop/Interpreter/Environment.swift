@@ -13,18 +13,16 @@ public class Environment {
     // External environment properties
     // -------------------------------
     
-    var sessionId: String?
-    
     // Debug mode activation
-    var isDebug = false
+    public let isDebug: Bool
     
     // Messenger used to propagate interpreter message outside
-    var messenger: Messenger?
+    let messenger: Messenger?
     
-    typealias ScriptModuleHandler = (_ name: String) -> String?
+    public typealias ScriptModuleHandler = (_ name: String) -> String?
     
     // Handler provided for getting external module scripts
-    var getScriptForModule: ScriptModuleHandler?
+    let getScriptForModule: ScriptModuleHandler?
 
     // Internal environment properties
     // -------------------------------
@@ -32,15 +30,11 @@ public class Environment {
     // Global scope used to store loaded modules
     let modulesScope = Scope(parent: nil)
 
-    init(sessionId: String?,
-         isDebug: Bool?,
+    public init(isDebug: Bool,
          messenger: Messenger?,
          getScriptForModule: ScriptModuleHandler?) {
         
-        self.sessionId = sessionId
-        if let isDebug = isDebug {
-            self.isDebug = isDebug
-        }
+        self.isDebug = isDebug
         self.messenger = messenger
         self.getScriptForModule = getScriptForModule
     }

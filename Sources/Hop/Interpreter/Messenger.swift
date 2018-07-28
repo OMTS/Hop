@@ -26,6 +26,8 @@ public class Messenger {
     
     var handlers = [MessageType: [MessageHandler]]()
 
+    public init() {}
+    
     public func subscribe(to messageType: MessageType,
                           handler: @escaping MessageHandler) {
         
