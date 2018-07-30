@@ -20,8 +20,6 @@
 		CB86DA8C210F9C2100B9E3EF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB86DA8B210F9C2100B9E3EF /* ViewController.swift */; };
 		CB86DA8E210F9C2300B9E3EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB86DA8D210F9C2300B9E3EF /* Assets.xcassets */; };
 		CB86DA91210F9C2300B9E3EF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB86DA8F210F9C2300B9E3EF /* Main.storyboard */; };
-		CB86DA9D210F9C2300B9E3EF /* EditorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB86DA9C210F9C2300B9E3EF /* EditorTests.swift */; };
-		CB86DAA8210F9C2300B9E3EF /* EditorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB86DAA7210F9C2300B9E3EF /* EditorUITests.swift */; };
 		CB86DAB3210FA2DF00B9E3EF /* Lexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABA2210905DC00D644C2 /* Lexer.swift */; };
 		CB86DAB4210FA2DF00B9E3EF /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABA3210905DC00D644C2 /* Token.swift */; };
 		CB86DAB5210FA2E400B9E3EF /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABC0210905DC00D644C2 /* Parser.swift */; };
@@ -252,20 +250,6 @@
 			remoteGlobalIDString = CB19598C2107B82F00C16ACE;
 			remoteInfo = "Hop MacOS";
 		};
-		CB86DA99210F9C2300B9E3EF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CB1958D92107B6BB00C16ACE /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = CB86DA86210F9C2000B9E3EF;
-			remoteInfo = Editor;
-		};
-		CB86DAA4210F9C2300B9E3EF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CB1958D92107B6BB00C16ACE /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = CB86DA86210F9C2000B9E3EF;
-			remoteInfo = Editor;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -290,12 +274,6 @@
 		CB86DA90210F9C2300B9E3EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CB86DA92210F9C2300B9E3EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CB86DA93210F9C2300B9E3EF /* Editor.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Editor.entitlements; sourceTree = "<group>"; };
-		CB86DA98210F9C2300B9E3EF /* EditorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EditorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		CB86DA9C210F9C2300B9E3EF /* EditorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorTests.swift; sourceTree = "<group>"; };
-		CB86DA9E210F9C2300B9E3EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CB86DAA3210F9C2300B9E3EF /* EditorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EditorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		CB86DAA7210F9C2300B9E3EF /* EditorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorUITests.swift; sourceTree = "<group>"; };
-		CB86DAA9210F9C2300B9E3EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CB8BE4982109D41300880C7E /* Messenger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messenger.swift; sourceTree = "<group>"; };
 		CB8BE49C210A00ED00880C7E /* NilExpr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NilExpr.swift; sourceTree = "<group>"; };
 		CBB89956210B34300051A66D /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
@@ -404,27 +382,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CB86DA95210F9C2300B9E3EF /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CB86DAA0210F9C2300B9E3EF /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		CB1958D82107B6BB00C16ACE = {
 			isa = PBXGroup;
 			children = (
-				CB86DA81210F9B8600B9E3EF /* Tools */,
+				CB86DA88210F9C2100B9E3EF /* Editor */,
 				CB1959A52107B88C00C16ACE /* Sources */,
 				CB1959A62107B8DF00C16ACE /* Tests */,
 				CB1958E32107B6BB00C16ACE /* Products */,
@@ -441,8 +405,6 @@
 				CB19598D2107B82F00C16ACE /* Hop.framework */,
 				CB1959952107B82F00C16ACE /* Hop MacOSTests.xctest */,
 				CB86DA87210F9C2000B9E3EF /* Editor.app */,
-				CB86DA98210F9C2300B9E3EF /* EditorTests.xctest */,
-				CB86DAA3210F9C2300B9E3EF /* EditorUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -486,17 +448,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		CB86DA81210F9B8600B9E3EF /* Tools */ = {
-			isa = PBXGroup;
-			children = (
-				CB86DA88210F9C2100B9E3EF /* Editor */,
-				CB86DA8F210F9C2300B9E3EF /* Main.storyboard */,
-				CB86DA9B210F9C2300B9E3EF /* EditorTests */,
-				CB86DAA6210F9C2300B9E3EF /* EditorUITests */,
-			);
-			path = Tools;
-			sourceTree = "<group>";
-		};
 		CB86DA88210F9C2100B9E3EF /* Editor */ = {
 			isa = PBXGroup;
 			children = (
@@ -505,27 +456,9 @@
 				CB86DA8D210F9C2300B9E3EF /* Assets.xcassets */,
 				CB86DA92210F9C2300B9E3EF /* Info.plist */,
 				CB86DA93210F9C2300B9E3EF /* Editor.entitlements */,
+				CB86DA8F210F9C2300B9E3EF /* Main.storyboard */,
 			);
-			name = Editor;
-			path = ../Editor;
-			sourceTree = "<group>";
-		};
-		CB86DA9B210F9C2300B9E3EF /* EditorTests */ = {
-			isa = PBXGroup;
-			children = (
-				CB86DA9C210F9C2300B9E3EF /* EditorTests.swift */,
-				CB86DA9E210F9C2300B9E3EF /* Info.plist */,
-			);
-			path = EditorTests;
-			sourceTree = "<group>";
-		};
-		CB86DAA6210F9C2300B9E3EF /* EditorUITests */ = {
-			isa = PBXGroup;
-			children = (
-				CB86DAA7210F9C2300B9E3EF /* EditorUITests.swift */,
-				CB86DAA9210F9C2300B9E3EF /* Info.plist */,
-			);
-			path = EditorUITests;
+			path = Editor;
 			sourceTree = "<group>";
 		};
 		CBDFAB8E210905DC00D644C2 /* Hop */ = {
@@ -807,42 +740,6 @@
 			productReference = CB86DA87210F9C2000B9E3EF /* Editor.app */;
 			productType = "com.apple.product-type.application";
 		};
-		CB86DA97210F9C2300B9E3EF /* EditorTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = CB86DAAD210F9C2300B9E3EF /* Build configuration list for PBXNativeTarget "EditorTests" */;
-			buildPhases = (
-				CB86DA94210F9C2300B9E3EF /* Sources */,
-				CB86DA95210F9C2300B9E3EF /* Frameworks */,
-				CB86DA96210F9C2300B9E3EF /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				CB86DA9A210F9C2300B9E3EF /* PBXTargetDependency */,
-			);
-			name = EditorTests;
-			productName = EditorTests;
-			productReference = CB86DA98210F9C2300B9E3EF /* EditorTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		CB86DAA2210F9C2300B9E3EF /* EditorUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = CB86DAB0210F9C2300B9E3EF /* Build configuration list for PBXNativeTarget "EditorUITests" */;
-			buildPhases = (
-				CB86DA9F210F9C2300B9E3EF /* Sources */,
-				CB86DAA0210F9C2300B9E3EF /* Frameworks */,
-				CB86DAA1210F9C2300B9E3EF /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				CB86DAA5210F9C2300B9E3EF /* PBXTargetDependency */,
-			);
-			name = EditorUITests;
-			productName = EditorUITests;
-			productReference = CB86DAA3210F9C2300B9E3EF /* EditorUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -874,14 +771,6 @@
 					CB86DA86210F9C2000B9E3EF = {
 						CreatedOnToolsVersion = 9.4.1;
 					};
-					CB86DA97210F9C2300B9E3EF = {
-						CreatedOnToolsVersion = 9.4.1;
-						TestTargetID = CB86DA86210F9C2000B9E3EF;
-					};
-					CB86DAA2210F9C2300B9E3EF = {
-						CreatedOnToolsVersion = 9.4.1;
-						TestTargetID = CB86DA86210F9C2000B9E3EF;
-					};
 				};
 			};
 			buildConfigurationList = CB1958DC2107B6BB00C16ACE /* Build configuration list for PBXProject "Hop" */;
@@ -904,8 +793,6 @@
 				CB19598C2107B82F00C16ACE /* Hop MacOS */,
 				CB1959942107B82F00C16ACE /* Hop MacOSTests */,
 				CB86DA86210F9C2000B9E3EF /* Editor */,
-				CB86DA97210F9C2300B9E3EF /* EditorTests */,
-				CB86DAA2210F9C2300B9E3EF /* EditorUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -959,20 +846,6 @@
 			files = (
 				CB86DA8E210F9C2300B9E3EF /* Assets.xcassets in Resources */,
 				CB86DA91210F9C2300B9E3EF /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CB86DA96210F9C2300B9E3EF /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CB86DAA1210F9C2300B9E3EF /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1239,22 +1112,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CB86DA94210F9C2300B9E3EF /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CB86DA9D210F9C2300B9E3EF /* EditorTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CB86DA9F210F9C2300B9E3EF /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CB86DAA8210F9C2300B9E3EF /* EditorUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1272,16 +1129,6 @@
 			isa = PBXTargetDependency;
 			target = CB19598C2107B82F00C16ACE /* Hop MacOS */;
 			targetProxy = CB1959972107B82F00C16ACE /* PBXContainerItemProxy */;
-		};
-		CB86DA9A210F9C2300B9E3EF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = CB86DA86210F9C2000B9E3EF /* Editor */;
-			targetProxy = CB86DA99210F9C2300B9E3EF /* PBXContainerItemProxy */;
-		};
-		CB86DAA5210F9C2300B9E3EF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = CB86DA86210F9C2000B9E3EF /* Editor */;
-			targetProxy = CB86DAA4210F9C2300B9E3EF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1749,96 +1596,6 @@
 			};
 			name = Release;
 		};
-		CB86DAAE210F9C2300B9E3EF /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = YLEKY4JP87;
-				INFOPLIST_FILE = EditorTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = oneMoreThingStudio.EditorTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SWIFT_VERSION = 4.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Editor.app/Contents/MacOS/Editor";
-			};
-			name = Debug;
-		};
-		CB86DAAF210F9C2300B9E3EF /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = YLEKY4JP87;
-				INFOPLIST_FILE = EditorTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = oneMoreThingStudio.EditorTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SWIFT_VERSION = 4.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Editor.app/Contents/MacOS/Editor";
-			};
-			name = Release;
-		};
-		CB86DAB1210F9C2300B9E3EF /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = YLEKY4JP87;
-				INFOPLIST_FILE = EditorUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = oneMoreThingStudio.EditorUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SWIFT_VERSION = 4.0;
-				TEST_TARGET_NAME = Editor;
-			};
-			name = Debug;
-		};
-		CB86DAB2210F9C2300B9E3EF /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = YLEKY4JP87;
-				INFOPLIST_FILE = EditorUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = oneMoreThingStudio.EditorUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SWIFT_VERSION = 4.0;
-				TEST_TARGET_NAME = Editor;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1910,24 +1667,6 @@
 			buildConfigurations = (
 				CB86DAAB210F9C2300B9E3EF /* Debug */,
 				CB86DAAC210F9C2300B9E3EF /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		CB86DAAD210F9C2300B9E3EF /* Build configuration list for PBXNativeTarget "EditorTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				CB86DAAE210F9C2300B9E3EF /* Debug */,
-				CB86DAAF210F9C2300B9E3EF /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		CB86DAB0210F9C2300B9E3EF /* Build configuration list for PBXNativeTarget "EditorUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				CB86DAB1210F9C2300B9E3EF /* Debug */,
-				CB86DAB2210F9C2300B9E3EF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
