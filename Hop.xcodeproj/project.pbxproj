@@ -16,6 +16,64 @@
 		CB1959962107B82F00C16ACE /* Hop.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB19598D2107B82F00C16ACE /* Hop.framework */; };
 		CB1959A92107B9CA00C16ACE /* Hop.h in Headers */ = {isa = PBXBuildFile; fileRef = CB1959572107B80200C16ACE /* Hop.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CB1959AA2107B9CB00C16ACE /* Hop.h in Headers */ = {isa = PBXBuildFile; fileRef = CB1959572107B80200C16ACE /* Hop.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CB86DA8A210F9C2100B9E3EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB86DA89210F9C2100B9E3EF /* AppDelegate.swift */; };
+		CB86DA8C210F9C2100B9E3EF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB86DA8B210F9C2100B9E3EF /* ViewController.swift */; };
+		CB86DA8E210F9C2300B9E3EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB86DA8D210F9C2300B9E3EF /* Assets.xcassets */; };
+		CB86DA91210F9C2300B9E3EF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB86DA8F210F9C2300B9E3EF /* Main.storyboard */; };
+		CB86DA9D210F9C2300B9E3EF /* EditorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB86DA9C210F9C2300B9E3EF /* EditorTests.swift */; };
+		CB86DAA8210F9C2300B9E3EF /* EditorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB86DAA7210F9C2300B9E3EF /* EditorUITests.swift */; };
+		CB86DAB3210FA2DF00B9E3EF /* Lexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABA2210905DC00D644C2 /* Lexer.swift */; };
+		CB86DAB4210FA2DF00B9E3EF /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABA3210905DC00D644C2 /* Token.swift */; };
+		CB86DAB5210FA2E400B9E3EF /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABC0210905DC00D644C2 /* Parser.swift */; };
+		CB86DAB6210FA2EB00B9E3EF /* Evaluable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABC2210905DC00D644C2 /* Evaluable.swift */; };
+		CB86DAB7210FA2EB00B9E3EF /* Loggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABC3210905DC00D644C2 /* Loggable.swift */; };
+		CB86DAB8210FA2F100B9E3EF /* ImportStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABA6210905DC00D644C2 /* ImportStmt.swift */; };
+		CB86DAB9210FA2F100B9E3EF /* VariableDeclarationStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABA7210905DC00D644C2 /* VariableDeclarationStmt.swift */; };
+		CB86DABA210FA2F100B9E3EF /* IfStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABA8210905DC00D644C2 /* IfStmt.swift */; };
+		CB86DABB210FA2F100B9E3EF /* BlockStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABA9210905DC00D644C2 /* BlockStmt.swift */; };
+		CB86DABC210FA2F100B9E3EF /* WhileStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABAA210905DC00D644C2 /* WhileStmt.swift */; };
+		CB86DABD210FA2F100B9E3EF /* BreakStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABAB210905DC00D644C2 /* BreakStmt.swift */; };
+		CB86DABE210FA2F100B9E3EF /* ForStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABAC210905DC00D644C2 /* ForStmt.swift */; };
+		CB86DABF210FA2F100B9E3EF /* ReturnStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABAD210905DC00D644C2 /* ReturnStmt.swift */; };
+		CB86DAC0210FA2F100B9E3EF /* FunctionDeclarationStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABAE210905DC00D644C2 /* FunctionDeclarationStmt.swift */; };
+		CB86DAC1210FA2F100B9E3EF /* FunctionDeclarationArgument.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABAF210905DC00D644C2 /* FunctionDeclarationArgument.swift */; };
+		CB86DAC2210FA2F100B9E3EF /* ClassDeclarationStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABB0210905DC00D644C2 /* ClassDeclarationStmt.swift */; };
+		CB86DAC3210FA2F100B9E3EF /* ContinueStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABB1210905DC00D644C2 /* ContinueStmt.swift */; };
+		CB86DAC4210FA2F100B9E3EF /* ExpressionStmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABB2210905DC00D644C2 /* ExpressionStmt.swift */; };
+		CB86DAC5210FA2F100B9E3EF /* FunctionDeclarationPrototype.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABB3210905DC00D644C2 /* FunctionDeclarationPrototype.swift */; };
+		CB86DAC6210FA2F700B9E3EF /* NilExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8BE49C210A00ED00880C7E /* NilExpr.swift */; };
+		CB86DAC7210FA2F700B9E3EF /* SuperExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABB5210905DC00D644C2 /* SuperExpr.swift */; };
+		CB86DAC8210FA2F700B9E3EF /* StringExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABB6210905DC00D644C2 /* StringExpr.swift */; };
+		CB86DAC9210FA2F700B9E3EF /* FunctionCallArgument.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABB7210905DC00D644C2 /* FunctionCallArgument.swift */; };
+		CB86DACA210FA2F700B9E3EF /* IntegerExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABB8210905DC00D644C2 /* IntegerExpr.swift */; };
+		CB86DACB210FA2F700B9E3EF /* IdentifierExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABB9210905DC00D644C2 /* IdentifierExpr.swift */; };
+		CB86DACC210FA2F700B9E3EF /* RealExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABBA210905DC00D644C2 /* RealExpr.swift */; };
+		CB86DACD210FA2F700B9E3EF /* NativeFunctionCallExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABBB210905DC00D644C2 /* NativeFunctionCallExpr.swift */; };
+		CB86DACE210FA2F700B9E3EF /* FunctionCallExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABBC210905DC00D644C2 /* FunctionCallExpr.swift */; };
+		CB86DACF210FA2F700B9E3EF /* BinaryOperatorExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABBD210905DC00D644C2 /* BinaryOperatorExpr.swift */; };
+		CB86DAD0210FA2F700B9E3EF /* UnaryOperatorExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABBE210905DC00D644C2 /* UnaryOperatorExpr.swift */; };
+		CB86DAD1210FA2F700B9E3EF /* BooleanExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABBF210905DC00D644C2 /* BooleanExpr.swift */; };
+		CB86DAD2210FA2FE00B9E3EF /* Scope.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB90210905DC00D644C2 /* Scope.swift */; };
+		CB86DAD3210FA2FE00B9E3EF /* Argument.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB91210905DC00D644C2 /* Argument.swift */; };
+		CB86DAD4210FA2FE00B9E3EF /* SelfParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB92210905DC00D644C2 /* SelfParameter.swift */; };
+		CB86DAD5210FA2FE00B9E3EF /* Closure.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB93210905DC00D644C2 /* Closure.swift */; };
+		CB86DAD6210FA2FE00B9E3EF /* Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB94210905DC00D644C2 /* Type.swift */; };
+		CB86DAD7210FA2FE00B9E3EF /* InterpreterError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB95210905DC00D644C2 /* InterpreterError.swift */; };
+		CB86DAD8210FA2FE00B9E3EF /* Interpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB96210905DC00D644C2 /* Interpreter.swift */; };
+		CB86DAD9210FA2FE00B9E3EF /* Messenger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8BE4982109D41300880C7E /* Messenger.swift */; };
+		CB86DADA210FA2FE00B9E3EF /* Instance.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB97210905DC00D644C2 /* Instance.swift */; };
+		CB86DADB210FA2FE00B9E3EF /* Prototype.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB98210905DC00D644C2 /* Prototype.swift */; };
+		CB86DADC210FA2FE00B9E3EF /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB99210905DC00D644C2 /* Package.swift */; };
+		CB86DADD210FA2FE00B9E3EF /* Null.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB9A210905DC00D644C2 /* Null.swift */; };
+		CB86DADE210FA2FE00B9E3EF /* Class.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB9B210905DC00D644C2 /* Class.swift */; };
+		CB86DADF210FA2FE00B9E3EF /* SuperParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB9C210905DC00D644C2 /* SuperParameter.swift */; };
+		CB86DAE0210FA2FE00B9E3EF /* Program.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB9D210905DC00D644C2 /* Program.swift */; };
+		CB86DAE1210FA2FE00B9E3EF /* Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB9E210905DC00D644C2 /* Module.swift */; };
+		CB86DAE2210FA2FE00B9E3EF /* Variable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB9F210905DC00D644C2 /* Variable.swift */; };
+		CB86DAE3210FA2FE00B9E3EF /* ClassInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABA0210905DC00D644C2 /* ClassInitializer.swift */; };
+		CB86DAE4210FA2FE00B9E3EF /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB89956210B34300051A66D /* Environment.swift */; };
+		CB86DAE5210FA30400B9E3EF /* StandardLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABC5210905DC00D644C2 /* StandardLibrary.swift */; };
+		CB86DAE6210FA30400B9E3EF /* LanguageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABC6210905DC00D644C2 /* LanguageExtensions.swift */; };
 		CB8BE4992109D41300880C7E /* Messenger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8BE4982109D41300880C7E /* Messenger.swift */; };
 		CB8BE49A2109E1C000880C7E /* Messenger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8BE4982109D41300880C7E /* Messenger.swift */; };
 		CB8BE49B2109E1C000880C7E /* Messenger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8BE4982109D41300880C7E /* Messenger.swift */; };
@@ -194,6 +252,20 @@
 			remoteGlobalIDString = CB19598C2107B82F00C16ACE;
 			remoteInfo = "Hop MacOS";
 		};
+		CB86DA99210F9C2300B9E3EF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CB1958D92107B6BB00C16ACE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CB86DA86210F9C2000B9E3EF;
+			remoteInfo = Editor;
+		};
+		CB86DAA4210F9C2300B9E3EF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CB1958D92107B6BB00C16ACE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CB86DA86210F9C2000B9E3EF;
+			remoteInfo = Editor;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -211,6 +283,19 @@
 		CB1959902107B82F00C16ACE /* Info-MacOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-MacOS.plist"; sourceTree = "<group>"; };
 		CB1959952107B82F00C16ACE /* Hop MacOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Hop MacOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB19599C2107B82F00C16ACE /* Info-MacOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-MacOS.plist"; sourceTree = "<group>"; };
+		CB86DA87210F9C2000B9E3EF /* Editor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Editor.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB86DA89210F9C2100B9E3EF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		CB86DA8B210F9C2100B9E3EF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		CB86DA8D210F9C2300B9E3EF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CB86DA90210F9C2300B9E3EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		CB86DA92210F9C2300B9E3EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CB86DA93210F9C2300B9E3EF /* Editor.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Editor.entitlements; sourceTree = "<group>"; };
+		CB86DA98210F9C2300B9E3EF /* EditorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EditorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB86DA9C210F9C2300B9E3EF /* EditorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorTests.swift; sourceTree = "<group>"; };
+		CB86DA9E210F9C2300B9E3EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CB86DAA3210F9C2300B9E3EF /* EditorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EditorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB86DAA7210F9C2300B9E3EF /* EditorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorUITests.swift; sourceTree = "<group>"; };
+		CB86DAA9210F9C2300B9E3EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CB8BE4982109D41300880C7E /* Messenger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messenger.swift; sourceTree = "<group>"; };
 		CB8BE49C210A00ED00880C7E /* NilExpr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NilExpr.swift; sourceTree = "<group>"; };
 		CBB89956210B34300051A66D /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
@@ -312,12 +397,34 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CB86DA84210F9C2000B9E3EF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CB86DA95210F9C2300B9E3EF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CB86DAA0210F9C2300B9E3EF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		CB1958D82107B6BB00C16ACE = {
 			isa = PBXGroup;
 			children = (
+				CB86DA81210F9B8600B9E3EF /* Tools */,
 				CB1959A52107B88C00C16ACE /* Sources */,
 				CB1959A62107B8DF00C16ACE /* Tests */,
 				CB1958E32107B6BB00C16ACE /* Products */,
@@ -333,6 +440,9 @@
 				CB1959792107B81600C16ACE /* Hop tvOSTests.xctest */,
 				CB19598D2107B82F00C16ACE /* Hop.framework */,
 				CB1959952107B82F00C16ACE /* Hop MacOSTests.xctest */,
+				CB86DA87210F9C2000B9E3EF /* Editor.app */,
+				CB86DA98210F9C2300B9E3EF /* EditorTests.xctest */,
+				CB86DAA3210F9C2300B9E3EF /* EditorUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -374,6 +484,48 @@
 				CB19599C2107B82F00C16ACE /* Info-MacOS.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CB86DA81210F9B8600B9E3EF /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				CB86DA88210F9C2100B9E3EF /* Editor */,
+				CB86DA8F210F9C2300B9E3EF /* Main.storyboard */,
+				CB86DA9B210F9C2300B9E3EF /* EditorTests */,
+				CB86DAA6210F9C2300B9E3EF /* EditorUITests */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		CB86DA88210F9C2100B9E3EF /* Editor */ = {
+			isa = PBXGroup;
+			children = (
+				CB86DA89210F9C2100B9E3EF /* AppDelegate.swift */,
+				CB86DA8B210F9C2100B9E3EF /* ViewController.swift */,
+				CB86DA8D210F9C2300B9E3EF /* Assets.xcassets */,
+				CB86DA92210F9C2300B9E3EF /* Info.plist */,
+				CB86DA93210F9C2300B9E3EF /* Editor.entitlements */,
+			);
+			name = Editor;
+			path = ../Editor;
+			sourceTree = "<group>";
+		};
+		CB86DA9B210F9C2300B9E3EF /* EditorTests */ = {
+			isa = PBXGroup;
+			children = (
+				CB86DA9C210F9C2300B9E3EF /* EditorTests.swift */,
+				CB86DA9E210F9C2300B9E3EF /* Info.plist */,
+			);
+			path = EditorTests;
+			sourceTree = "<group>";
+		};
+		CB86DAA6210F9C2300B9E3EF /* EditorUITests */ = {
+			isa = PBXGroup;
+			children = (
+				CB86DAA7210F9C2300B9E3EF /* EditorUITests.swift */,
+				CB86DAA9210F9C2300B9E3EF /* Info.plist */,
+			);
+			path = EditorUITests;
 			sourceTree = "<group>";
 		};
 		CBDFAB8E210905DC00D644C2 /* Hop */ = {
@@ -638,6 +790,59 @@
 			productReference = CB1959952107B82F00C16ACE /* Hop MacOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		CB86DA86210F9C2000B9E3EF /* Editor */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CB86DAAA210F9C2300B9E3EF /* Build configuration list for PBXNativeTarget "Editor" */;
+			buildPhases = (
+				CB86DA83210F9C2000B9E3EF /* Sources */,
+				CB86DA84210F9C2000B9E3EF /* Frameworks */,
+				CB86DA85210F9C2000B9E3EF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Editor;
+			productName = Editor;
+			productReference = CB86DA87210F9C2000B9E3EF /* Editor.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CB86DA97210F9C2300B9E3EF /* EditorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CB86DAAD210F9C2300B9E3EF /* Build configuration list for PBXNativeTarget "EditorTests" */;
+			buildPhases = (
+				CB86DA94210F9C2300B9E3EF /* Sources */,
+				CB86DA95210F9C2300B9E3EF /* Frameworks */,
+				CB86DA96210F9C2300B9E3EF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CB86DA9A210F9C2300B9E3EF /* PBXTargetDependency */,
+			);
+			name = EditorTests;
+			productName = EditorTests;
+			productReference = CB86DA98210F9C2300B9E3EF /* EditorTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		CB86DAA2210F9C2300B9E3EF /* EditorUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CB86DAB0210F9C2300B9E3EF /* Build configuration list for PBXNativeTarget "EditorUITests" */;
+			buildPhases = (
+				CB86DA9F210F9C2300B9E3EF /* Sources */,
+				CB86DAA0210F9C2300B9E3EF /* Frameworks */,
+				CB86DAA1210F9C2300B9E3EF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CB86DAA5210F9C2300B9E3EF /* PBXTargetDependency */,
+			);
+			name = EditorUITests;
+			productName = EditorUITests;
+			productReference = CB86DAA3210F9C2300B9E3EF /* EditorUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -666,6 +871,17 @@
 					CB1959942107B82F00C16ACE = {
 						CreatedOnToolsVersion = 9.4.1;
 					};
+					CB86DA86210F9C2000B9E3EF = {
+						CreatedOnToolsVersion = 9.4.1;
+					};
+					CB86DA97210F9C2300B9E3EF = {
+						CreatedOnToolsVersion = 9.4.1;
+						TestTargetID = CB86DA86210F9C2000B9E3EF;
+					};
+					CB86DAA2210F9C2300B9E3EF = {
+						CreatedOnToolsVersion = 9.4.1;
+						TestTargetID = CB86DA86210F9C2000B9E3EF;
+					};
 				};
 			};
 			buildConfigurationList = CB1958DC2107B6BB00C16ACE /* Build configuration list for PBXProject "Hop" */;
@@ -674,6 +890,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = CB1958D82107B6BB00C16ACE;
 			productRefGroup = CB1958E32107B6BB00C16ACE /* Products */;
@@ -686,6 +903,9 @@
 				CB1959782107B81600C16ACE /* Hop tvOSTests */,
 				CB19598C2107B82F00C16ACE /* Hop MacOS */,
 				CB1959942107B82F00C16ACE /* Hop MacOSTests */,
+				CB86DA86210F9C2000B9E3EF /* Editor */,
+				CB86DA97210F9C2300B9E3EF /* EditorTests */,
+				CB86DAA2210F9C2300B9E3EF /* EditorUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -727,6 +947,29 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		CB1959932107B82F00C16ACE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CB86DA85210F9C2000B9E3EF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CB86DA8E210F9C2300B9E3EF /* Assets.xcassets in Resources */,
+				CB86DA91210F9C2300B9E3EF /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CB86DA96210F9C2300B9E3EF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CB86DAA1210F9C2300B9E3EF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -935,6 +1178,83 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CB86DA83210F9C2000B9E3EF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CB86DABB210FA2F100B9E3EF /* BlockStmt.swift in Sources */,
+				CB86DA8C210F9C2100B9E3EF /* ViewController.swift in Sources */,
+				CB86DAC9210FA2F700B9E3EF /* FunctionCallArgument.swift in Sources */,
+				CB86DADB210FA2FE00B9E3EF /* Prototype.swift in Sources */,
+				CB86DAD9210FA2FE00B9E3EF /* Messenger.swift in Sources */,
+				CB86DADA210FA2FE00B9E3EF /* Instance.swift in Sources */,
+				CB86DAD5210FA2FE00B9E3EF /* Closure.swift in Sources */,
+				CB86DAB6210FA2EB00B9E3EF /* Evaluable.swift in Sources */,
+				CB86DABF210FA2F100B9E3EF /* ReturnStmt.swift in Sources */,
+				CB86DAD4210FA2FE00B9E3EF /* SelfParameter.swift in Sources */,
+				CB86DAC3210FA2F100B9E3EF /* ContinueStmt.swift in Sources */,
+				CB86DAB7210FA2EB00B9E3EF /* Loggable.swift in Sources */,
+				CB86DADD210FA2FE00B9E3EF /* Null.swift in Sources */,
+				CB86DACD210FA2F700B9E3EF /* NativeFunctionCallExpr.swift in Sources */,
+				CB86DAC7210FA2F700B9E3EF /* SuperExpr.swift in Sources */,
+				CB86DAB3210FA2DF00B9E3EF /* Lexer.swift in Sources */,
+				CB86DADE210FA2FE00B9E3EF /* Class.swift in Sources */,
+				CB86DAB5210FA2E400B9E3EF /* Parser.swift in Sources */,
+				CB86DAC8210FA2F700B9E3EF /* StringExpr.swift in Sources */,
+				CB86DAD0210FA2F700B9E3EF /* UnaryOperatorExpr.swift in Sources */,
+				CB86DAC1210FA2F100B9E3EF /* FunctionDeclarationArgument.swift in Sources */,
+				CB86DAE4210FA2FE00B9E3EF /* Environment.swift in Sources */,
+				CB86DABD210FA2F100B9E3EF /* BreakStmt.swift in Sources */,
+				CB86DADC210FA2FE00B9E3EF /* Package.swift in Sources */,
+				CB86DACA210FA2F700B9E3EF /* IntegerExpr.swift in Sources */,
+				CB86DAD2210FA2FE00B9E3EF /* Scope.swift in Sources */,
+				CB86DADF210FA2FE00B9E3EF /* SuperParameter.swift in Sources */,
+				CB86DACF210FA2F700B9E3EF /* BinaryOperatorExpr.swift in Sources */,
+				CB86DAC6210FA2F700B9E3EF /* NilExpr.swift in Sources */,
+				CB86DA8A210F9C2100B9E3EF /* AppDelegate.swift in Sources */,
+				CB86DAD7210FA2FE00B9E3EF /* InterpreterError.swift in Sources */,
+				CB86DAD1210FA2F700B9E3EF /* BooleanExpr.swift in Sources */,
+				CB86DAD8210FA2FE00B9E3EF /* Interpreter.swift in Sources */,
+				CB86DAE0210FA2FE00B9E3EF /* Program.swift in Sources */,
+				CB86DACB210FA2F700B9E3EF /* IdentifierExpr.swift in Sources */,
+				CB86DAE6210FA30400B9E3EF /* LanguageExtensions.swift in Sources */,
+				CB86DAC4210FA2F100B9E3EF /* ExpressionStmt.swift in Sources */,
+				CB86DAE5210FA30400B9E3EF /* StandardLibrary.swift in Sources */,
+				CB86DABC210FA2F100B9E3EF /* WhileStmt.swift in Sources */,
+				CB86DAC2210FA2F100B9E3EF /* ClassDeclarationStmt.swift in Sources */,
+				CB86DAB8210FA2F100B9E3EF /* ImportStmt.swift in Sources */,
+				CB86DAB9210FA2F100B9E3EF /* VariableDeclarationStmt.swift in Sources */,
+				CB86DAE1210FA2FE00B9E3EF /* Module.swift in Sources */,
+				CB86DAC0210FA2F100B9E3EF /* FunctionDeclarationStmt.swift in Sources */,
+				CB86DAD3210FA2FE00B9E3EF /* Argument.swift in Sources */,
+				CB86DAD6210FA2FE00B9E3EF /* Type.swift in Sources */,
+				CB86DACE210FA2F700B9E3EF /* FunctionCallExpr.swift in Sources */,
+				CB86DABE210FA2F100B9E3EF /* ForStmt.swift in Sources */,
+				CB86DACC210FA2F700B9E3EF /* RealExpr.swift in Sources */,
+				CB86DABA210FA2F100B9E3EF /* IfStmt.swift in Sources */,
+				CB86DAE3210FA2FE00B9E3EF /* ClassInitializer.swift in Sources */,
+				CB86DAB4210FA2DF00B9E3EF /* Token.swift in Sources */,
+				CB86DAC5210FA2F100B9E3EF /* FunctionDeclarationPrototype.swift in Sources */,
+				CB86DAE2210FA2FE00B9E3EF /* Variable.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CB86DA94210F9C2300B9E3EF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CB86DA9D210F9C2300B9E3EF /* EditorTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CB86DA9F210F9C2300B9E3EF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CB86DAA8210F9C2300B9E3EF /* EditorUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -953,7 +1273,28 @@
 			target = CB19598C2107B82F00C16ACE /* Hop MacOS */;
 			targetProxy = CB1959972107B82F00C16ACE /* PBXContainerItemProxy */;
 		};
+		CB86DA9A210F9C2300B9E3EF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CB86DA86210F9C2000B9E3EF /* Editor */;
+			targetProxy = CB86DA99210F9C2300B9E3EF /* PBXContainerItemProxy */;
+		};
+		CB86DAA5210F9C2300B9E3EF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CB86DA86210F9C2000B9E3EF /* Editor */;
+			targetProxy = CB86DAA4210F9C2300B9E3EF /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		CB86DA8F210F9C2300B9E3EF /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CB86DA90210F9C2300B9E3EF /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		CB1958F42107B6BB00C16ACE /* Debug */ = {
@@ -1366,6 +1707,138 @@
 			};
 			name = Release;
 		};
+		CB86DAAB210F9C2300B9E3EF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Editor/Editor.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = YLEKY4JP87;
+				INFOPLIST_FILE = Editor/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = oneMoreThingStudio.Editor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		CB86DAAC210F9C2300B9E3EF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Editor/Editor.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = YLEKY4JP87;
+				INFOPLIST_FILE = Editor/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = oneMoreThingStudio.Editor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
+		CB86DAAE210F9C2300B9E3EF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = YLEKY4JP87;
+				INFOPLIST_FILE = EditorTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = oneMoreThingStudio.EditorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 4.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Editor.app/Contents/MacOS/Editor";
+			};
+			name = Debug;
+		};
+		CB86DAAF210F9C2300B9E3EF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = YLEKY4JP87;
+				INFOPLIST_FILE = EditorTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = oneMoreThingStudio.EditorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 4.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Editor.app/Contents/MacOS/Editor";
+			};
+			name = Release;
+		};
+		CB86DAB1210F9C2300B9E3EF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = YLEKY4JP87;
+				INFOPLIST_FILE = EditorUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = oneMoreThingStudio.EditorUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 4.0;
+				TEST_TARGET_NAME = Editor;
+			};
+			name = Debug;
+		};
+		CB86DAB2210F9C2300B9E3EF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = YLEKY4JP87;
+				INFOPLIST_FILE = EditorUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = oneMoreThingStudio.EditorUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 4.0;
+				TEST_TARGET_NAME = Editor;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1428,6 +1901,33 @@
 			buildConfigurations = (
 				CB1959A22107B82F00C16ACE /* Debug */,
 				CB1959A32107B82F00C16ACE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CB86DAAA210F9C2300B9E3EF /* Build configuration list for PBXNativeTarget "Editor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CB86DAAB210F9C2300B9E3EF /* Debug */,
+				CB86DAAC210F9C2300B9E3EF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CB86DAAD210F9C2300B9E3EF /* Build configuration list for PBXNativeTarget "EditorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CB86DAAE210F9C2300B9E3EF /* Debug */,
+				CB86DAAF210F9C2300B9E3EF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CB86DAB0210F9C2300B9E3EF /* Build configuration list for PBXNativeTarget "EditorUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CB86DAB1210F9C2300B9E3EF /* Debug */,
+				CB86DAB2210F9C2300B9E3EF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
