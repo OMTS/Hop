@@ -24,7 +24,7 @@ ___
 ### Basic types
 ___
 
-* **Int**: signed integer number 
+* **Int**: signed integer number
 * **Real**: signed real number
 * **Bool**: boolean (true/false)
 * **String**: character string
@@ -48,7 +48,7 @@ var isHappy: Bool
 ```
 var name: String = "Bob"
 var age: Int =  20
-var height: Real = 1.90 
+var height: Real = 1.90
 var isHappy: Bool == true
 ```
 
@@ -60,7 +60,7 @@ When value is defined, type is optional. If omitted, variable type will be infer
 ```
 var name = "Bob"
 var age =  20
-var height = 1.90 
+var height = 1.90
 var isHappy = true
 ```
 
@@ -106,7 +106,7 @@ Value expression is required for constant declaration
 ```
 const name = "Bob"
 const age =  20
-const height = 1.90 
+const height = 1.90
 const isHappy = true
 ```
 
@@ -177,7 +177,7 @@ ___
 var count = 0
 
 while count < 5 {
-    count = count - 1
+    count = count + 1
     // Loop five times
 }
 
@@ -270,7 +270,7 @@ class Entity {
 class Player: Entity {
 
     var name: String
-    
+
     func init(name: String) {
         super.init()
         self.name = name
@@ -297,5 +297,3 @@ A module can declare & define :
 * variables,
 * functions,
 * classes.
-
-
