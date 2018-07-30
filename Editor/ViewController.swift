@@ -71,7 +71,11 @@ class ViewController: NSViewController {
             try interpreter.runScript(script)
             
         } catch let error {
-            displayLog(message: "Error: \(error)")
+            if let printableError = error as? ProgramPrintableError {
+                displayLog(message: "Error: \(printableError.getDescription) at \(printableError.lineNumber) on char \(printableError.postion)")
+            } else {
+                displayLog(message: "Error: \(error)")
+            }
         }
         
         runButton.isEnabled = true

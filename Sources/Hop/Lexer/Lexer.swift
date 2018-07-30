@@ -8,10 +8,18 @@
 
 import Foundation
 
-
-public enum LexerError: Error {
+public enum LexerError: ErrorType {
     case unknownError
-    case illegalContent(position: Int)
+    case illegalContent
+
+    public func getDescription() -> String {
+        switch self {
+        case .unknownError:
+            return "Unknown Lexing Error"
+        case .illegalContent:
+            return "Illegal Content"
+        }
+    }
 }
 
 public class Lexer {
@@ -34,7 +42,11 @@ public class Lexer {
     public func getCurrentPosition() -> Int {
         return nextCharIndex
     }
-    
+
+    public func getLineNumber() -> Int {
+        return lineIndex + 1
+    }
+
     public func getNextChar() {
         nextCharIndex += 1
     }
@@ -258,7 +270,7 @@ public class Lexer {
                 return .logicalAND
             }
             
-            throw LexerError.illegalContent(position: nextCharIndex - 1)
+            throw ProgrammError(errorType: LexerError.illegalContent, lineNumber: getLineNumber(), postion: getCurrentPosition() - 1)
         }
         
         // Consume logical OR
@@ -271,7 +283,7 @@ public class Lexer {
                 return .logicalOR
             }
             
-            throw LexerError.illegalContent(position: nextCharIndex - 1)
+            throw ProgrammError(errorType: LexerError.illegalContent, lineNumber: getLineNumber(), postion: getCurrentPosition() - 1)
         }
         
         // Consume identifier
@@ -354,7 +366,7 @@ public class Lexer {
             return .string
         }
         
-        throw LexerError.unknownError
+        throw ProgrammError(errorType: LexerError.unknownError, lineNumber: getLineNumber(), postion: getCurrentPosition() - 1)
     }
     
     // MARK: Helpers

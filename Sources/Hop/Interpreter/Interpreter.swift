@@ -21,7 +21,11 @@ public class Interpreter {
         let lexer = Lexer(script: script)
         let parser = Parser(with: lexer)
         if let program = try parser.parseProgram() {
-            try program.perform(with: environment)
+            do {
+                try program.perform(with: environment)
+            } catch (let error) {
+                print(error)
+            }
         }
     }
     
