@@ -11,6 +11,14 @@
 		0F329F44210FCF8900E9042F /* ProgramError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F329F42210FCF8900E9042F /* ProgramError.swift */; };
 		0F329F45210FCF8900E9042F /* ProgramError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F329F42210FCF8900E9042F /* ProgramError.swift */; };
 		0F329F46210FCFCA00E9042F /* ProgramError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F329F42210FCF8900E9042F /* ProgramError.swift */; };
+		0F394B822110908F00C43901 /* DebuggableElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F394B812110908F00C43901 /* DebuggableElement.swift */; };
+		0F394B832110908F00C43901 /* DebuggableElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F394B812110908F00C43901 /* DebuggableElement.swift */; };
+		0F394B842110908F00C43901 /* DebuggableElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F394B812110908F00C43901 /* DebuggableElement.swift */; };
+		0F394B852110908F00C43901 /* DebuggableElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F394B812110908F00C43901 /* DebuggableElement.swift */; };
+		0F394B8721109E1100C43901 /* Debuggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F394B8621109E1100C43901 /* Debuggable.swift */; };
+		0F394B8821109E1100C43901 /* Debuggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F394B8621109E1100C43901 /* Debuggable.swift */; };
+		0F394B8921109E1100C43901 /* Debuggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F394B8621109E1100C43901 /* Debuggable.swift */; };
+		0F394B8A21109E1100C43901 /* Debuggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F394B8621109E1100C43901 /* Debuggable.swift */; };
 		0FF7D3E921091930002E8439 /* LexerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF7D3E721091927002E8439 /* LexerTests.swift */; };
 		0FF7D3EA21091932002E8439 /* LexerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF7D3E721091927002E8439 /* LexerTests.swift */; };
 		0FF7D3EB21091932002E8439 /* LexerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF7D3E721091927002E8439 /* LexerTests.swift */; };
@@ -258,6 +266,8 @@
 
 /* Begin PBXFileReference section */
 		0F329F42210FCF8900E9042F /* ProgramError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramError.swift; sourceTree = "<group>"; };
+		0F394B812110908F00C43901 /* DebuggableElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebuggableElement.swift; sourceTree = "<group>"; };
+		0F394B8621109E1100C43901 /* Debuggable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debuggable.swift; sourceTree = "<group>"; };
 		0FF7D3E721091927002E8439 /* LexerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LexerTests.swift; sourceTree = "<group>"; };
 		CB1959552107B80200C16ACE /* Hop.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Hop.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB1959572107B80200C16ACE /* Hop.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Hop.h; sourceTree = "<group>"; };
@@ -398,6 +408,14 @@
 			path = Errors;
 			sourceTree = "<group>";
 		};
+		0F394B802110906300C43901 /* SharedClasses */ = {
+			isa = PBXGroup;
+			children = (
+				0F394B812110908F00C43901 /* DebuggableElement.swift */,
+			);
+			path = SharedClasses;
+			sourceTree = "<group>";
+		};
 		CB1958D82107B6BB00C16ACE = {
 			isa = PBXGroup;
 			children = (
@@ -525,6 +543,7 @@
 			isa = PBXGroup;
 			children = (
 				CBDFABC0210905DC00D644C2 /* Parser.swift */,
+				0F394B802110906300C43901 /* SharedClasses */,
 				CBDFABC1210905DC00D644C2 /* Protocols */,
 				CBDFABA5210905DC00D644C2 /* Statements */,
 				CBDFABB4210905DC00D644C2 /* Expressions */,
@@ -577,6 +596,7 @@
 			children = (
 				CBDFABC2210905DC00D644C2 /* Evaluable.swift */,
 				CBDFABC3210905DC00D644C2 /* Loggable.swift */,
+				0F394B8621109E1100C43901 /* Debuggable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -870,6 +890,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F394B8721109E1100C43901 /* Debuggable.swift in Sources */,
 				CBDFABD2210905DC00D644C2 /* Class.swift in Sources */,
 				CBDFABCB210905DC00D644C2 /* Type.swift in Sources */,
 				CBDFABE9210905DC00D644C2 /* StringExpr.swift in Sources */,
@@ -881,6 +902,7 @@
 				CBDFABE0210905DC00D644C2 /* ForStmt.swift in Sources */,
 				CBDFABF1210905DC00D644C2 /* UnaryOperatorExpr.swift in Sources */,
 				CBDFABE6210905DC00D644C2 /* ExpressionStmt.swift in Sources */,
+				0F394B822110908F00C43901 /* DebuggableElement.swift in Sources */,
 				CBDFABCA210905DC00D644C2 /* Closure.swift in Sources */,
 				CBDFABDA210905DC00D644C2 /* ImportStmt.swift in Sources */,
 				CBDFABF0210905DC00D644C2 /* BinaryOperatorExpr.swift in Sources */,
@@ -986,6 +1008,8 @@
 				CBDFAC1B210905F000D644C2 /* Token.swift in Sources */,
 				CBDFABFE210905EA00D644C2 /* Interpreter.swift in Sources */,
 				CBDFAC572109061400D644C2 /* LanguageExtensions.swift in Sources */,
+				0F394B832110908F00C43901 /* DebuggableElement.swift in Sources */,
+				0F394B8821109E1100C43901 /* Debuggable.swift in Sources */,
 				CBDFAC1A210905F000D644C2 /* Lexer.swift in Sources */,
 				CBDFAC27210905F900D644C2 /* FunctionDeclarationArgument.swift in Sources */,
 				CBDFAC07210905EA00D644C2 /* Variable.swift in Sources */,
@@ -1053,6 +1077,8 @@
 				CBDFAC1D210905F100D644C2 /* Token.swift in Sources */,
 				CBDFAC0F210905EB00D644C2 /* Interpreter.swift in Sources */,
 				CBDFAC592109061500D644C2 /* LanguageExtensions.swift in Sources */,
+				0F394B842110908F00C43901 /* DebuggableElement.swift in Sources */,
+				0F394B8921109E1100C43901 /* Debuggable.swift in Sources */,
 				CBDFAC1C210905F100D644C2 /* Lexer.swift in Sources */,
 				CBDFAC35210905FA00D644C2 /* FunctionDeclarationArgument.swift in Sources */,
 				CBDFAC18210905EB00D644C2 /* Variable.swift in Sources */,
@@ -1115,6 +1141,8 @@
 				CB86DAC2210FA2F100B9E3EF /* ClassDeclarationStmt.swift in Sources */,
 				CB86DAB8210FA2F100B9E3EF /* ImportStmt.swift in Sources */,
 				CB86DAB9210FA2F100B9E3EF /* VariableDeclarationStmt.swift in Sources */,
+				0F394B8A21109E1100C43901 /* Debuggable.swift in Sources */,
+				0F394B852110908F00C43901 /* DebuggableElement.swift in Sources */,
 				CB86DAE1210FA2FE00B9E3EF /* Module.swift in Sources */,
 				CB86DAC0210FA2F100B9E3EF /* FunctionDeclarationStmt.swift in Sources */,
 				CB86DAD3210FA2FE00B9E3EF /* Argument.swift in Sources */,

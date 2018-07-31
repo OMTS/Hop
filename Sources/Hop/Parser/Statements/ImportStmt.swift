@@ -8,18 +8,14 @@
 
 import Foundation
 
-class ImportStmt: Evaluable {
+class ImportStmt: DebuggableElement, Evaluable {
 
-    var lineNumber: Int?
-    var position: Int?
     var name: String
     var hashId: Int
     
-    init(name: String, lineNumber: Int?, position: Int?) {
+    init(name: String) {
         self.name = name
         self.hashId = name.hashValue
-        self.lineNumber = lineNumber
-        self.position = position
     }
     
     var description: String {

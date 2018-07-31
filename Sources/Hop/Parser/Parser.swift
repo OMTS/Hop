@@ -44,7 +44,8 @@ class Parser {
 
     private let lexer: Lexer
     private var currentToken: Token!
-    
+    private var isDebug = false
+
     init(with lexer: Lexer) {
         self.lexer = lexer
     }
@@ -70,7 +71,8 @@ class Parser {
         return precedence
     }
     
-    func parseProgram() throws -> Program? {
+    func parseProgram(with environment: Environment) throws -> Program? {
+        isDebug = environment.isDebug
         try getNextToken()
         var statements = [Evaluable]()
         while currentToken != .eof {
@@ -167,8 +169,12 @@ class Parser {
         }
         
         try getNextToken() // Consume line feed
-        
-        return ImportStmt(name: name, lineNumber:lexer.getLineNumber() - 1 , position:lexer.getCurrentPosition() - 1)
+
+        let importStmt = ImportStmt(name: name)
+        if isDebug {
+            importStmt.setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
+        }
+        return importStmt
     }
     
     /**
@@ -194,8 +200,12 @@ class Parser {
         
         try getNextToken() // Consume line feed
         
-        return FunctionDeclarationStmt(prototype: prototype,
+        let funcDeclarationStmt = FunctionDeclarationStmt(prototype: prototype,
                                        block: block)
+        if isDebug {
+            funcDeclarationStmt.setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
+        }
+        return funcDeclarationStmt
     }
     
     /**
@@ -473,8 +483,11 @@ class Parser {
             
             try getNextToken() // Consume line feed
         }
-                
-        return IfStmt(conditionExpression: conditionExpr, thenBlock: thenBlock, elseBlock: elseBlock)
+        let ifStmt = IfStmt(conditionExpression: conditionExpr, thenBlock: thenBlock, elseBlock: elseBlock)
+        if isDebug {
+            ifStmt.setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
+        }
+        return ifStmt
     }
 
     /**
@@ -536,11 +549,15 @@ class Parser {
         try getNextToken() // Consume line feed
 
         if block != nil {
-            return ForStmt(indexName: indexName,
-                           startExpression: startExpression,
-                           endExpression: endExpression,
-                           stepExpression: stepExpression,
-                           block: block!)
+            let forStmt = ForStmt(indexName: indexName,
+                                  startExpression: startExpression,
+                                  endExpression: endExpression,
+                                  stepExpression: stepExpression,
+                                  block: block!)
+            if isDebug {
+                forStmt.setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
+            }
+            return forStmt
         }
         
         // No for loop body
@@ -599,8 +616,12 @@ class Parser {
         }
         
         try getNextToken() // Consume line feed
-        
-        return ReturnStmt(result: result)
+
+        let resultStmt = ReturnStmt(result: result)
+        if isDebug {
+            resultStmt.setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
+        }
+        return resultStmt
     }
     
     /**
@@ -620,8 +641,12 @@ class Parser {
         }
         
         try getNextToken() // Consume line feed
-        
-        return BreakStmt()
+
+        let breakStmt = BreakStmt()
+        if isDebug {
+            breakStmt.setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
+        }
+        return breakStmt
     }
     
     /**
@@ -641,8 +666,12 @@ class Parser {
         }
         
         try getNextToken() // Consume line feed
-        
-        return ContinueStmt()
+
+        let continueStmt = ContinueStmt()
+        if isDebug {
+            continueStmt.setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
+        }
+        return continueStmt
     }
     
     /**
@@ -781,6 +810,9 @@ class Parser {
         try getNextToken() // Consume lhs identifier
         
         var lhs: Evaluable = IdentifierExpr(name: name)
+        if isDebug {
+            (lhs as! IdentifierExpr).setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
+        }
         
         while true {
             if currentToken != .dot {
@@ -800,6 +832,9 @@ class Parser {
             
             // Merge LHS/RHS.
             lhs = BinaryOperatorExpr(binOp: .dot, lhs: lhs, rhs: IdentifierExpr(name: name))
+            if isDebug {
+                (lhs as! BinaryOperatorExpr).setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
+            }
         }
     }
     
@@ -812,8 +847,12 @@ class Parser {
             // error: consecutive statements on a line are not allowed
             throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
         }
-        
-        return ExpressionStmt(expr: expression)
+
+        let exprStmt = ExpressionStmt(expr: expression)
+        if isDebug {
+            exprStmt.setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
+        }
+        return exprStmt
     }
     
     /**
@@ -878,18 +917,27 @@ class Parser {
             
             if currentToken == .variable,
                 let instanceVariableDeclaration = try parseVariableDeclarationStatement() as? VariableDeclarationStmt {
+                if isDebug {
+                    instanceVariableDeclaration.setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
+                }
                 instancePropertyDeclarations.append(instanceVariableDeclaration)
                 continue
             }
             
             if currentToken == .constant,
                 let instanceConstantDeclaration = try parseConstantDeclarationStatement() as? VariableDeclarationStmt {
+                if isDebug {
+                    instanceConstantDeclaration.setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
+                }
                 instancePropertyDeclarations.append(instanceConstantDeclaration)
                 continue
             }
             
             if currentToken == .funcToken,
                 let instanceMethodDeclaration = try parseFunctionStatement() as? FunctionDeclarationStmt {
+                if isDebug {
+                    instanceMethodDeclaration.setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
+                }
                 instanceMethodDeclarations.append(instanceMethodDeclaration)
                 continue
             }
@@ -902,18 +950,27 @@ class Parser {
                 
                 if currentToken == .variable,
                     let classVariableDeclaration = try parseVariableDeclarationStatement() as? VariableDeclarationStmt {
+                    if isDebug {
+                        classVariableDeclaration.setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
+                    }
                     classPropertyDeclarations.append(classVariableDeclaration)
                     continue
                 }
                 
                 if currentToken == .constant,
                     let classConstantDeclaration = try parseConstantDeclarationStatement() as? VariableDeclarationStmt {
+                    if isDebug {
+                        classConstantDeclaration.setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
+                    }
                     classPropertyDeclarations.append(classConstantDeclaration)
                     continue
                 }
                 
                 if currentToken == .funcToken,
                     let classMethodDeclaration = try parseFunctionStatement() as? FunctionDeclarationStmt {
+                    if isDebug {
+                        classMethodDeclaration.setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
+                    }
                     classMethodDeclarations.append(classMethodDeclaration)
                     continue
                 }
@@ -921,6 +978,9 @@ class Parser {
             
             if currentToken == .classToken,
                 let innerClassDeclaration = try parseClassDeclarationStatement() as? ClassDeclarationStmt {
+                if isDebug {
+                    innerClassDeclaration.setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
+                }
                 innerClassDeclarations.append(innerClassDeclaration)
                 continue
             }
@@ -937,13 +997,17 @@ class Parser {
         
         try getNextToken() // Consume line feed
 
-        return ClassDeclarationStmt(name: name,
-                                    superclassExpr: superclassExpr,
-                                    classPropertyDeclarations: classPropertyDeclarations,
-                                    classMethodDeclarations: classMethodDeclarations,
-                                    instancePropertyDeclarations: instancePropertyDeclarations,
-                                    instanceMethodDeclarations: instanceMethodDeclarations,
-                                    innerClassDeclarations: innerClassDeclarations)
+        let classDeclarationStmt = ClassDeclarationStmt(name: name,
+                                                        superclassExpr: superclassExpr,
+                                                        classPropertyDeclarations: classPropertyDeclarations,
+                                                        classMethodDeclarations: classMethodDeclarations,
+                                                        instancePropertyDeclarations: instancePropertyDeclarations,
+                                                        instanceMethodDeclarations: instanceMethodDeclarations,
+                                                        innerClassDeclarations: innerClassDeclarations)
+        if isDebug {
+            classDeclarationStmt.setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
+        }
+        return classDeclarationStmt
     }
     
     // MARK: - Expressions parsing
@@ -1004,7 +1068,11 @@ class Parser {
         
         guard currentToken == .leftParenthesis else {
             // Variable parsing
-            return IdentifierExpr(name: name)
+            let identifierExpr = IdentifierExpr(name: name)
+            if isDebug {
+                identifierExpr.setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
+            }
+            return identifierExpr
         }
         
         // Function call parsing
@@ -1051,9 +1119,12 @@ class Parser {
         }
         
         try getNextToken() // Consume right parenthesis: )
-        
-        return FunctionCallExpr(name: name,
-                                arguments: arguments.count > 0 ? arguments : nil)
+        let funcCallExpr = FunctionCallExpr(name: name,
+                                            arguments: arguments.count > 0 ? arguments : nil)
+        if isDebug {
+            funcCallExpr.setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
+        }
+        return funcCallExpr
     }
     
     private func parseFunctionCallArgument() throws -> FunctionCallArgument? {
@@ -1173,16 +1244,24 @@ class Parser {
      */
     private func parseSuperExpression() throws -> Evaluable {
         try getNextToken() // consume 'super'
-        
-        return SuperExpr()
+
+        let superExpr = SuperExpr()
+        if isDebug {
+            superExpr.setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
+        }
+        return superExpr
     }
     
     /**
      */
     private func parseNilExpression() throws -> Evaluable {
         try getNextToken() // consume 'nil'
-        
-        return NilExpr()
+
+        let nilExpr = NilExpr()
+        if isDebug {
+            nilExpr.setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
+        }
+        return nilExpr
     }
     
     /// unary
@@ -1201,7 +1280,11 @@ class Parser {
         try getNextToken() // consume unary operator
 
         if let operand = try parseUnaryExpression() {
-            return UnaryOperatorExpr(unOp: unOp, operand: operand)
+            let unaryOperatorExpr = UnaryOperatorExpr(unOp: unOp, operand: operand)
+            if isDebug {
+                unaryOperatorExpr.setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
+            }
+            return unaryOperatorExpr
         }
         
         return nil

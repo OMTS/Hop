@@ -13,10 +13,14 @@ import Foundation
  Return statement
  
  */
-struct ReturnStmt: Evaluable {
+class ReturnStmt: DebuggableElement, Evaluable {
     
     var result: Evaluable?
-    
+
+    init(result: Evaluable?) {
+        self.result = result
+    }
+
     var description: String {
         var description = "return"
         if let result = result {
@@ -29,7 +33,8 @@ struct ReturnStmt: Evaluable {
         if let result = result {
             guard let resultVariable = try result.evaluate(context: context,
                                                            environment: environment) as? Variable else {
-                throw InterpreterError.expressionEvaluationError
+
+                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
             }
             context.returnedEvaluable = resultVariable
         } else {

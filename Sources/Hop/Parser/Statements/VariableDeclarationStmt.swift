@@ -13,7 +13,7 @@ import Foundation
  Variable declaration statement
  
  */
-class VariableDeclarationStmt: Evaluable {
+class VariableDeclarationStmt: DebuggableElement, Evaluable {
     
     var name: String
     var hashId: Int
@@ -46,7 +46,7 @@ class VariableDeclarationStmt: Evaluable {
     func evaluate(context: Scope, environment: Environment) throws -> Evaluable? {
         // Check for identifier redeclaration
         guard context.symbolTable[hashId] == nil else {
-            throw InterpreterError.invalidRedeclaration
+            throw ProgramError(errorType: InterpreterError.invalidRedeclaration, lineNumber: lineNumber, postion: position)
         }
         
         var type: Type!
@@ -63,7 +63,7 @@ class VariableDeclarationStmt: Evaluable {
             }
             
             if type == nil {
-                throw InterpreterError.undefinedType
+                throw ProgramError(errorType: InterpreterError.undefinedType, lineNumber: lineNumber, postion: position)
             }
         }
         
@@ -73,7 +73,7 @@ class VariableDeclarationStmt: Evaluable {
             let evaluatedVariable = try expr.evaluate(context: context,
                                                       environment: environment) as? Variable
             if evaluatedVariable == nil {
-                throw InterpreterError.expressionEvaluationError
+                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
             }
 
             variable = Variable(type: evaluatedVariable!.type,
@@ -86,22 +86,22 @@ class VariableDeclarationStmt: Evaluable {
                     if type != evaluatedVariable!.type {
                         if let instance = evaluatedVariable!.value as? Instance {
                             if !instance.isInstance(of: type) {
-                                throw InterpreterError.expressionTypeMismatch
+                                throw ProgramError(errorType: InterpreterError.expressionTypeMismatch, lineNumber: lineNumber, postion: position)
                             }
                         } else if evaluatedVariable!.type != .nil {
-                            throw InterpreterError.expressionTypeMismatch
+                            throw ProgramError(errorType: InterpreterError.expressionTypeMismatch, lineNumber: lineNumber, postion: position)
                         }
                         variable.type = type
                     }
                 }
             } else if evaluatedVariable!.type == .nil {
-                throw InterpreterError.undefinedType
+                throw ProgramError(errorType: InterpreterError.undefinedType, lineNumber: lineNumber, postion: position)
             }
         } else if let type = type {
             variable = Variable(type: type, isConstant: isConstant, value: nil)
             
         } else {
-            throw InterpreterError.undefinedType
+            throw ProgramError(errorType: InterpreterError.undefinedType, lineNumber: lineNumber, postion: position)
         }
 
         // Add variable to current scope

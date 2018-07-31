@@ -13,9 +13,13 @@ import Foundation
  Expression statement
  
  */
-struct ExpressionStmt: Evaluable {
+class ExpressionStmt: DebuggableElement, Evaluable {
     
     var expr: Evaluable
+
+    init(expr: Evaluable) {
+        self.expr = expr
+    }
     
     var description: String {
         return expr.description

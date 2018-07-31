@@ -44,7 +44,7 @@ public class Lexer {
     }
 
     public func getLineNumber() -> Int {
-        return lineIndex + 1
+        return lineIndex - 1 
     }
 
     public func getNextChar() {

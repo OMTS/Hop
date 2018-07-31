@@ -20,11 +20,10 @@ public class Interpreter {
     public func runScript(_ script: String) throws {
         let lexer = Lexer(script: script)
         let parser = Parser(with: lexer)
-        if let program = try parser.parseProgram() {
+        if let program = try parser.parseProgram(with: environment) {
             try program.perform(with: environment)
         }
     }
-    
 }
 
 

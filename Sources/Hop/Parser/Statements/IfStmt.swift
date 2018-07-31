@@ -13,12 +13,18 @@ import Foundation
  If statement
  
  */
-struct IfStmt: Evaluable {
+class IfStmt: DebuggableElement, Evaluable {
     
     var conditionExpression: Evaluable
     var thenBlock: BlockStmt?
     var elseBlock: BlockStmt?
-    
+
+    init(conditionExpression: Evaluable, thenBlock: BlockStmt?, elseBlock: BlockStmt?) {
+        self.conditionExpression = conditionExpression
+        self.thenBlock = thenBlock
+        self.elseBlock = elseBlock
+    }
+
     var description: String {
         var description = "if " + conditionExpression.description + " {\n"
         if let thenBlock = thenBlock {
@@ -43,7 +49,7 @@ struct IfStmt: Evaluable {
         guard let conditionVariable = try conditionExpression.evaluate(context: context,
                                                                        environment: environment) as? Variable,
             let conditionValue = conditionVariable.value as? Bool else {
-            throw InterpreterError.expressionEvaluationError
+            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
         }
         
         if conditionValue {

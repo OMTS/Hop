@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ClassDeclarationStmt: Evaluable {
+class ClassDeclarationStmt: DebuggableElement, Evaluable {
 
     let name: String
     let hashId: Int
@@ -73,7 +73,7 @@ class ClassDeclarationStmt: Evaluable {
     
     func evaluate(context: Scope, environment: Environment) throws -> Evaluable? {
         if context.symbolTable[hashId] != nil {
-            throw InterpreterError.classAlreadyDeclared
+            throw ProgramError(errorType: InterpreterError.classAlreadyDeclared, lineNumber: lineNumber, postion: position)
         }
         
         let classScope = Scope(parent: context)
@@ -85,7 +85,7 @@ class ClassDeclarationStmt: Evaluable {
                     return result + (declaration.hashId == instancePropertyDeclaration.hashId ? 1 : 0)
                 }
                 if count > 1 {
-                    throw InterpreterError.classMemberAlreadyDeclared
+                    throw ProgramError(errorType: InterpreterError.classMemberAlreadyDeclared, lineNumber: lineNumber, postion: position)
                 }
             }
         }
@@ -102,7 +102,7 @@ class ClassDeclarationStmt: Evaluable {
             superclass = try superclassExpr.evaluate(context: context,
                                                      environment: environment) as? Class
             if superclass == nil {
-                throw InterpreterError.unresolvedIdentifier
+                throw ProgramError(errorType: InterpreterError.unresolvedIdentifier, lineNumber: lineNumber, postion: position)
             }
             
             // Check if subclass does not redeclare one of superclass instance property
@@ -110,7 +110,7 @@ class ClassDeclarationStmt: Evaluable {
                 instancePropertyDeclarations.count > 0 {
                 for instancePropertyDeclaration in instancePropertyDeclarations {
                     if superclass!.hasInstanceProperty(with: instancePropertyDeclaration.hashId) {
-                        throw InterpreterError.classMemberAlreadyDeclaredInSuperclass
+                        throw ProgramError(errorType: InterpreterError.classMemberAlreadyDeclaredInSuperclass, lineNumber: lineNumber, postion: position)
                     }
                 }
             }
@@ -126,7 +126,7 @@ class ClassDeclarationStmt: Evaluable {
             for classPropertyDeclaration in classPropertyDeclarations {
                 // Check if property is not already declared in superclass
                 if superclass?.getClassMember(for: classPropertyDeclaration.hashId) != nil {
-                    throw InterpreterError.classMemberAlreadyDeclaredInSuperclass
+                    throw ProgramError(errorType: InterpreterError.classMemberAlreadyDeclaredInSuperclass, lineNumber: lineNumber, postion: position)
                 }
 
                 _ = try classPropertyDeclaration.evaluate(context: classScope,

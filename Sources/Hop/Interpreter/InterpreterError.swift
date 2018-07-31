@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum InterpreterError: ErrorType, Error {
+enum InterpreterError: String, ErrorType {
     case invalidRedeclaration
     case unresolvedIdentifier
     case forbiddenAssignment
@@ -48,6 +48,6 @@ enum InterpreterError: ErrorType, Error {
     case classMemberNotDeclared
 
     func getDescription() -> String {
-        return "Generic Interpreter Error Type"
+        return self.rawValue
     }
 }

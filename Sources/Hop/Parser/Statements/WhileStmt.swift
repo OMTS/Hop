@@ -8,7 +8,7 @@
 
 import Foundation
 
-class WhileStmt: Evaluable {
+class WhileStmt: DebuggableElement, Evaluable {
 
     private let conditionExpression: Evaluable
     private let block: BlockStmt
@@ -36,7 +36,7 @@ class WhileStmt: Evaluable {
             guard let conditionVariable = try expression.evaluate(context: context,
                                                                   environment: environment) as? Variable,
                 let conditionValue = conditionVariable.value as? Bool else {
-                    throw InterpreterError.expressionEvaluationError
+                    throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
             }
             return conditionValue
         }

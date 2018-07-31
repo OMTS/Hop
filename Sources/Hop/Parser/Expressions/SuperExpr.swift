@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct SuperExpr: Evaluable {
+class SuperExpr: DebuggableElement, Evaluable {
 
     var description: String {
         return Token.superToken.rawValue
@@ -20,11 +20,11 @@ struct SuperExpr: Evaluable {
             if let selfVariable = selfValue as? Variable,
                 let selfInstance = selfVariable.value as? Instance {
                 if selfInstance.class.superclass == nil {
-                    throw InterpreterError.useOfSuperInRootClassMember
+                    throw ProgramError(errorType: InterpreterError.useOfSuperInRootClassMember, lineNumber: lineNumber, postion: position)
                 }
                 return selfVariable
             } else {
-                throw InterpreterError.expressionEvaluationError
+                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
             }
         }
         
@@ -32,18 +32,18 @@ struct SuperExpr: Evaluable {
         if let superValue = context.getSymbolValue(for: SuperParameter.hashId) {
             if superValue is Null {
                 // 'super' members cannot be referenced in a root class
-                throw InterpreterError.useOfSuperInRootClassMember
+                throw ProgramError(errorType: InterpreterError.useOfSuperInRootClassMember, lineNumber: lineNumber, postion: position)
             
             } else if let superclass = superValue as? Class {
                 return superclass
                 
             } else {
-                throw InterpreterError.expressionEvaluationError
+                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
             }
         }
         
         // 'super' cannot be used outside of class members
-        throw InterpreterError.useOfSuperOutsideAClassMember
+        throw ProgramError(errorType: InterpreterError.useOfSuperOutsideAClassMember, lineNumber: lineNumber, postion: position)
     }
 
 }

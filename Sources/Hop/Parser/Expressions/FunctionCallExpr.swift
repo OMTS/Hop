@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct FunctionCallExpr : Evaluable {
+class FunctionCallExpr : DebuggableElement, Evaluable {
     
     let name: String
     let hashId: Int     // Used for class constructor search
@@ -61,8 +61,7 @@ struct FunctionCallExpr : Evaluable {
                                       context: context,
                                       environment: environment)
         }
-        
-        throw InterpreterError.classMemberNotDeclared
+        throw ProgramError(errorType: InterpreterError.classMemberNotDeclared, lineNumber: lineNumber, postion: position)
     }
 
     func evaluateMethod(ofInstance instance: Instance,
@@ -84,7 +83,7 @@ struct FunctionCallExpr : Evaluable {
                                               arguments: arguments)
         
         guard let closure = inspectedClass.getClassMember(for: methodCallExpr.signatureHashId) as? Closure else {
-            throw InterpreterError.functionNotDeclared
+            throw ProgramError(errorType: InterpreterError.functionNotDeclared, lineNumber: lineNumber, postion: position)
         }
 
         return try closure.evaluate(arguments: arguments,
@@ -126,7 +125,8 @@ struct FunctionCallExpr : Evaluable {
                                       environment: environment)
         }
         
-        throw InterpreterError.functionNotDeclared
+        throw ProgramError(errorType: InterpreterError.functionNotDeclared, lineNumber: lineNumber, postion: position)
+
     }
     
     private func createInstance(of class: Class,
@@ -162,9 +162,11 @@ struct FunctionCallExpr : Evaluable {
                                                inspectedClass: instance.class,
                                                context: context,
                                                environment: environment)
-        } catch let error as InterpreterError {
-            if error != InterpreterError.functionNotDeclared && arguments != nil {
-                throw error
+        } catch  (let error as ProgramError){
+            if let errorType = error.errorType as? InterpreterError {
+                if errorType != InterpreterError.functionNotDeclared && arguments != nil {
+                    throw error
+                }
             }
         }
         

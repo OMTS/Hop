@@ -8,7 +8,7 @@
 
 import Foundation
 
-class NilExpr: Evaluable {
+class NilExpr: DebuggableElement, Evaluable {
     
     static private let nilVariable = Variable(type: .nil, isConstant: true, value: nil)
     

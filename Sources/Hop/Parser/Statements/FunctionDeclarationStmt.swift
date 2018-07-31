@@ -14,7 +14,7 @@ import Foundation
  Function declaration statement
  
  */
-class FunctionDeclarationStmt: Evaluable {
+class FunctionDeclarationStmt: DebuggableElement, Evaluable {
     
     var prototype: FunctionDeclarationPrototype
     var block: BlockStmt?
@@ -56,7 +56,7 @@ class FunctionDeclarationStmt: Evaluable {
                     type = `class`.type
                 
                 } else {
-                    throw InterpreterError.undefinedType
+                    throw ProgramError(errorType: InterpreterError.undefinedType, lineNumber: lineNumber, postion: position)
                 }
                 
                 closureArguments?.append(Argument(name: declaredArgument.name,
@@ -78,7 +78,7 @@ class FunctionDeclarationStmt: Evaluable {
                 let `class` = evaluatedType as? Class {
                 type = `class`.type
             } else {
-                throw InterpreterError.undefinedType
+                throw ProgramError(errorType: InterpreterError.undefinedType, lineNumber: lineNumber, postion: position)
             }
         }
         
@@ -87,7 +87,8 @@ class FunctionDeclarationStmt: Evaluable {
                                          type: type)
         
         guard context.symbolTable[closurePrototype.hashId] == nil else {
-            throw InterpreterError.functionAlreadyDeclared
+            throw ProgramError(errorType: InterpreterError.functionAlreadyDeclared, lineNumber: lineNumber, postion: position)
+
         }
         
         // Add closure in context

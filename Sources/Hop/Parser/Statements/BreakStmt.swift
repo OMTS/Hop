@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct BreakStmt: Evaluable {
+class BreakStmt: DebuggableElement, Evaluable {
 
     var description: String {
         return "break"

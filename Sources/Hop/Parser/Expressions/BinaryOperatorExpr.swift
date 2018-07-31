@@ -8,11 +8,17 @@
 
 import Foundation
 
-struct BinaryOperatorExpr: Evaluable {
+class BinaryOperatorExpr: DebuggableElement, Evaluable {
     
     var binOp: Token
     var lhs: Evaluable
     var rhs: Evaluable
+
+    init(binOp: Token, lhs: Evaluable, rhs: Evaluable) {
+        self.binOp = binOp
+        self.lhs = lhs
+        self.rhs = rhs
+    }
 
     var description: String {
         return "(" + lhs.description + "\(binOp.rawValue)" + rhs.description + ")"
@@ -112,14 +118,14 @@ struct BinaryOperatorExpr: Evaluable {
                                                             context: context,
                                                             environment: environment)
             } else {
-                throw InterpreterError.accessorMemberError
+                throw ProgramError(errorType: InterpreterError.accessorMemberError, lineNumber: lineNumber, postion: position)
             }
         } else if let lhsClasse = lhsEvaluation as? Class {
             if let rhsIdentifier = rhs as? IdentifierExpr {
                 // Search class member
                 guard let evaluatedRhs = lhsClasse.getClassMember(for: rhsIdentifier.hashId),
                     (evaluatedRhs is Variable || evaluatedRhs is Class) else {
-                    throw InterpreterError.unresolvedIdentifier
+                    throw ProgramError(errorType: InterpreterError.unresolvedIdentifier, lineNumber: lineNumber, postion: position)
                 }
                 return evaluatedRhs
 
@@ -128,7 +134,7 @@ struct BinaryOperatorExpr: Evaluable {
                                                           context: context,
                                                           environment: environment)
             } else {
-                throw InterpreterError.accessorMemberError
+                throw ProgramError(errorType: InterpreterError.accessorMemberError, lineNumber: lineNumber, postion: position)
             }
         } else if let lhsVariable = lhsEvaluation as? Variable {
             if let instance = lhsVariable.value as? Instance {
@@ -136,11 +142,12 @@ struct BinaryOperatorExpr: Evaluable {
                     // Restrain property access if it is accessed from superclass reference
                     if lhsVariable.type != instance.class.type {
                         guard let superclass = instance.class.getSuperclass(for: lhsVariable.type.hashId) else {
-                            throw InterpreterError.expressionEvaluationError
+                            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
+
                         }
                         if !superclass.hasInstanceProperty(with: rhsIdentifier.hashId),
                             superclass.getClassMember(for: rhsIdentifier.hashId) == nil {
-                            throw InterpreterError.classMemberNotDeclared
+                            throw ProgramError(errorType: InterpreterError.classMemberNotDeclared, lineNumber: lineNumber, postion: position)
                         }
                     }
                     
@@ -154,13 +161,13 @@ struct BinaryOperatorExpr: Evaluable {
                         return propertyVariable
                         
                     } else {
-                        throw InterpreterError.accessorMemberError
+                        throw ProgramError(errorType: InterpreterError.accessorMemberError, lineNumber: lineNumber, postion: position)
                     }
                 } else if let rhsFunctionCall = rhs as? FunctionCallExpr {
                     // Restrain method acces if it is accessed from superclass reference
                     if lhsVariable.type != instance.class.type {
                         guard let superclass = instance.class.getSuperclass(for: lhsVariable.type.hashId) else {
-                            throw InterpreterError.expressionEvaluationError
+                            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
                         }
                         var methodArgumentNames = [SelfParameter.name]
                         if let argumentNames = rhsFunctionCall.argumentNames {
@@ -169,7 +176,7 @@ struct BinaryOperatorExpr: Evaluable {
                         let methodHashId = Closure.getFunctionSignatureHashId(name: rhsFunctionCall.name,
                                                                               argumentNames: methodArgumentNames)
                         if superclass.getClassMember(for: methodHashId) == nil {
-                            throw InterpreterError.classMemberNotDeclared
+                            throw ProgramError(errorType: InterpreterError.classMemberNotDeclared, lineNumber: lineNumber, postion: position)
                         }
                     }
                     
@@ -181,16 +188,15 @@ struct BinaryOperatorExpr: Evaluable {
                                                                   context: context,
                                                                   environment: environment)
                 } else {
-                    throw InterpreterError.accessorMemberError
+                    throw ProgramError(errorType: InterpreterError.accessorMemberError, lineNumber: lineNumber, postion: position)
                 }
             } else if lhsVariable.value != nil {
-                throw InterpreterError.accessorOwnerError
-
+                throw ProgramError(errorType: InterpreterError.accessorOwnerError, lineNumber: lineNumber, postion: position)
             } else {
-                throw InterpreterError.undefinedVariable
+                throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
             }
         } else {
-            throw InterpreterError.accessorOwnerError
+            throw ProgramError(errorType: InterpreterError.accessorOwnerError, lineNumber: lineNumber, postion: position)
         }
     }
     
@@ -201,19 +207,19 @@ struct BinaryOperatorExpr: Evaluable {
                                                  environment: environment) as? Variable,
             let rhsVariable = try rhs.evaluate(context: context,
                                                environment: environment) as? Variable else {
-              throw InterpreterError.expressionEvaluationError
+              throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
         }
         
         guard lhsVariable.type == rhsVariable.type else {
-            throw InterpreterError.binaryOperatorTypeMismatch
+            throw ProgramError(errorType: InterpreterError.binaryOperatorTypeMismatch, lineNumber: lineNumber, postion: position)
         }
 
         guard let lhsValue = lhsVariable.value else {
-            throw InterpreterError.undefinedVariable
+            throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
         }
         
         guard let rhsValue = rhsVariable.value else {
-            throw InterpreterError.undefinedVariable
+            throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
         }
         
         if lhsVariable.type == .integer {
@@ -231,7 +237,7 @@ struct BinaryOperatorExpr: Evaluable {
                             isConstant: true,
                             value: (lhsValue as! String) + (rhsValue as! String))
         } else {
-            throw InterpreterError.expressionEvaluationError
+            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
         }
     }
     
@@ -242,19 +248,19 @@ struct BinaryOperatorExpr: Evaluable {
                                                  environment: environment) as? Variable,
             let rhsVariable = try rhs.evaluate(context: context,
                                                environment: environment) as? Variable else {
-                throw InterpreterError.expressionEvaluationError
+                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
         }
         
         guard lhsVariable.type == rhsVariable.type else {
-            throw InterpreterError.binaryOperatorTypeMismatch
+            throw ProgramError(errorType: InterpreterError.binaryOperatorTypeMismatch, lineNumber: lineNumber, postion: position)
         }
         
         guard let lhsValue = lhsVariable.value else {
-            throw InterpreterError.undefinedVariable
+           throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
         }
         
         guard let rhsValue = rhsVariable.value else {
-            throw InterpreterError.undefinedVariable
+            throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
         }
         
         if lhsVariable.type == .integer {
@@ -268,7 +274,7 @@ struct BinaryOperatorExpr: Evaluable {
                             value: (lhsValue as! Double) - (rhsValue as! Double))
             
         } else {
-            throw InterpreterError.expressionEvaluationError
+            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
         }
     }
     
@@ -279,19 +285,20 @@ struct BinaryOperatorExpr: Evaluable {
                                                  environment: environment) as? Variable,
             let rhsVariable = try rhs.evaluate(context: context,
                                                environment: environment) as? Variable else {
-                throw InterpreterError.expressionEvaluationError
+                 throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
+
         }
 
         guard lhsVariable.type == rhsVariable.type else {
-            throw InterpreterError.binaryOperatorTypeMismatch
+            throw ProgramError(errorType: InterpreterError.binaryOperatorTypeMismatch, lineNumber: lineNumber, postion: position)
         }
         
         guard let lhsValue = lhsVariable.value else {
-            throw InterpreterError.undefinedVariable
+            throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
         }
         
         guard let rhsValue = rhsVariable.value else {
-            throw InterpreterError.undefinedVariable
+            throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
         }
         
         if lhsVariable.type == .integer {
@@ -305,7 +312,7 @@ struct BinaryOperatorExpr: Evaluable {
                             value: (lhsValue as! Double) * (rhsValue as! Double))
             
         } else {
-            throw InterpreterError.expressionEvaluationError
+            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
         }
     }
     
@@ -316,25 +323,25 @@ struct BinaryOperatorExpr: Evaluable {
                                                  environment: environment) as? Variable,
             let rhsVariable = try rhs.evaluate(context: context,
                                                environment: environment) as? Variable else {
-                throw InterpreterError.expressionEvaluationError
+                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
         }
 
         guard lhsVariable.type == rhsVariable.type else {
-            throw InterpreterError.binaryOperatorTypeMismatch
+            throw ProgramError(errorType: InterpreterError.binaryOperatorTypeMismatch, lineNumber: lineNumber, postion: position)
         }
         
         guard let lhsValue = lhsVariable.value else {
-            throw InterpreterError.undefinedVariable
+            throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
         }
         
         guard let rhsValue = rhsVariable.value else {
-            throw InterpreterError.undefinedVariable
+            throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
         }
         
         if lhsVariable.type == .integer {
             let rhsInteger = rhsValue as! Int
             if rhsInteger == 0 {
-                throw InterpreterError.zeroDivisionAttempt
+                throw ProgramError(errorType: InterpreterError.zeroDivisionAttempt, lineNumber: lineNumber, postion: position)
             }
             return Variable(type: .integer,
                             isConstant: true,
@@ -343,14 +350,14 @@ struct BinaryOperatorExpr: Evaluable {
         } else if lhsVariable.type == .real {
             let rhsReal = rhsValue as! Double
             if rhsReal == 0 {
-                throw InterpreterError.zeroDivisionAttempt
+                throw ProgramError(errorType: InterpreterError.zeroDivisionAttempt, lineNumber: lineNumber, postion: position)
             }
             return Variable(type: .real,
                             isConstant: true,
                             value: (lhsValue as! Double) / rhsReal)
             
         } else {
-            throw InterpreterError.expressionEvaluationError
+            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
         }
     }
     
@@ -361,19 +368,19 @@ struct BinaryOperatorExpr: Evaluable {
                                                  environment: environment) as? Variable,
             let rhsVariable = try rhs.evaluate(context: context,
                                                environment: environment) as? Variable else {
-                throw InterpreterError.expressionEvaluationError
+                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
         }
 
         guard lhsVariable.type == rhsVariable.type else {
-            throw InterpreterError.binaryOperatorTypeMismatch
+            throw ProgramError(errorType: InterpreterError.binaryOperatorTypeMismatch, lineNumber: lineNumber, postion: position)
         }
         
         guard let lhsValue = lhsVariable.value else {
-            throw InterpreterError.undefinedVariable
+            throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
         }
         
         guard let rhsValue = rhsVariable.value else {
-            throw InterpreterError.undefinedVariable
+            throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
         }
         
         if lhsVariable.type == .integer {
@@ -382,7 +389,7 @@ struct BinaryOperatorExpr: Evaluable {
                             value: (lhsValue as! Int) % (rhsValue as! Int))
             
         } else {
-            throw InterpreterError.expressionEvaluationError
+            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
         }
     }
     
@@ -393,11 +400,11 @@ struct BinaryOperatorExpr: Evaluable {
                                                  environment: environment) as? Variable,
             let rhsVariable = try rhs.evaluate(context: context,
                                                environment: environment) as? Variable else {
-                throw InterpreterError.expressionEvaluationError
+                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
         }
         
         if lhsVariable.isConstant {
-            throw InterpreterError.forbiddenAssignment
+            throw ProgramError(errorType: InterpreterError.forbiddenAssignment, lineNumber: lineNumber, postion: position)
         }
 
         // Check for type matching
@@ -405,10 +412,10 @@ struct BinaryOperatorExpr: Evaluable {
             if lhsVariable.type != rhsVariable.type {
                 if let instance = rhsVariable.value as? Instance {
                     if !instance.isInstance(of: lhsVariable.type) {
-                        throw InterpreterError.expressionTypeMismatch
+                        throw ProgramError(errorType: InterpreterError.expressionTypeMismatch, lineNumber: lineNumber, postion: position)
                     }
                 } else if rhsVariable.type != .nil {
-                    throw InterpreterError.expressionTypeMismatch
+                    throw ProgramError(errorType: InterpreterError.expressionTypeMismatch, lineNumber: lineNumber, postion: position)
                 }
             }
         }
@@ -425,7 +432,7 @@ struct BinaryOperatorExpr: Evaluable {
                                                  environment: environment) as? Variable,
             let rhsVariable = try rhs.evaluate(context: context,
                                                environment: environment) as? Variable else {
-                throw InterpreterError.expressionEvaluationError
+                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
         }
 
         if lhsVariable.type != rhsVariable.type {
@@ -437,7 +444,7 @@ struct BinaryOperatorExpr: Evaluable {
                 return Variable(type: .boolean, isConstant: true, value: lhsVariable.value == nil)
             }
 
-            throw InterpreterError.expressionTypeMismatch
+            throw ProgramError(errorType: InterpreterError.expressionTypeMismatch, lineNumber: lineNumber, postion: position)
         }
         
         if lhsVariable.type == .integer {
@@ -457,7 +464,7 @@ struct BinaryOperatorExpr: Evaluable {
             return Variable(type: .boolean, isConstant: true, value: value)
 
         } else {
-            throw InterpreterError.expressionEvaluationError
+            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
         }
     }
     
@@ -468,7 +475,7 @@ struct BinaryOperatorExpr: Evaluable {
                                                  environment: environment) as? Variable,
             let rhsVariable = try rhs.evaluate(context: context,
                                                environment: environment) as? Variable else {
-                throw InterpreterError.expressionEvaluationError
+                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
         }
         
         if lhsVariable.type != rhsVariable.type {
@@ -480,7 +487,7 @@ struct BinaryOperatorExpr: Evaluable {
                 return Variable(type: .boolean, isConstant: true, value: lhsVariable.value != nil)
             }
             
-            throw InterpreterError.expressionTypeMismatch
+            throw ProgramError(errorType: InterpreterError.expressionTypeMismatch, lineNumber: lineNumber, postion: position)
         }
         
         if lhsVariable.type == .integer {
@@ -500,7 +507,7 @@ struct BinaryOperatorExpr: Evaluable {
             return Variable(type: .boolean, isConstant: true, value: value)
             
         } else {
-            throw InterpreterError.expressionEvaluationError
+            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
         }
     }
     
@@ -511,19 +518,19 @@ struct BinaryOperatorExpr: Evaluable {
                                                  environment: environment) as? Variable,
             let rhsVariable = try rhs.evaluate(context: context,
                                                environment: environment) as? Variable else {
-                throw InterpreterError.expressionEvaluationError
+                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
         }
 
         guard lhsVariable.type == rhsVariable.type else {
-            throw InterpreterError.binaryOperatorTypeMismatch
+            throw ProgramError(errorType: InterpreterError.binaryOperatorTypeMismatch, lineNumber: lineNumber, postion: position)
         }
         
         guard let lhsValue = lhsVariable.value else {
-            throw InterpreterError.undefinedVariable
+            throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
         }
         
         guard let rhsValue = rhsVariable.value else {
-            throw InterpreterError.undefinedVariable
+            throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
         }
         
         if lhsVariable.type == .integer {
@@ -539,7 +546,7 @@ struct BinaryOperatorExpr: Evaluable {
             return Variable(type: .boolean, isConstant: true, value: value)
             
         } else {
-            throw InterpreterError.expressionEvaluationError
+            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
         }
     }
     
@@ -550,19 +557,19 @@ struct BinaryOperatorExpr: Evaluable {
                                                  environment: environment) as? Variable,
             let rhsVariable = try rhs.evaluate(context: context,
                                                environment: environment) as? Variable else {
-                throw InterpreterError.expressionEvaluationError
+                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
         }
 
         guard lhsVariable.type == rhsVariable.type else {
-            throw InterpreterError.binaryOperatorTypeMismatch
+            throw ProgramError(errorType: InterpreterError.binaryOperatorTypeMismatch, lineNumber: lineNumber, postion: position)
         }
         
         guard let lhsValue = lhsVariable.value else {
-            throw InterpreterError.undefinedVariable
+            throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
         }
         
         guard let rhsValue = rhsVariable.value else {
-            throw InterpreterError.undefinedVariable
+            throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
         }
         
         if lhsVariable.type == .integer {
@@ -578,7 +585,7 @@ struct BinaryOperatorExpr: Evaluable {
             return Variable(type: .boolean, isConstant: true, value: value)
             
         } else {
-            throw InterpreterError.expressionEvaluationError
+            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
         }
     }
     
@@ -589,19 +596,19 @@ struct BinaryOperatorExpr: Evaluable {
                                                  environment: environment) as? Variable,
             let rhsVariable = try rhs.evaluate(context: context,
                                                environment: environment) as? Variable else {
-                throw InterpreterError.expressionEvaluationError
+                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
         }
 
         guard lhsVariable.type == rhsVariable.type else {
-            throw InterpreterError.binaryOperatorTypeMismatch
+            throw ProgramError(errorType: InterpreterError.binaryOperatorTypeMismatch, lineNumber: lineNumber, postion: position)
         }
         
         guard let lhsValue = lhsVariable.value else {
-            throw InterpreterError.undefinedVariable
+            throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
         }
         
         guard let rhsValue = rhsVariable.value else {
-            throw InterpreterError.undefinedVariable
+            throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
         }
         
         if lhsVariable.type == .integer {
@@ -617,7 +624,7 @@ struct BinaryOperatorExpr: Evaluable {
             return Variable(type: .boolean, isConstant: true, value: value)
             
         } else {
-            throw InterpreterError.expressionEvaluationError
+            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
         }
     }
     
@@ -628,19 +635,19 @@ struct BinaryOperatorExpr: Evaluable {
                                                  environment: environment) as? Variable,
             let rhsVariable = try rhs.evaluate(context: context,
                                                environment: environment) as? Variable else {
-                throw InterpreterError.expressionEvaluationError
+                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
         }
 
         guard lhsVariable.type == rhsVariable.type else {
-            throw InterpreterError.binaryOperatorTypeMismatch
+            throw ProgramError(errorType: InterpreterError.binaryOperatorTypeMismatch, lineNumber: lineNumber, postion: position)
         }
         
         guard let lhsValue = lhsVariable.value else {
-            throw InterpreterError.undefinedVariable
+            throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
         }
         
         guard let rhsValue = rhsVariable.value else {
-            throw InterpreterError.undefinedVariable
+            throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
         }
         
         if lhsVariable.type == .integer {
@@ -656,7 +663,7 @@ struct BinaryOperatorExpr: Evaluable {
             return Variable(type: .boolean, isConstant: true, value: value)
             
         } else {
-            throw InterpreterError.expressionEvaluationError
+            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
         }
     }
     
@@ -667,19 +674,19 @@ struct BinaryOperatorExpr: Evaluable {
                                                  environment: environment) as? Variable,
             let rhsVariable = try rhs.evaluate(context: context,
                                                environment: environment) as? Variable else {
-                throw InterpreterError.expressionEvaluationError
+                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
         }
         
         guard lhsVariable.type == rhsVariable.type else {
-            throw InterpreterError.binaryOperatorTypeMismatch
+            throw ProgramError(errorType: InterpreterError.binaryOperatorTypeMismatch, lineNumber: lineNumber, postion: position)
         }
         
         guard let lhsValue = lhsVariable.value else {
-            throw InterpreterError.undefinedVariable
+            throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
         }
         
         guard let rhsValue = rhsVariable.value else {
-            throw InterpreterError.undefinedVariable
+            throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
         }
 
         if lhsVariable.type == .boolean {
@@ -687,7 +694,7 @@ struct BinaryOperatorExpr: Evaluable {
             return Variable(type: .boolean, isConstant: true, value: value)
             
         } else {
-            throw InterpreterError.expressionEvaluationError
+            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
         }
     }
     
@@ -698,19 +705,19 @@ struct BinaryOperatorExpr: Evaluable {
                                                  environment: environment) as? Variable,
             let rhsVariable = try rhs.evaluate(context: context,
                                                environment: environment) as? Variable else {
-                throw InterpreterError.expressionEvaluationError
+                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
         }
 
         guard lhsVariable.type == rhsVariable.type else {
-            throw InterpreterError.binaryOperatorTypeMismatch
+            throw ProgramError(errorType: InterpreterError.binaryOperatorTypeMismatch, lineNumber: lineNumber, postion: position)
         }
         
         guard let lhsValue = lhsVariable.value else {
-            throw InterpreterError.undefinedVariable
+            throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
         }
         
         guard let rhsValue = rhsVariable.value else {
-            throw InterpreterError.undefinedVariable
+            throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
         }
         
         if lhsVariable.type == .boolean {
@@ -718,7 +725,7 @@ struct BinaryOperatorExpr: Evaluable {
             return Variable(type: .boolean, isConstant: true, value: value)
             
         } else {
-            throw InterpreterError.expressionEvaluationError
+            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
         }
     }
 

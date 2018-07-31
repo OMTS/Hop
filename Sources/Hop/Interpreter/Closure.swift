@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Closure: Evaluable {
+class Closure: DebuggableElement, Evaluable {
 
     let prototype: Prototype
     let block: BlockStmt?
@@ -45,7 +45,7 @@ class Closure: Evaluable {
                 var variable: Variable! = try arguments[index].expr.evaluate(context: context,
                                                                              environment: environment) as? Variable
                 guard variable != nil else {
-                    throw InterpreterError.expressionEvaluationError
+                    throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
                 }
                 
                 // Check if types match
@@ -53,14 +53,14 @@ class Closure: Evaluable {
                     if prototypeArgument.type != variable.type {
                         if let instance = variable.value as? Instance {
                             if !instance.isInstance(of: prototypeArgument.type) {
-                                throw InterpreterError.expressionTypeMismatch
+                                throw ProgramError(errorType: InterpreterError.expressionTypeMismatch, lineNumber: lineNumber, postion: position)
                             }
                         } else if variable.type == .nil {
                             variable = Variable(type: prototypeArgument.type,
                                                 isConstant: true,
                                                 value: nil)
                         } else {
-                            throw InterpreterError.expressionTypeMismatch
+                            throw ProgramError(errorType: InterpreterError.expressionTypeMismatch, lineNumber: lineNumber, postion: position)
                         }
                     }
                 }
@@ -77,15 +77,15 @@ class Closure: Evaluable {
         
         if prototype.type == .void {
             if returnedEvaluable != nil {
-                throw InterpreterError.shouldReturnNothing
+                throw ProgramError(errorType: InterpreterError.shouldReturnNothing, lineNumber: lineNumber, postion: position)
             }
         } else {
             returnedEvaluable = parametersContext.returnedEvaluable
             if returnedEvaluable == nil {
-                throw InterpreterError.missingReturnedExpression
+                throw ProgramError(errorType: InterpreterError.missingReturnedExpression, lineNumber: lineNumber, postion: position)
             }
             guard let returnedVariable = returnedEvaluable as? Variable else {
-                throw InterpreterError.expressionEvaluationError
+                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
             }
 
             // Check if types match
@@ -93,14 +93,14 @@ class Closure: Evaluable {
                 if prototype.type != returnedVariable.type {
                     if let instance = returnedVariable.value as? Instance {
                         if !instance.isInstance(of: prototype.type) {
-                            throw InterpreterError.wrongFunctionCallReturnedType
+                            throw ProgramError(errorType: InterpreterError.wrongFunctionCallReturnedType, lineNumber: lineNumber, postion: position)
                         }
                     } else if returnedVariable.type == .nil {
                         returnedEvaluable = Variable(type: prototype.type,
                                                      isConstant: true,
                                                      value: nil)
                     } else {
-                        throw InterpreterError.wrongFunctionCallReturnedType
+                        throw ProgramError(errorType: InterpreterError.wrongFunctionCallReturnedType, lineNumber: lineNumber, postion: position)
                     }
                 }
             }

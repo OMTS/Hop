@@ -8,10 +8,15 @@
 
 import Foundation
 
-struct UnaryOperatorExpr: Evaluable {
+class UnaryOperatorExpr: DebuggableElement, Evaluable {
     
     var unOp: Token
     var operand: Evaluable
+
+    init(unOp: Token, operand: Evaluable) {
+        self.unOp = unOp
+        self.operand = operand
+    }
     
     var description: String {
         return "\(unOp.rawValue)" + operand.description
@@ -42,15 +47,15 @@ struct UnaryOperatorExpr: Evaluable {
         
         guard let evaluatedVariable = try operand.evaluate(context: context,
                                                            environment: environment) as? Variable else {
-            throw InterpreterError.expressionEvaluationError
+            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
         }
         
         guard evaluatedVariable.type == .integer else {
-            throw InterpreterError.expressionEvaluationError
+            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
         }
         
         guard let evaluatedValue = evaluatedVariable.value else {
-            throw InterpreterError.undefinedVariable
+            throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
         }
         
         return Variable(type: .integer, isConstant: true, value: ~(evaluatedValue as! Int))
@@ -61,15 +66,15 @@ struct UnaryOperatorExpr: Evaluable {
         
         guard let evaluatedVariable = try operand.evaluate(context: context,
                                                            environment: environment) as? Variable else {
-            throw InterpreterError.expressionEvaluationError
+            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
         }
 
         guard evaluatedVariable.type == .boolean else {
-            throw InterpreterError.expressionEvaluationError
+            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
         }
         
         guard let evaluatedValue = evaluatedVariable.value else {
-            throw InterpreterError.undefinedVariable
+            throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
         }
 
         return Variable(type: .boolean, isConstant: true, value: !(evaluatedValue as! Bool))
@@ -80,7 +85,7 @@ struct UnaryOperatorExpr: Evaluable {
         
         guard let evaluatedVariable = try operand.evaluate(context: context,
                                                            environment: environment) as? Variable else {
-            throw InterpreterError.expressionEvaluationError
+            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
         }
         
         // NOTE: First, varibale type is checked,
@@ -88,7 +93,7 @@ struct UnaryOperatorExpr: Evaluable {
         
         if evaluatedVariable.type == .integer {
             guard let evaluatedValue = evaluatedVariable.value else {
-                throw InterpreterError.undefinedVariable
+                throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
             }
             return Variable(type: .integer,
                             isConstant: true,
@@ -96,13 +101,13 @@ struct UnaryOperatorExpr: Evaluable {
             
         } else if evaluatedVariable.type == .real {
             guard let evaluatedValue = evaluatedVariable.value else {
-                throw InterpreterError.undefinedVariable
+                throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
             }
             return Variable(type: .real,
                             isConstant: true,
                             value: (evaluatedValue as! Double))
         } else {
-            throw InterpreterError.expressionEvaluationError
+            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
         }
     }
     
@@ -111,7 +116,7 @@ struct UnaryOperatorExpr: Evaluable {
         
         guard let evaluatedVariable = try operand.evaluate(context: context,
                                                            environment: environment) as? Variable else {
-            throw InterpreterError.expressionEvaluationError
+            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
         }
         
         // NOTE: First, varibale type is checked,
@@ -119,7 +124,7 @@ struct UnaryOperatorExpr: Evaluable {
         
         if evaluatedVariable.type == .integer {
             guard let evaluatedValue = evaluatedVariable.value else {
-                throw InterpreterError.undefinedVariable
+                throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
             }
             return Variable(type: .integer,
                             isConstant: true,
@@ -127,13 +132,13 @@ struct UnaryOperatorExpr: Evaluable {
 
         } else if evaluatedVariable.type == .real {
             guard let evaluatedValue = evaluatedVariable.value else {
-                throw InterpreterError.undefinedVariable
+                throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
             }
             return Variable(type: .real,
                             isConstant: true,
                             value: -(evaluatedValue as! Double))
         } else {
-            throw InterpreterError.expressionEvaluationError
+            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
         }
     }
     

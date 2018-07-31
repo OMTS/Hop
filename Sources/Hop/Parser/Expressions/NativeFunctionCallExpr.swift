@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct NativeFunctionCallExpr : Evaluable {
+class NativeFunctionCallExpr : DebuggableElement, Evaluable {
     
     struct Argument: Loggable {
         var name: String!
@@ -59,7 +59,7 @@ struct NativeFunctionCallExpr : Evaluable {
 
             for argument in arguments {
                 guard let argumentVariable = context.getSymbolValue(for: argument.valueHashId) as? Variable else {
-                    throw InterpreterError.nativeFunctionCallParameterError
+                    throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, lineNumber: lineNumber, postion: position)
                 }
                 argumentEvaluations.append(argumentVariable)
             }
