@@ -270,7 +270,7 @@ public class Lexer {
                 return .logicalAND
             }
             
-            throw ProgrammError(errorType: LexerError.illegalContent, lineNumber: getLineNumber(), postion: getCurrentPosition() - 1)
+            throw ProgramError(errorType: LexerError.illegalContent, lineNumber: getLineNumber(), postion: getCurrentPosition() - 1)
         }
         
         // Consume logical OR
@@ -283,7 +283,7 @@ public class Lexer {
                 return .logicalOR
             }
             
-            throw ProgrammError(errorType: LexerError.illegalContent, lineNumber: getLineNumber(), postion: getCurrentPosition() - 1)
+            throw ProgramError(errorType: LexerError.illegalContent, lineNumber: getLineNumber(), postion: getCurrentPosition() - 1)
         }
         
         // Consume identifier
@@ -366,7 +366,7 @@ public class Lexer {
             return .string
         }
         
-        throw ProgrammError(errorType: LexerError.unknownError, lineNumber: getLineNumber(), postion: getCurrentPosition() - 1)
+        throw ProgramError(errorType: LexerError.unknownError, lineNumber: getLineNumber(), postion: getCurrentPosition() - 1)
     }
     
     // MARK: Helpers

@@ -9,7 +9,7 @@
 import Foundation
 
 protocol Evaluable: Loggable {
-    
+
     /**
      
      - Parameter context: current scope,

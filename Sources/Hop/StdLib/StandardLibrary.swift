@@ -52,8 +52,12 @@ private let nativesModules: [String: [FunctionClosure]] = [
     "Math": mathFunctionsDeclarations
 ]
 
-enum ImporterError: Error {
+enum ImporterError: ErrorType {
     case moduleNotFound
+
+    func getDescription() -> String {
+        return "Module Not Found"
+    }
 }
 
 func getNativeModule(name: String) -> Module? {

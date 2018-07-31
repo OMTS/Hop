@@ -10,12 +10,16 @@ import Foundation
 
 class ImportStmt: Evaluable {
 
+    var lineNumber: Int?
+    var position: Int?
     var name: String
     var hashId: Int
     
-    init(name: String) {
+    init(name: String, lineNumber: Int?, position: Int?) {
         self.name = name
         self.hashId = name.hashValue
+        self.lineNumber = lineNumber
+        self.position = position
     }
     
     var description: String {
@@ -38,7 +42,7 @@ class ImportStmt: Evaluable {
             return nil
         }
         
-        throw ImporterError.moduleNotFound
+        throw ProgramError(errorType: ImporterError.moduleNotFound, lineNumber: lineNumber, postion: position)
+
     }
-    
 }

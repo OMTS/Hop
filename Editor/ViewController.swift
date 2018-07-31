@@ -72,7 +72,7 @@ class ViewController: NSViewController {
             
         } catch let error {
             if let printableError = error as? ProgramPrintableError {
-                displayLog(message: "Error: \(printableError.getDescription) at \(printableError.lineNumber) on char \(printableError.postion)")
+                displayLog(message: "Error: \(printableError.getDescription) at \(printableError.lineNumber ?? -1 ) on char \(printableError.postion ?? -1)")
             } else {
                 displayLog(message: "Error: \(error)")
             }

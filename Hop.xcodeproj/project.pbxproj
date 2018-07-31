@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0F329F43210FCF8900E9042F /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F329F42210FCF8900E9042F /* Error.swift */; };
-		0F329F44210FCF8900E9042F /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F329F42210FCF8900E9042F /* Error.swift */; };
-		0F329F45210FCF8900E9042F /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F329F42210FCF8900E9042F /* Error.swift */; };
-		0F329F46210FCFCA00E9042F /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F329F42210FCF8900E9042F /* Error.swift */; };
+		0F329F43210FCF8900E9042F /* ProgramError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F329F42210FCF8900E9042F /* ProgramError.swift */; };
+		0F329F44210FCF8900E9042F /* ProgramError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F329F42210FCF8900E9042F /* ProgramError.swift */; };
+		0F329F45210FCF8900E9042F /* ProgramError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F329F42210FCF8900E9042F /* ProgramError.swift */; };
+		0F329F46210FCFCA00E9042F /* ProgramError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F329F42210FCF8900E9042F /* ProgramError.swift */; };
 		0FF7D3E921091930002E8439 /* LexerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF7D3E721091927002E8439 /* LexerTests.swift */; };
 		0FF7D3EA21091932002E8439 /* LexerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF7D3E721091927002E8439 /* LexerTests.swift */; };
 		0FF7D3EB21091932002E8439 /* LexerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF7D3E721091927002E8439 /* LexerTests.swift */; };
@@ -257,7 +257,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0F329F42210FCF8900E9042F /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		0F329F42210FCF8900E9042F /* ProgramError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramError.swift; sourceTree = "<group>"; };
 		0FF7D3E721091927002E8439 /* LexerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LexerTests.swift; sourceTree = "<group>"; };
 		CB1959552107B80200C16ACE /* Hop.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Hop.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB1959572107B80200C16ACE /* Hop.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Hop.h; sourceTree = "<group>"; };
@@ -393,7 +393,7 @@
 		0F329F41210FCF7800E9042F /* Errors */ = {
 			isa = PBXGroup;
 			children = (
-				0F329F42210FCF8900E9042F /* Error.swift */,
+				0F329F42210FCF8900E9042F /* ProgramError.swift */,
 			);
 			path = Errors;
 			sourceTree = "<group>";
@@ -894,7 +894,7 @@
 				CBB89957210B34300051A66D /* Environment.swift in Sources */,
 				CBDFABF2210905DC00D644C2 /* BooleanExpr.swift in Sources */,
 				CB8BE4992109D41300880C7E /* Messenger.swift in Sources */,
-				0F329F43210FCF8900E9042F /* Error.swift in Sources */,
+				0F329F43210FCF8900E9042F /* ProgramError.swift in Sources */,
 				CBDFABD5210905DC00D644C2 /* Module.swift in Sources */,
 				CBDFABEC210905DC00D644C2 /* IdentifierExpr.swift in Sources */,
 				CBDFABEF210905DC00D644C2 /* FunctionCallExpr.swift in Sources */,
@@ -958,7 +958,7 @@
 				CBDFAC3A2109060100D644C2 /* SuperExpr.swift in Sources */,
 				CBDFAC00210905EA00D644C2 /* Prototype.swift in Sources */,
 				CB8BE49E210A031900880C7E /* NilExpr.swift in Sources */,
-				0F329F44210FCF8900E9042F /* Error.swift in Sources */,
+				0F329F44210FCF8900E9042F /* ProgramError.swift in Sources */,
 				CBDFAC23210905F900D644C2 /* BreakStmt.swift in Sources */,
 				CBDFAC442109060100D644C2 /* BooleanExpr.swift in Sources */,
 				CB8BE49A2109E1C000880C7E /* Messenger.swift in Sources */,
@@ -1025,7 +1025,7 @@
 				CBDFAC452109060200D644C2 /* SuperExpr.swift in Sources */,
 				CBDFAC11210905EB00D644C2 /* Prototype.swift in Sources */,
 				CB8BE49F210A031900880C7E /* NilExpr.swift in Sources */,
-				0F329F45210FCF8900E9042F /* Error.swift in Sources */,
+				0F329F45210FCF8900E9042F /* ProgramError.swift in Sources */,
 				CBDFAC31210905FA00D644C2 /* BreakStmt.swift in Sources */,
 				CBDFAC4F2109060200D644C2 /* BooleanExpr.swift in Sources */,
 				CB8BE49B2109E1C000880C7E /* Messenger.swift in Sources */,
@@ -1075,7 +1075,7 @@
 				CB86DABB210FA2F100B9E3EF /* BlockStmt.swift in Sources */,
 				CB86DA8C210F9C2100B9E3EF /* ViewController.swift in Sources */,
 				CB86DAC9210FA2F700B9E3EF /* FunctionCallArgument.swift in Sources */,
-				0F329F46210FCFCA00E9042F /* Error.swift in Sources */,
+				0F329F46210FCFCA00E9042F /* ProgramError.swift in Sources */,
 				CB86DADB210FA2FE00B9E3EF /* Prototype.swift in Sources */,
 				CB86DAD9210FA2FE00B9E3EF /* Messenger.swift in Sources */,
 				CB86DADA210FA2FE00B9E3EF /* Instance.swift in Sources */,
