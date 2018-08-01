@@ -44,9 +44,10 @@ class Parser {
 
     private let lexer: Lexer
     private var currentToken: Token!
-    private var isDebug = false
+    private let isDebug: Bool
 
-    init(with lexer: Lexer) {
+    init(with lexer: Lexer, isDebug: Bool) {
+        self.isDebug = isDebug
         self.lexer = lexer
     }
     
@@ -71,8 +72,7 @@ class Parser {
         return precedence
     }
     
-    func parseProgram(with environment: Environment) throws -> Program? {
-        isDebug = environment.isDebug
+    func parseProgram() throws -> Program? {
         try getNextToken()
         var statements = [Evaluable]()
         while currentToken != .eof {

@@ -12,15 +12,14 @@ import Foundation
 public class Interpreter {
     
     private var environment: Environment
-    
     public init(environment: Environment) {
         self.environment = environment
     }
     
     public func runScript(_ script: String) throws {
-        let lexer = Lexer(script: script)
-        let parser = Parser(with: lexer)
-        if let program = try parser.parseProgram(with: environment) {
+        let lexer = Lexer(script: script, isDebug: self.environment.isDebug)
+        let parser = Parser(with: lexer,isDebug: self.environment.isDebug)
+        if let program = try parser.parseProgram() {
             try program.perform(with: environment)
         }
     }

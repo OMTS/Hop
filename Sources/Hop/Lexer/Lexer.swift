@@ -23,7 +23,8 @@ public enum LexerError: ErrorType {
 }
 
 public class Lexer {
-    
+
+    private let isDebug: Bool
     private var chars: [Character]!
     public private(set) var nextCharIndex: Int = 0
     private var lineIndex: Int = 0
@@ -35,7 +36,8 @@ public class Lexer {
     }
     public var currentTokenValue: Any?
     
-    public init(script: String) {
+    public init(script: String, isDebug: Bool) {
+        self.isDebug = isDebug
         chars = Array(script)
     }
     
