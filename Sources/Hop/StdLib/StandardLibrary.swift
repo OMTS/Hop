@@ -72,7 +72,7 @@ func getNativeModule(name: String) -> Module? {
 
 func getNativeFunctionClosure(prototype: Prototype,
                               declarationScope: Scope,
-                              evaluation: @escaping (_ arguments: [Variable]?, _ environment: Environment) throws -> Variable?) -> Closure {
+                              evaluation: @escaping (_ arguments: [Variable]?, _ session: Session) throws -> Variable?) -> Closure {
     // Function declaration
     // ====================
     

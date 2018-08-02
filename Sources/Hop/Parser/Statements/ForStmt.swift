@@ -51,22 +51,23 @@ struct ForStmt: Evaluable {
     
     // MARK: - Returnable
     
-    func evaluate(context: Scope, environment: Environment) throws -> Evaluable? {
+    func evaluate(context: Scope,
+                  session: Session) throws -> Evaluable? {
         guard let startVariable = try startExpression.evaluate(context: context,
-                                                               environment: environment) as? Variable,
+                                                               session: session) as? Variable,
             let startIndex = startVariable.value as? Int else {
             throw InterpreterError.expressionEvaluationError
         }
         
         guard let endVariable = try endExpression.evaluate(context: context,
-                                                           environment: environment) as? Variable,
+                                                           session: session) as? Variable,
             let endIndex = endVariable.value as? Int else {
                 throw InterpreterError.expressionEvaluationError
         }
 
         var stepIncrement = 1
         if let stepEvaluation = try stepExpression?.evaluate(context: context,
-                                                             environment: environment) {
+                                                             session: session) {
             guard let stepVariable = stepEvaluation as? Variable,
                 let stepValue = stepVariable.value as? Int else {
                 throw InterpreterError.expressionEvaluationError
@@ -82,7 +83,7 @@ struct ForStmt: Evaluable {
             indexVariable.value = i
             
             _ = try block.evaluate(context: indexContext,
-                                   environment: environment)
+                                   session: session)
             
             if indexContext.returnedEvaluable != nil {
                 break

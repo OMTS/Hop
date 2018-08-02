@@ -43,13 +43,13 @@ struct FunctionCallExpr : Evaluable {
 
     func evaluateMethod(ofClass class: Class,
                         context: Scope,
-                        environment: Environment) throws -> Evaluable? {
+                        session: Session) throws -> Evaluable? {
         
         // First: search for method
         if let closure = `class`.getClassMember(for: signatureHashId) as? Closure {
             return try closure.evaluate(arguments: arguments,
                                         context: context,
-                                        environment: environment)
+                                        session: session)
         }
         
         // Then: search for class initializer
@@ -59,7 +59,7 @@ struct FunctionCallExpr : Evaluable {
             
             return try createInstance(of: innerClass,
                                       context: context,
-                                      environment: environment)
+                                      session: session)
         }
         
         throw InterpreterError.classMemberNotDeclared
@@ -68,7 +68,7 @@ struct FunctionCallExpr : Evaluable {
     func evaluateMethod(ofInstance instance: Instance,
                         inspectedClass: Class,
                         context: Scope,
-                        environment: Environment) throws -> Evaluable? {
+                        session: Session) throws -> Evaluable? {
         
         // Add self parameter
         var arguments = [FunctionCallArgument]()
@@ -89,31 +89,31 @@ struct FunctionCallExpr : Evaluable {
 
         return try closure.evaluate(arguments: arguments,
                                     context: context,
-                                    environment: environment)
+                                    session: session)
     }
 
     func evaluateFunction(ofModule module: Module,
                           context: Scope,
-                          environment: Environment) throws -> Evaluable? {
+                          session: Session) throws -> Evaluable? {
         return try evaluateFunction(context: context,
                                     parent: module.scope,
-                                    environment: environment)
+                                    session: session)
     }
     
-    func evaluate(context: Scope, environment: Environment) throws -> Evaluable? {
+    func evaluate(context: Scope, session: Session) throws -> Evaluable? {
         return try evaluateFunction(context: context,
                                     parent: context,
-                                    environment: environment)
+                                    session: session)
     }
     
     private func evaluateFunction(context: Scope,
                                   parent: Scope!,
-                                  environment: Environment) throws -> Evaluable? {
+                                  session: Session) throws -> Evaluable? {
 
         if let closure = (parent ?? context).getSymbolValue(for: signatureHashId) as? Closure {
             return try closure.evaluate(arguments: arguments,
                                         context: context,
-                                        environment: environment)
+                                        session: session)
         }
         
         // Then: search for class initializer
@@ -123,7 +123,7 @@ struct FunctionCallExpr : Evaluable {
             
             return try createInstance(of: `class`,
                                       context: context,
-                                      environment: environment)
+                                      session: session)
         }
         
         throw InterpreterError.functionNotDeclared
@@ -131,7 +131,7 @@ struct FunctionCallExpr : Evaluable {
     
     private func createInstance(of class: Class,
                                 context: Scope,
-                                environment: Environment) throws -> Evaluable? {
+                                session: Session) throws -> Evaluable? {
         // Instance scope filled with instance property variables
         let instanceScope = Scope(parent: `class`.scope)
         
@@ -143,7 +143,7 @@ struct FunctionCallExpr : Evaluable {
         if instancePropertyDeclarations.count > 0 {
             for instancePropertyDeclaration in instancePropertyDeclarations {
                 _ = try instancePropertyDeclaration.evaluate(context: instanceScope,
-                                                             environment: environment)
+                                                             session: session)
             }
         }
         
@@ -161,7 +161,7 @@ struct FunctionCallExpr : Evaluable {
         _ = try initializerCall.evaluateMethod(ofInstance: instance,
                                                inspectedClass: instance.class,
                                                context: context,
-                                               environment: environment)
+                                               session: session)
         } catch let error as InterpreterError {
             if error != InterpreterError.functionNotDeclared && arguments != nil {
                 throw error

@@ -39,19 +39,20 @@ struct IfStmt: Evaluable {
         return description
     }
 
-    func evaluate(context: Scope, environment: Environment) throws -> Evaluable? {
+    func evaluate(context: Scope,
+                  session: Session) throws -> Evaluable? {
         guard let conditionVariable = try conditionExpression.evaluate(context: context,
-                                                                       environment: environment) as? Variable,
+                                                                       session: session) as? Variable,
             let conditionValue = conditionVariable.value as? Bool else {
             throw InterpreterError.expressionEvaluationError
         }
         
         if conditionValue {
             _ = try thenBlock?.evaluate(context: context,
-                                        environment: environment)
+                                        session: session)
         } else {
             _ = try elseBlock?.evaluate(context: context,
-                                        environment: environment)
+                                        session: session)
         }
         
         return nil

@@ -29,13 +29,13 @@ class Closure: Evaluable {
 
     // NOTE: unused !!!!!!!
     func evaluate(context: Scope,
-                  environment: Environment) throws -> Evaluable? {
+                  session: Session) throws -> Evaluable? {
         return self
     }
     
     func evaluate(arguments: [FunctionCallArgument]?,
                   context: Scope,
-                  environment: Environment) throws -> Evaluable? {
+                  session: Session) throws -> Evaluable? {
         // Create parameters scope
         let parametersContext = Scope(parent: declarationScope)
         if let prototypeArguments = prototype.arguments,
@@ -43,7 +43,7 @@ class Closure: Evaluable {
             for (index, prototypeArgument) in prototypeArguments.enumerated() {
                 
                 var variable: Variable! = try arguments[index].expr.evaluate(context: context,
-                                                                             environment: environment) as? Variable
+                                                                             session: session) as? Variable
                 guard variable != nil else {
                     throw InterpreterError.expressionEvaluationError
                 }
@@ -70,7 +70,7 @@ class Closure: Evaluable {
         }
 
         _ = try block?.evaluate(context: parametersContext,
-                                environment: environment)
+                                session: session)
         
         // Get returned expression if needed
         var returnedEvaluable: Evaluable?

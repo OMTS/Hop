@@ -14,7 +14,8 @@ struct ContinueStmt: Evaluable {
         return "continue"
     }
     
-    func evaluate(context: Scope, environment: Environment) throws -> Evaluable? {
+    func evaluate(context: Scope,
+                  session: Session) throws -> Evaluable? {
         context.isContinueRequested = true
         return nil
     }

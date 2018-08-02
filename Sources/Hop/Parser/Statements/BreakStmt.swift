@@ -14,7 +14,8 @@ struct BreakStmt: Evaluable {
         return "break"
     }
     
-    func evaluate(context: Scope, environment: Environment) throws -> Evaluable? {
+    func evaluate(context: Scope,
+                  session: Session) throws -> Evaluable? {
         context.isBreakRequested = true
         return nil
     }

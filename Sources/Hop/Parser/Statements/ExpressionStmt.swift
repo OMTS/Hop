@@ -21,9 +21,10 @@ struct ExpressionStmt: Evaluable {
         return expr.description
     }
     
-    func evaluate(context: Scope, environment: Environment) throws -> Evaluable? {
+    func evaluate(context: Scope,
+                  session: Session) throws -> Evaluable? {
         _ = try expr.evaluate(context: context,
-                              environment: environment)
+                              session: session)
         return nil  // Statement does not return
     }
 

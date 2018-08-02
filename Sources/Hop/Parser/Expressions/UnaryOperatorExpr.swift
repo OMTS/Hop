@@ -18,30 +18,30 @@ struct UnaryOperatorExpr: Evaluable {
     }
     
     func evaluate(context: Scope,
-                  environment: Environment) throws -> Evaluable? {
+                  session: Session) throws -> Evaluable? {
         switch unOp {
         case .onesComplement:
             return try evaluateOnesComplement(context: context,
-                                              environment: environment)
+                                              session: session)
         case .logicalNegation:
             return try evaluateLogicalNegation(context: context,
-                                               environment: environment)
+                                               session: session)
         case .plus:
             return try evaluatePlus(context: context,
-                                    environment: environment)
+                                    session: session)
         case .minus:
             return try evaluateMinus(context: context,
-                                     environment: environment)
+                                     session: session)
         default:
             return nil
         }
     }
     
     private func evaluateOnesComplement(context: Scope,
-                                        environment: Environment) throws -> Evaluable? {
+                                        session: Session) throws -> Evaluable? {
         
         guard let evaluatedVariable = try operand.evaluate(context: context,
-                                                           environment: environment) as? Variable else {
+                                                           session: session) as? Variable else {
             throw InterpreterError.expressionEvaluationError
         }
         
@@ -57,10 +57,10 @@ struct UnaryOperatorExpr: Evaluable {
     }
     
     private func evaluateLogicalNegation(context: Scope,
-                                         environment: Environment) throws -> Evaluable? {
+                                         session: Session) throws -> Evaluable? {
         
         guard let evaluatedVariable = try operand.evaluate(context: context,
-                                                           environment: environment) as? Variable else {
+                                                           session: session) as? Variable else {
             throw InterpreterError.expressionEvaluationError
         }
 
@@ -76,10 +76,10 @@ struct UnaryOperatorExpr: Evaluable {
     }
     
     private func evaluatePlus(context: Scope,
-                              environment: Environment) throws -> Evaluable? {
+                              session: Session) throws -> Evaluable? {
         
         guard let evaluatedVariable = try operand.evaluate(context: context,
-                                                           environment: environment) as? Variable else {
+                                                           session: session) as? Variable else {
             throw InterpreterError.expressionEvaluationError
         }
         
@@ -107,10 +107,10 @@ struct UnaryOperatorExpr: Evaluable {
     }
     
     private func evaluateMinus(context: Scope,
-                               environment: Environment) throws -> Evaluable? {
+                               session: Session) throws -> Evaluable? {
         
         guard let evaluatedVariable = try operand.evaluate(context: context,
-                                                           environment: environment) as? Variable else {
+                                                           session: session) as? Variable else {
             throw InterpreterError.expressionEvaluationError
         }
         

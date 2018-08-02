@@ -27,14 +27,15 @@ class WhileStmt: Evaluable {
         return description
     }
     
-    func evaluate(context: Scope, environment: Environment) throws -> Evaluable? {
+    func evaluate(context: Scope,
+                  session: Session) throws -> Evaluable? {
         
         func evaluateCondition(_ expression: Evaluable,
                                context: Scope,
-                               environment: Environment) throws -> Bool {
+                               session: Session) throws -> Bool {
             
             guard let conditionVariable = try expression.evaluate(context: context,
-                                                                  environment: environment) as? Variable,
+                                                                  session: session) as? Variable,
                 let conditionValue = conditionVariable.value as? Bool else {
                     throw InterpreterError.expressionEvaluationError
             }
@@ -43,10 +44,10 @@ class WhileStmt: Evaluable {
         
         while try evaluateCondition(conditionExpression,
                                     context: context,
-                                    environment: environment) {
+                                    session: session) {
 
             _ = try block.evaluate(context: context,
-                                   environment: environment)
+                                   session: session)
             
             if context.returnedEvaluable != nil {
                 break

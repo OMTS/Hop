@@ -22,9 +22,10 @@ class ImportStmt: Evaluable {
         return "import \(name)"
     }
         
-    func evaluate(context: Scope, environment: Environment) throws -> Evaluable? {
+    func evaluate(context: Scope,
+                  session: Session) throws -> Evaluable? {
         // Check if module has already been imported in global context
-        let module: Module! = environment.modulesScope.symbolTable[hashId] as? Module
+        let module: Module! = session.globalScope.symbolTable[hashId] as? Module
         
         if module != nil {
             context.symbolTable[hashId] = module
@@ -33,7 +34,7 @@ class ImportStmt: Evaluable {
         
         // Try to import from native modules
         if let nativeModule = getNativeModule(name: name) {
-            environment.modulesScope.symbolTable[hashId] = nativeModule
+            session.globalScope.symbolTable[hashId] = nativeModule
             context.symbolTable[hashId] = nativeModule
             return nil
         }

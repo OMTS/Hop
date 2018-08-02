@@ -60,16 +60,14 @@ class ViewController: NSViewController {
             }
         }
         
-        // Setupo runtime environment
-        let environment = Environment(isDebug: true,
-                                      messenger: messenger,
-                                      getScriptForModule: nil)
-        
-        // Then create & run intepreter
-        let interpreter = Interpreter(environment: environment)
+        // Setup runtime session
+        let session = Session(isDebug: true,
+                              messenger: messenger,
+                              getScriptForModule: nil)
         
         do {
-            try interpreter.runScript(script)
+            // Run script
+            try session.run(script: script)
             
         } catch let error {
             displayLog(message: "Error: \(error)")
