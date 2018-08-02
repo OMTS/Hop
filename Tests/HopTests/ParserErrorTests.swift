@@ -144,13 +144,67 @@ class ParserErrorTests: XCTestCase {
             try interpreter.runScript(script4)
         } catch let error {
             if let printableError = error as? ProgramError {
-                /*guard case ParserError.expressionError = printableError.errorType else {
-                    XCTFail("Should Throw a ParserError.expressionError but did Throw a \(printableError.errorType)")
+                guard case ParserError.prototypeError = printableError.errorType else {
+                    XCTFail("Should Throw a ParserError.prototypeError but did Throw a \(printableError.errorType)")
                     return
-                }*/
+                }
                 XCTAssertNotNil(printableError.debugInfo)
                 XCTAssertEqual(printableError.debugInfo!.lineNumber,3)
                 XCTAssertEqual(printableError.debugInfo!.position,12)
+            } else {
+                XCTFail("Error Thrown is not a ProgramPrintableError")
+            }
+        }
+
+        //PROTOTYPE ERROR
+        let script5 = "\n\nfunc test(n: Int, Int)\n\n"
+        do {
+            try interpreter.runScript(script5)
+        } catch let error {
+            if let printableError = error as? ProgramError {
+                guard case ParserError.prototypeError = printableError.errorType else {
+                    XCTFail("Should Throw a ParserError.prototypeError but did Throw a \(printableError.errorType)")
+                    return
+                }
+                XCTAssertNotNil(printableError.debugInfo)
+                XCTAssertEqual(printableError.debugInfo!.lineNumber,3)
+                XCTAssertEqual(printableError.debugInfo!.position,23)
+            } else {
+                XCTFail("Error Thrown is not a ProgramPrintableError")
+            }
+        }
+
+        //PROTOTYPE ERROR
+        let script6 = "\n\nfunc test(n: Int\n\n"
+        do {
+            try interpreter.runScript(script6)
+        } catch let error {
+            if let printableError = error as? ProgramError {
+                guard case ParserError.prototypeError = printableError.errorType else {
+                    XCTFail("Should Throw a ParserError.prototypeError but did Throw a \(printableError.errorType)")
+                    return
+                }
+                XCTAssertNotNil(printableError.debugInfo)
+                XCTAssertEqual(printableError.debugInfo!.lineNumber,3)
+                XCTAssertEqual(printableError.debugInfo!.position,15)
+            } else {
+                XCTFail("Error Thrown is not a ProgramPrintableError")
+            }
+        }
+
+        //PROTOTYPE ERROR
+        let script7 = "\n\nfunc test(n: Int)}\n\n"
+        do {
+            try interpreter.runScript(script7)
+        } catch let error {
+            if let printableError = error as? ProgramError {
+                guard case ParserError.expressionError = printableError.errorType else {
+                    XCTFail("Should Throw a ParserError.expressionError  but did Throw a \(printableError.errorType)")
+                    return
+                }
+                XCTAssertNotNil(printableError.debugInfo)
+                XCTAssertEqual(printableError.debugInfo!.lineNumber,3)
+                XCTAssertEqual(printableError.debugInfo!.position,19)
             } else {
                 XCTFail("Error Thrown is not a ProgramPrintableError")
             }

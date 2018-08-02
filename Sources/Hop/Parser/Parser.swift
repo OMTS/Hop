@@ -282,6 +282,8 @@ class Parser {
             } else {
                 throw ProgramError(errorType: ParserError.prototypeError, debugInfo: lexer.debugInfo)
             }
+        } else if currentToken == .rightParenthesis {
+            return nil
         } else {
             throw ProgramError(errorType: ParserError.prototypeError, debugInfo: lexer.debugInfo)
         }
