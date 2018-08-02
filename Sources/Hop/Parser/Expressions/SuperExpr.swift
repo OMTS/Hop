@@ -8,7 +8,8 @@
 
 import Foundation
 
-class SuperExpr: DebuggableElement, Evaluable {
+struct SuperExpr: Evaluable {
+    var debugInfo: DebugInfo?
 
     var description: String {
         return Token.superToken.rawValue
@@ -20,11 +21,11 @@ class SuperExpr: DebuggableElement, Evaluable {
             if let selfVariable = selfValue as? Variable,
                 let selfInstance = selfVariable.value as? Instance {
                 if selfInstance.class.superclass == nil {
-                    throw ProgramError(errorType: InterpreterError.useOfSuperInRootClassMember, lineNumber: lineNumber, postion: position)
+                    throw ProgramError(errorType: InterpreterError.useOfSuperInRootClassMember, debugInfo: debugInfo)
                 }
                 return selfVariable
             } else {
-                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
+                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
             }
         }
         
@@ -32,18 +33,18 @@ class SuperExpr: DebuggableElement, Evaluable {
         if let superValue = context.getSymbolValue(for: SuperParameter.hashId) {
             if superValue is Null {
                 // 'super' members cannot be referenced in a root class
-                throw ProgramError(errorType: InterpreterError.useOfSuperInRootClassMember, lineNumber: lineNumber, postion: position)
+                throw ProgramError(errorType: InterpreterError.useOfSuperInRootClassMember, debugInfo: debugInfo)
             
             } else if let superclass = superValue as? Class {
                 return superclass
                 
             } else {
-                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
+                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
             }
         }
         
         // 'super' cannot be used outside of class members
-        throw ProgramError(errorType: InterpreterError.useOfSuperOutsideAClassMember, lineNumber: lineNumber, postion: position)
+        throw ProgramError(errorType: InterpreterError.useOfSuperOutsideAClassMember, debugInfo: debugInfo)
     }
 
 }

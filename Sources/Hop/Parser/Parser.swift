@@ -150,30 +150,26 @@ class Parser {
     private func parseImportStatement() throws -> Evaluable? {
         guard currentToken == .importToken else {
             // Import token is awaited
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
-
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
-        
+
         try getNextToken() // Consume 'import'
         
         guard currentToken == .identifier,
             let name = lexer.currentTokenValue as? String else {
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
-
+                throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
-        
+
         try getNextToken() // Consume identifier
         
         guard currentToken == .lf else {
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
         
         try getNextToken() // Consume line feed
 
         let importStmt = ImportStmt(name: name)
-        if isDebug {
-            importStmt.setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
-        }
+        importStmt.debugInfo = lexer.debugInfo
         return importStmt
     }
     
@@ -185,7 +181,7 @@ class Parser {
     private func parseFunctionStatement() throws -> Evaluable? {
         if currentToken != .funcToken {
             // Function token is awaited
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
         
         try getNextToken() // Consume 'func'
@@ -195,16 +191,14 @@ class Parser {
         
         // Expected line feed
         guard currentToken == .lf else {
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
         
         try getNextToken() // Consume line feed
         
         let funcDeclarationStmt = FunctionDeclarationStmt(prototype: prototype,
                                        block: block)
-        if isDebug {
-            funcDeclarationStmt.setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
-        }
+        funcDeclarationStmt.debugInfo = lexer.debugInfo
         return funcDeclarationStmt
     }
     
@@ -222,7 +216,7 @@ class Parser {
             // Check if identifier is not a reserved keyword
             if let token = Token(rawValue: name),
                 Token.reservedKeywords.contains(token) {
-                throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+                throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
             }
             
             if currentToken == .leftParenthesis {
@@ -244,7 +238,7 @@ class Parser {
 
                         typeExpr = try parseTypeExpression()
                         if typeExpr == nil {
-                            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+                            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
                         }
                     }
                     
@@ -252,13 +246,13 @@ class Parser {
                                                         arguments: arguments,
                                                         typeExpr: typeExpr)
                 } else {
-                    throw ProgramError(errorType: ParserError.prototypeError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+                    throw ProgramError(errorType: ParserError.prototypeError, debugInfo: lexer.debugInfo)
                 }
             } else {
-                throw ProgramError(errorType: ParserError.prototypeError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+                throw ProgramError(errorType: ParserError.prototypeError, debugInfo: lexer.debugInfo)
             }
         } else {
-            throw ProgramError(errorType: ParserError.prototypeError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.prototypeError, debugInfo: lexer.debugInfo)
         }
     }
     
@@ -279,18 +273,18 @@ class Parser {
                 try getNextToken() // Consume colon
 
                 guard let typeExpr = try parseTypeExpression() else {
-                    throw ProgramError(errorType: ParserError.prototypeError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+                    throw ProgramError(errorType: ParserError.prototypeError, debugInfo: lexer.debugInfo)
                 }
 
                 return FunctionDeclarationArgument(name: name,
                                                    typeExpr: typeExpr,
                                                    isAnonymous: isAnonymous)
             } else {
-                throw ProgramError(errorType: ParserError.prototypeError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+                throw ProgramError(errorType: ParserError.prototypeError, debugInfo: lexer.debugInfo)
             }
+        } else {
+            throw ProgramError(errorType: ParserError.prototypeError, debugInfo: lexer.debugInfo)
         }
-
-        return nil
     }
     
     private func parseFunctionArguments() throws -> [FunctionDeclarationArgument]? {
@@ -321,7 +315,7 @@ class Parser {
     */
 //    private func parseInitializerDeclarationStatement() throws -> Evaluable? {
 //        guard currentToken == .initToken else {
-//            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+//            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
 //        }
 //
 //        try getNextToken() // Consume 'init'
@@ -335,7 +329,7 @@ class Parser {
 //            arguments = try parseFunctionArguments()
 //
 //            guard currentToken == .rightParenthesis else {
-//                throw ProgramError(errorType: ParserError.prototypeError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+//                throw ProgramError(errorType: ParserError.prototypeError, debugInfo: lexer.debugInfo)
 //            }
 //
 //            try getNextToken() // Consume ')'
@@ -345,7 +339,7 @@ class Parser {
 //
 //        // Expected line feed
 //        guard currentToken == .lf else {
-//            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+//            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
 //        }
 //
 //        let prototype = Prototype(name: Token.initToken.rawValue,
@@ -361,14 +355,14 @@ class Parser {
 //     */
 //    private func parseDeinitializerDeclarationStatement() throws -> Evaluable? {
 //        guard currentToken == .deinitToken else {
-//            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+//            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
 //        }
 //        
 //        try getNextToken() // Consume 'deinit'
 //
 //        if let block = try parseBlock() {
 //            guard currentToken == .lf else {
-//                throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+//                throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
 //            }
 //            
 //            try getNextToken() // Consume line feed
@@ -386,7 +380,7 @@ class Parser {
     
     private func parseBlock() throws -> BlockStmt? {
         guard currentToken == .leftCurlyBrace else {
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
         
         try getNextToken() // Consume '{'
@@ -395,7 +389,7 @@ class Parser {
         var noAnymoreStatement = false
         while true {
             if currentToken == .eof {
-                throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+                throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
             }
             
             if currentToken == .rightCurlyBrace {
@@ -403,7 +397,7 @@ class Parser {
             }
 
             if noAnymoreStatement {
-                throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+                throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
             }
             
             if let statement = try parseStatement() {
@@ -428,13 +422,13 @@ class Parser {
     */
     private func parseIfStatement() throws -> Evaluable? {
         guard currentToken == .ifToken else {
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
         
         try getNextToken() // Consume 'if'
 
         guard let conditionExpr = try parseExpression() else {
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
 
         var thenBlock: BlockStmt!
@@ -449,7 +443,7 @@ class Parser {
             thenBlock = try parseBlock()
 
         } else {
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
 
         if currentToken == .elseToken {
@@ -462,7 +456,7 @@ class Parser {
                 
                 // Line feed is expected
                 guard currentToken == .lf else {
-                    throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+                    throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
                 }
                 
                 try getNextToken() // Consume line feed
@@ -473,20 +467,18 @@ class Parser {
                 elseBlock = BlockStmt(statements: [ifStatement])
                 
             } else {
-                throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+                throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
             }
         } else if isThenStmtWithBrakets {
             // Line feed is expected
             guard currentToken == .lf else {
-                throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+                throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
             }
             
             try getNextToken() // Consume line feed
         }
-        let ifStmt = IfStmt(conditionExpression: conditionExpr, thenBlock: thenBlock, elseBlock: elseBlock)
-        if isDebug {
-            ifStmt.setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
-        }
+        var ifStmt = IfStmt(conditionExpression: conditionExpr, thenBlock: thenBlock, elseBlock: elseBlock)
+        ifStmt.debugInfo = lexer.debugInfo
         return ifStmt
     }
 
@@ -495,36 +487,36 @@ class Parser {
     */
     private func parseForStatement() throws -> Evaluable? {
         guard currentToken == .forToken else {
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
         
         try getNextToken() // Consume 'for'
 
         guard currentToken == .identifier,
             let indexName = lexer.currentTokenValue as? String else {
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
         
         try getNextToken() // Consume index identifier
         
         guard currentToken == .inToken else {
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
 
         try getNextToken() // Consume 'in'
 
         guard let startExpression = try parseExpression() else {
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
         
         guard currentToken == .to else {
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
 
         try getNextToken() // Consume 'to'
 
         guard let endExpression = try parseExpression() else {
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
         
         var stepExpression: Evaluable?
@@ -536,27 +528,25 @@ class Parser {
             stepExpression = try parseExpression()
             
             if stepExpression == nil {
-                throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+                throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
             }
         }
 
         let block = try parseBlock()
 
         guard currentToken == .lf else {
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
 
         try getNextToken() // Consume line feed
 
         if block != nil {
-            let forStmt = ForStmt(indexName: indexName,
+            var forStmt = ForStmt(indexName: indexName,
                                   startExpression: startExpression,
                                   endExpression: endExpression,
                                   stepExpression: stepExpression,
                                   block: block!)
-            if isDebug {
-                forStmt.setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
-            }
+            forStmt.debugInfo = lexer.debugInfo
             return forStmt
         }
         
@@ -570,19 +560,19 @@ class Parser {
     */
     private func parseWhileStatement() throws -> Evaluable? {
         guard currentToken == .whileToken else {
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
         
         try getNextToken() // Consume 'while'
         
         guard let conditionExpression = try parseExpression() else {
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
         
         let block = try parseBlock()
         
         guard currentToken == .lf else {
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
         
         try getNextToken() // Consume line feed
@@ -603,7 +593,7 @@ class Parser {
     */
     private func parseReturnStatement() throws -> Evaluable? {
         guard currentToken == .returnToken else {
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
         
         try getNextToken() // Consume 'return'
@@ -612,15 +602,13 @@ class Parser {
 
         // Expected line feed
         guard currentToken == .lf else {
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
         
         try getNextToken() // Consume line feed
 
-        let resultStmt = ReturnStmt(result: result)
-        if isDebug {
-            resultStmt.setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
-        }
+        var resultStmt = ReturnStmt(result: result)
+        resultStmt.debugInfo = lexer.debugInfo
         return resultStmt
     }
     
@@ -631,21 +619,19 @@ class Parser {
      */
     private func parseBreakStatement() throws -> Evaluable? {
         guard currentToken == .breakToken else {
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
         
         try getNextToken() // Consume 'break'
         
         guard currentToken == .lf else {
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
         
         try getNextToken() // Consume line feed
 
-        let breakStmt = BreakStmt()
-        if isDebug {
-            breakStmt.setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
-        }
+        var breakStmt = BreakStmt()
+        breakStmt.debugInfo = lexer.debugInfo
         return breakStmt
     }
     
@@ -656,21 +642,19 @@ class Parser {
      */
     private func parseContinueStatement() throws -> Evaluable? {
         guard currentToken == .continueToken else {
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
         
         try getNextToken() // Consume 'continue'
         
         guard currentToken == .lf else {
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
         
         try getNextToken() // Consume line feed
 
-        let continueStmt = ContinueStmt()
-        if isDebug {
-            continueStmt.setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
-        }
+        var continueStmt = ContinueStmt()
+        continueStmt.debugInfo = lexer.debugInfo
         return continueStmt
     }
     
@@ -681,14 +665,14 @@ class Parser {
      */
     private func parseConstantDeclarationStatement() throws -> Evaluable? {
         guard currentToken == .constant else {
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
         
         try getNextToken() // Consume 'const'
         
         guard currentToken == .identifier,
             let name = lexer.currentTokenValue as? String else {
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
         
         try getNextToken() // Consume constant identifier
@@ -696,7 +680,7 @@ class Parser {
         // Check if identifier is not a reserved keyword
         if let token = Token(rawValue: name),
             Token.reservedKeywords.contains(token) {
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
 
         // Type declaration is optional for constant declaration
@@ -706,23 +690,23 @@ class Parser {
             
             typeExpr = try parseTypeExpression()
             if typeExpr == nil {
-                throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+                throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
             }
         }
 
         // Parse assignment
         guard currentToken == .assignment else {
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
 
         try getNextToken() // Consume '='
 
         guard let expression = try parseExpression() else {
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
         
         guard currentToken == .lf else {
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
 
         try getNextToken() // Consume '\n'
@@ -741,14 +725,16 @@ class Parser {
     */
     private func parseVariableDeclarationStatement() throws -> Evaluable? {
         guard currentToken == .variable else {
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
 
         try getNextToken() // Consume 'var'
-        
+
+
         guard currentToken == .identifier,
             let name = lexer.currentTokenValue as? String else {
-                throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+
+                throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
         
         try getNextToken() // Consume constant identifier
@@ -756,7 +742,7 @@ class Parser {
         // Check if identifier is not a reserved keyword
         if let token = Token(rawValue: name),
             Token.reservedKeywords.contains(token) {
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
         
         // Type declaration can be optional for variable declaration
@@ -767,7 +753,7 @@ class Parser {
             
             typeExpr = try parseTypeExpression()
             if typeExpr == nil {
-                throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+                throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
             }
         }
 
@@ -781,12 +767,12 @@ class Parser {
             expression = try parseExpression()
             
             if expression == nil {
-                throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+                throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
             }
         }
         
         guard currentToken == .lf else {
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
         
         try getNextToken() // Consume '\n'
@@ -810,9 +796,8 @@ class Parser {
         try getNextToken() // Consume lhs identifier
         
         var lhs: Evaluable = IdentifierExpr(name: name)
-        if isDebug {
-            (lhs as! IdentifierExpr).setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
-        }
+        (lhs as! IdentifierExpr).debugInfo = lexer.debugInfo
+
         
         while true {
             if currentToken != .dot {
@@ -832,9 +817,7 @@ class Parser {
             
             // Merge LHS/RHS.
             lhs = BinaryOperatorExpr(binOp: .dot, lhs: lhs, rhs: IdentifierExpr(name: name))
-            if isDebug {
-                (lhs as! BinaryOperatorExpr).setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
-            }
+            lhs.debugInfo = lexer.debugInfo
         }
     }
     
@@ -845,13 +828,11 @@ class Parser {
         
         guard currentToken == .lf else {
             // error: consecutive statements on a line are not allowed
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
 
-        let exprStmt = ExpressionStmt(expr: expression)
-        if isDebug {
-            exprStmt.setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
-        }
+        var exprStmt = ExpressionStmt(expr: expression)
+        exprStmt.debugInfo = lexer.debugInfo
         return exprStmt
     }
     
@@ -860,14 +841,14 @@ class Parser {
     */
     private func parseClassDeclarationStatement() throws -> Evaluable? {
         guard currentToken == .classToken else {
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
         
         try getNextToken() // Consume 'class'
         
         guard currentToken == .identifier,
             let name = lexer.currentTokenValue as? String else {
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
 
         try getNextToken() // Consume class identifier
@@ -878,12 +859,12 @@ class Parser {
             
             superclassExpr = try parseTypeExpression()
             if superclassExpr == nil {
-                throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+                throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
             }
         }
         
         guard currentToken == .leftCurlyBrace else {
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
 
         try getNextToken() // Consume '{'
@@ -897,7 +878,7 @@ class Parser {
         var noAnymoreStatement = false
         while true {
             if currentToken == .eof {
-                throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+                throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
             }
             
             if currentToken == .lf {
@@ -910,34 +891,28 @@ class Parser {
             }
             
             if noAnymoreStatement {
-                throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+                throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
             }
             
             // Instance member declarations
             
             if currentToken == .variable,
                 let instanceVariableDeclaration = try parseVariableDeclarationStatement() as? VariableDeclarationStmt {
-                if isDebug {
-                    instanceVariableDeclaration.setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
-                }
+                instanceVariableDeclaration.debugInfo = lexer.debugInfo
                 instancePropertyDeclarations.append(instanceVariableDeclaration)
                 continue
             }
             
             if currentToken == .constant,
                 let instanceConstantDeclaration = try parseConstantDeclarationStatement() as? VariableDeclarationStmt {
-                if isDebug {
-                    instanceConstantDeclaration.setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
-                }
+                instanceConstantDeclaration.debugInfo = lexer.debugInfo
                 instancePropertyDeclarations.append(instanceConstantDeclaration)
                 continue
             }
             
             if currentToken == .funcToken,
                 let instanceMethodDeclaration = try parseFunctionStatement() as? FunctionDeclarationStmt {
-                if isDebug {
-                    instanceMethodDeclaration.setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
-                }
+                instanceMethodDeclaration.debugInfo = lexer.debugInfo
                 instanceMethodDeclarations.append(instanceMethodDeclaration)
                 continue
             }
@@ -950,27 +925,21 @@ class Parser {
                 
                 if currentToken == .variable,
                     let classVariableDeclaration = try parseVariableDeclarationStatement() as? VariableDeclarationStmt {
-                    if isDebug {
-                        classVariableDeclaration.setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
-                    }
+                    classVariableDeclaration.debugInfo = lexer.debugInfo
                     classPropertyDeclarations.append(classVariableDeclaration)
                     continue
                 }
                 
                 if currentToken == .constant,
                     let classConstantDeclaration = try parseConstantDeclarationStatement() as? VariableDeclarationStmt {
-                    if isDebug {
-                        classConstantDeclaration.setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
-                    }
+                    classConstantDeclaration.debugInfo = lexer.debugInfo
                     classPropertyDeclarations.append(classConstantDeclaration)
                     continue
                 }
                 
                 if currentToken == .funcToken,
                     let classMethodDeclaration = try parseFunctionStatement() as? FunctionDeclarationStmt {
-                    if isDebug {
-                        classMethodDeclaration.setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
-                    }
+                    classMethodDeclaration.debugInfo = lexer.debugInfo
                     classMethodDeclarations.append(classMethodDeclaration)
                     continue
                 }
@@ -978,9 +947,7 @@ class Parser {
             
             if currentToken == .classToken,
                 let innerClassDeclaration = try parseClassDeclarationStatement() as? ClassDeclarationStmt {
-                if isDebug {
-                    innerClassDeclaration.setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
-                }
+                innerClassDeclaration.debugInfo = lexer.debugInfo
                 innerClassDeclarations.append(innerClassDeclaration)
                 continue
             }
@@ -992,7 +959,7 @@ class Parser {
         
         
         guard currentToken == .lf else {
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
         
         try getNextToken() // Consume line feed
@@ -1004,9 +971,7 @@ class Parser {
                                                         instancePropertyDeclarations: instancePropertyDeclarations,
                                                         instanceMethodDeclarations: instanceMethodDeclarations,
                                                         innerClassDeclarations: innerClassDeclarations)
-        if isDebug {
-            classDeclarationStmt.setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
-        }
+        classDeclarationStmt.debugInfo = lexer.debugInfo
         return classDeclarationStmt
     }
     
@@ -1061,7 +1026,7 @@ class Parser {
     ///   ::= identifier '(' expression* ')'
     private func parseIdentifierExpression() throws -> Evaluable? {
         guard let name = lexer.currentTokenValue as? String else {
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
         
         try getNextToken() // Consume identifer token
@@ -1069,9 +1034,7 @@ class Parser {
         guard currentToken == .leftParenthesis else {
             // Variable parsing
             let identifierExpr = IdentifierExpr(name: name)
-            if isDebug {
-                identifierExpr.setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
-            }
+            identifierExpr.debugInfo = lexer.debugInfo
             return identifierExpr
         }
         
@@ -1092,7 +1055,7 @@ class Parser {
                                 arguments.append(FunctionCallArgument(name: identifierExpr.name, expr: expression))
                                 
                             } else {
-                                throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+                                throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
                             }
                         } else {
                             // Anonymous argument
@@ -1103,7 +1066,7 @@ class Parser {
                         arguments.append(FunctionCallArgument(name: nil, expr: expression))
                     }
                 } else {
-                    throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+                    throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
                 }
                 
                 if currentToken == .rightParenthesis {
@@ -1111,7 +1074,7 @@ class Parser {
                 }
                 
                 if currentToken == .comma {} else {
-                    throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+                    throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
                 }
                 
                 try getNextToken() // Consume comma
@@ -1119,11 +1082,9 @@ class Parser {
         }
         
         try getNextToken() // Consume right parenthesis: )
-        let funcCallExpr = FunctionCallExpr(name: name,
+        var funcCallExpr = FunctionCallExpr(name: name,
                                             arguments: arguments.count > 0 ? arguments : nil)
-        if isDebug {
-            funcCallExpr.setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
-        }
+        funcCallExpr.debugInfo = lexer.debugInfo
         return funcCallExpr
     }
     
@@ -1136,7 +1097,7 @@ class Parser {
             
             guard let name = lexer.currentTokenValue as? String else {
                 // TODO: good error handling
-                throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+                throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
             }
             
             try getNextToken() // Consume identifier
@@ -1148,21 +1109,21 @@ class Parser {
                     // Named argument
                     return FunctionCallArgument(name: name, expr: expression)
                 } else {
-                    throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+                    throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
                 }
             } else if let expression = try parseBinOpRHS(lhs: IdentifierExpr(name: name), expressionPrecedence: 0) {
                 // Anonymous argument
                 return FunctionCallArgument(name: nil, expr: expression)
                 
             } else {
-                throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+                throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
             }
         } else if let expression = try parseExpression() {
             // Anonymous argument
             return FunctionCallArgument(name: nil, expr: expression)
             
         } else {
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
     }
     
@@ -1172,7 +1133,7 @@ class Parser {
     private func parseIntegerExpression() throws -> IntegerExpr {
         guard let value = lexer.currentTokenValue as? Int else {
             // TODO: good erro handling
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
         
         let integerExpression = IntegerExpr(value: value)
@@ -1186,7 +1147,7 @@ class Parser {
     private func parseRealExpression() throws -> RealExpr {
         guard let value = lexer.currentTokenValue as? Double else {
             // TODO: good erro handling
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
         
         let realExpression = RealExpr(value: value)
@@ -1200,7 +1161,7 @@ class Parser {
     private func parseBooleanExpression() throws -> BooleanExpr {
         guard let value = lexer.currentTokenValue as? Bool else {
             // TODO: good erro handling
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
         
         let booleanExpression = BooleanExpr(value: value)
@@ -1214,7 +1175,7 @@ class Parser {
     private func parseStringExpression() throws -> StringExpr {
         guard let value = lexer.currentTokenValue as? String else {
             // TODO: good erro handling
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
         
         let stringExpression = StringExpr(value: value)
@@ -1231,7 +1192,7 @@ class Parser {
         }
         
         guard case Token.rightParenthesis = currentToken! else {
-            throw ProgramError(errorType: ParserError.expressionError, lineNumber: lexer.getLineNumber(), postion: lexer.getCurrentPosition())
+            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
         
         try getNextToken() // Consume right parenthesis: )
@@ -1245,10 +1206,8 @@ class Parser {
     private func parseSuperExpression() throws -> Evaluable {
         try getNextToken() // consume 'super'
 
-        let superExpr = SuperExpr()
-        if isDebug {
-            superExpr.setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
-        }
+        var superExpr = SuperExpr()
+        superExpr.debugInfo = lexer.debugInfo
         return superExpr
     }
     
@@ -1258,9 +1217,7 @@ class Parser {
         try getNextToken() // consume 'nil'
 
         let nilExpr = NilExpr()
-        if isDebug {
-            nilExpr.setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
-        }
+        nilExpr.debugInfo = lexer.debugInfo
         return nilExpr
     }
     
@@ -1280,10 +1237,9 @@ class Parser {
         try getNextToken() // consume unary operator
 
         if let operand = try parseUnaryExpression() {
-            let unaryOperatorExpr = UnaryOperatorExpr(unOp: unOp, operand: operand)
-            if isDebug {
-                unaryOperatorExpr.setDebuggabbleInfo(lineNumber: lexer.getLineNumber(), position: lexer.getCurrentPosition())
-            }
+            var unaryOperatorExpr = UnaryOperatorExpr(unOp: unOp, operand: operand)
+            unaryOperatorExpr.debugInfo = lexer.debugInfo
+
             return unaryOperatorExpr
         }
         
@@ -1340,5 +1296,4 @@ class Parser {
         
         return try parseBinOpRHS(lhs: lhs, expressionPrecedence: 0)
     }
-    
 }

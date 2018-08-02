@@ -117,12 +117,12 @@ private func computeMethodAppendElement(in classScope: Scope,
         // Self argument
         guard let selfInstance = arguments?[0].value as? Instance,
             let element = arguments?[1].value else {
-            throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, lineNumber: nil, postion: nil)
+            throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, debugInfo: nil)
         }
         
         guard let arrayVariable = selfInstance.scope.getSymbolValue(for: "__array__".hashValue) as? Variable,
             let array = arrayVariable.value as? NSMutableArray else {
-            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: nil, postion: nil)
+            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: nil)
         }
         
         array.add(element)
@@ -193,16 +193,16 @@ private func computeMethodElementAt(in classScope: Scope,
         // Self argument
         guard let selfInstance = arguments?[0].value as? Instance,
             let index = arguments?[1].value as? Int else {
-                throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, lineNumber: nil, postion: nil)
+                throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, debugInfo: nil)
         }
         
         guard let arrayVariable = selfInstance.scope.getSymbolValue(for: "__array__".hashValue) as? Variable,
             let array = arrayVariable.value as? NSMutableArray else {
-            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: nil, postion: nil)
+            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: nil)
         }
         
         guard index >= 0 || index < array.count - 1 else {
-            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: nil, postion: nil)
+            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: nil)
         }
         
         let element = array.object(at: index)
@@ -230,12 +230,12 @@ private func computeMethodIsEmpty(in classScope: Scope,
         
         // Self argument
         guard let selfInstance = arguments?.first?.value as? Instance else {
-            throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, lineNumber: nil, postion: nil)
+            throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, debugInfo: nil)
         }
         
         guard let arrayVariable = selfInstance.scope.getSymbolValue(for: "__array__".hashValue) as? Variable,
             let array = arrayVariable.value as? NSMutableArray else {
-                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: nil, postion: nil)
+                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: nil)
         }
         
         return Variable(type: .boolean,
@@ -261,12 +261,12 @@ private func computeMethodCount(in classScope: Scope,
         
         // Self argument
         guard let selfInstance = arguments?.first?.value as? Instance else {
-                throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, lineNumber: nil, postion: nil)
+                throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, debugInfo: nil)
         }
         
         guard let arrayVariable = selfInstance.scope.getSymbolValue(for: "__array__".hashValue) as? Variable,
             let array = arrayVariable.value as? NSMutableArray else {
-                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: nil, postion: nil)
+                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: nil)
         }
 
         return Variable(type: .integer,

@@ -8,7 +8,8 @@
 
 import Foundation
 
-class Closure: DebuggableElement, Evaluable {
+class Closure: Evaluable {
+    var debugInfo: DebugInfo?
 
     let prototype: Prototype
     let block: BlockStmt?
@@ -45,7 +46,7 @@ class Closure: DebuggableElement, Evaluable {
                 var variable: Variable! = try arguments[index].expr.evaluate(context: context,
                                                                              environment: environment) as? Variable
                 guard variable != nil else {
-                    throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
+                    throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
                 }
                 
                 // Check if types match
@@ -53,14 +54,14 @@ class Closure: DebuggableElement, Evaluable {
                     if prototypeArgument.type != variable.type {
                         if let instance = variable.value as? Instance {
                             if !instance.isInstance(of: prototypeArgument.type) {
-                                throw ProgramError(errorType: InterpreterError.expressionTypeMismatch, lineNumber: lineNumber, postion: position)
+                                throw ProgramError(errorType: InterpreterError.expressionTypeMismatch, debugInfo: debugInfo)
                             }
                         } else if variable.type == .nil {
                             variable = Variable(type: prototypeArgument.type,
                                                 isConstant: true,
                                                 value: nil)
                         } else {
-                            throw ProgramError(errorType: InterpreterError.expressionTypeMismatch, lineNumber: lineNumber, postion: position)
+                            throw ProgramError(errorType: InterpreterError.expressionTypeMismatch, debugInfo: debugInfo)
                         }
                     }
                 }
@@ -77,15 +78,15 @@ class Closure: DebuggableElement, Evaluable {
         
         if prototype.type == .void {
             if returnedEvaluable != nil {
-                throw ProgramError(errorType: InterpreterError.shouldReturnNothing, lineNumber: lineNumber, postion: position)
+                throw ProgramError(errorType: InterpreterError.shouldReturnNothing, debugInfo: debugInfo)
             }
         } else {
             returnedEvaluable = parametersContext.returnedEvaluable
             if returnedEvaluable == nil {
-                throw ProgramError(errorType: InterpreterError.missingReturnedExpression, lineNumber: lineNumber, postion: position)
+                throw ProgramError(errorType: InterpreterError.missingReturnedExpression, debugInfo: debugInfo)
             }
             guard let returnedVariable = returnedEvaluable as? Variable else {
-                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
+                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
             }
 
             // Check if types match
@@ -93,14 +94,14 @@ class Closure: DebuggableElement, Evaluable {
                 if prototype.type != returnedVariable.type {
                     if let instance = returnedVariable.value as? Instance {
                         if !instance.isInstance(of: prototype.type) {
-                            throw ProgramError(errorType: InterpreterError.wrongFunctionCallReturnedType, lineNumber: lineNumber, postion: position)
+                            throw ProgramError(errorType: InterpreterError.wrongFunctionCallReturnedType, debugInfo: debugInfo)
                         }
                     } else if returnedVariable.type == .nil {
                         returnedEvaluable = Variable(type: prototype.type,
                                                      isConstant: true,
                                                      value: nil)
                     } else {
-                        throw ProgramError(errorType: InterpreterError.wrongFunctionCallReturnedType, lineNumber: lineNumber, postion: position)
+                        throw ProgramError(errorType: InterpreterError.wrongFunctionCallReturnedType, debugInfo: debugInfo)
                     }
                 }
             }

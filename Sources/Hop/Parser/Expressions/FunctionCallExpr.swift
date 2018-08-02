@@ -8,8 +8,9 @@
 
 import Foundation
 
-class FunctionCallExpr : DebuggableElement, Evaluable {
-    
+struct FunctionCallExpr : Evaluable {
+    var debugInfo: DebugInfo?
+
     let name: String
     let hashId: Int     // Used for class constructor search
     let arguments: [FunctionCallArgument]?
@@ -61,7 +62,7 @@ class FunctionCallExpr : DebuggableElement, Evaluable {
                                       context: context,
                                       environment: environment)
         }
-        throw ProgramError(errorType: InterpreterError.classMemberNotDeclared, lineNumber: lineNumber, postion: position)
+        throw ProgramError(errorType: InterpreterError.classMemberNotDeclared, debugInfo: debugInfo)
     }
 
     func evaluateMethod(ofInstance instance: Instance,
@@ -83,7 +84,7 @@ class FunctionCallExpr : DebuggableElement, Evaluable {
                                               arguments: arguments)
         
         guard let closure = inspectedClass.getClassMember(for: methodCallExpr.signatureHashId) as? Closure else {
-            throw ProgramError(errorType: InterpreterError.functionNotDeclared, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.functionNotDeclared, debugInfo: debugInfo)
         }
 
         return try closure.evaluate(arguments: arguments,
@@ -125,7 +126,7 @@ class FunctionCallExpr : DebuggableElement, Evaluable {
                                       environment: environment)
         }
         
-        throw ProgramError(errorType: InterpreterError.functionNotDeclared, lineNumber: lineNumber, postion: position)
+        throw ProgramError(errorType: InterpreterError.functionNotDeclared, debugInfo: debugInfo)
 
     }
     

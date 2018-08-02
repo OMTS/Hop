@@ -8,11 +8,12 @@
 
 import Foundation
 
-class ImportStmt: DebuggableElement, Evaluable {
+class ImportStmt: Evaluable {
 
     var name: String
     var hashId: Int
-    
+    var debugInfo: DebugInfo?
+
     init(name: String) {
         self.name = name
         self.hashId = name.hashValue
@@ -38,7 +39,7 @@ class ImportStmt: DebuggableElement, Evaluable {
             return nil
         }
         
-        throw ProgramError(errorType: ImporterError.moduleNotFound, lineNumber: lineNumber, postion: position)
+        throw ProgramError(errorType: ImporterError.moduleNotFound, debugInfo: debugInfo)
 
     }
 }

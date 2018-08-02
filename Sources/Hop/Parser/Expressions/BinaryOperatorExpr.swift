@@ -8,7 +8,8 @@
 
 import Foundation
 
-class BinaryOperatorExpr: DebuggableElement, Evaluable {
+struct BinaryOperatorExpr: Evaluable {
+    var debugInfo: DebugInfo?
     
     var binOp: Token
     var lhs: Evaluable
@@ -118,14 +119,14 @@ class BinaryOperatorExpr: DebuggableElement, Evaluable {
                                                             context: context,
                                                             environment: environment)
             } else {
-                throw ProgramError(errorType: InterpreterError.accessorMemberError, lineNumber: lineNumber, postion: position)
+                throw ProgramError(errorType: InterpreterError.accessorMemberError, debugInfo: debugInfo)
             }
         } else if let lhsClasse = lhsEvaluation as? Class {
             if let rhsIdentifier = rhs as? IdentifierExpr {
                 // Search class member
                 guard let evaluatedRhs = lhsClasse.getClassMember(for: rhsIdentifier.hashId),
                     (evaluatedRhs is Variable || evaluatedRhs is Class) else {
-                    throw ProgramError(errorType: InterpreterError.unresolvedIdentifier, lineNumber: lineNumber, postion: position)
+                    throw ProgramError(errorType: InterpreterError.unresolvedIdentifier, debugInfo: debugInfo)
                 }
                 return evaluatedRhs
 
@@ -134,7 +135,7 @@ class BinaryOperatorExpr: DebuggableElement, Evaluable {
                                                           context: context,
                                                           environment: environment)
             } else {
-                throw ProgramError(errorType: InterpreterError.accessorMemberError, lineNumber: lineNumber, postion: position)
+                throw ProgramError(errorType: InterpreterError.accessorMemberError, debugInfo: debugInfo)
             }
         } else if let lhsVariable = lhsEvaluation as? Variable {
             if let instance = lhsVariable.value as? Instance {
@@ -142,12 +143,12 @@ class BinaryOperatorExpr: DebuggableElement, Evaluable {
                     // Restrain property access if it is accessed from superclass reference
                     if lhsVariable.type != instance.class.type {
                         guard let superclass = instance.class.getSuperclass(for: lhsVariable.type.hashId) else {
-                            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
+                            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
 
                         }
                         if !superclass.hasInstanceProperty(with: rhsIdentifier.hashId),
                             superclass.getClassMember(for: rhsIdentifier.hashId) == nil {
-                            throw ProgramError(errorType: InterpreterError.classMemberNotDeclared, lineNumber: lineNumber, postion: position)
+                            throw ProgramError(errorType: InterpreterError.classMemberNotDeclared, debugInfo: debugInfo)
                         }
                     }
                     
@@ -161,13 +162,13 @@ class BinaryOperatorExpr: DebuggableElement, Evaluable {
                         return propertyVariable
                         
                     } else {
-                        throw ProgramError(errorType: InterpreterError.accessorMemberError, lineNumber: lineNumber, postion: position)
+                        throw ProgramError(errorType: InterpreterError.accessorMemberError, debugInfo: debugInfo)
                     }
                 } else if let rhsFunctionCall = rhs as? FunctionCallExpr {
                     // Restrain method acces if it is accessed from superclass reference
                     if lhsVariable.type != instance.class.type {
                         guard let superclass = instance.class.getSuperclass(for: lhsVariable.type.hashId) else {
-                            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
+                            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
                         }
                         var methodArgumentNames = [SelfParameter.name]
                         if let argumentNames = rhsFunctionCall.argumentNames {
@@ -176,7 +177,7 @@ class BinaryOperatorExpr: DebuggableElement, Evaluable {
                         let methodHashId = Closure.getFunctionSignatureHashId(name: rhsFunctionCall.name,
                                                                               argumentNames: methodArgumentNames)
                         if superclass.getClassMember(for: methodHashId) == nil {
-                            throw ProgramError(errorType: InterpreterError.classMemberNotDeclared, lineNumber: lineNumber, postion: position)
+                            throw ProgramError(errorType: InterpreterError.classMemberNotDeclared, debugInfo: debugInfo)
                         }
                     }
                     
@@ -188,15 +189,15 @@ class BinaryOperatorExpr: DebuggableElement, Evaluable {
                                                                   context: context,
                                                                   environment: environment)
                 } else {
-                    throw ProgramError(errorType: InterpreterError.accessorMemberError, lineNumber: lineNumber, postion: position)
+                    throw ProgramError(errorType: InterpreterError.accessorMemberError, debugInfo: debugInfo)
                 }
             } else if lhsVariable.value != nil {
-                throw ProgramError(errorType: InterpreterError.accessorOwnerError, lineNumber: lineNumber, postion: position)
+                throw ProgramError(errorType: InterpreterError.accessorOwnerError, debugInfo: debugInfo)
             } else {
-                throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
+                throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
             }
         } else {
-            throw ProgramError(errorType: InterpreterError.accessorOwnerError, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.accessorOwnerError, debugInfo: debugInfo)
         }
     }
     
@@ -207,19 +208,19 @@ class BinaryOperatorExpr: DebuggableElement, Evaluable {
                                                  environment: environment) as? Variable,
             let rhsVariable = try rhs.evaluate(context: context,
                                                environment: environment) as? Variable else {
-              throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
+              throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
         
         guard lhsVariable.type == rhsVariable.type else {
-            throw ProgramError(errorType: InterpreterError.binaryOperatorTypeMismatch, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.binaryOperatorTypeMismatch, debugInfo: debugInfo)
         }
 
         guard let lhsValue = lhsVariable.value else {
-            throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
         }
         
         guard let rhsValue = rhsVariable.value else {
-            throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
         }
         
         if lhsVariable.type == .integer {
@@ -237,7 +238,7 @@ class BinaryOperatorExpr: DebuggableElement, Evaluable {
                             isConstant: true,
                             value: (lhsValue as! String) + (rhsValue as! String))
         } else {
-            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
     }
     
@@ -248,19 +249,19 @@ class BinaryOperatorExpr: DebuggableElement, Evaluable {
                                                  environment: environment) as? Variable,
             let rhsVariable = try rhs.evaluate(context: context,
                                                environment: environment) as? Variable else {
-                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
+                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
         
         guard lhsVariable.type == rhsVariable.type else {
-            throw ProgramError(errorType: InterpreterError.binaryOperatorTypeMismatch, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.binaryOperatorTypeMismatch, debugInfo: debugInfo)
         }
         
         guard let lhsValue = lhsVariable.value else {
-           throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
+           throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
         }
         
         guard let rhsValue = rhsVariable.value else {
-            throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
         }
         
         if lhsVariable.type == .integer {
@@ -274,7 +275,7 @@ class BinaryOperatorExpr: DebuggableElement, Evaluable {
                             value: (lhsValue as! Double) - (rhsValue as! Double))
             
         } else {
-            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
     }
     
@@ -285,20 +286,20 @@ class BinaryOperatorExpr: DebuggableElement, Evaluable {
                                                  environment: environment) as? Variable,
             let rhsVariable = try rhs.evaluate(context: context,
                                                environment: environment) as? Variable else {
-                 throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
+                 throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
 
         }
 
         guard lhsVariable.type == rhsVariable.type else {
-            throw ProgramError(errorType: InterpreterError.binaryOperatorTypeMismatch, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.binaryOperatorTypeMismatch, debugInfo: debugInfo)
         }
         
         guard let lhsValue = lhsVariable.value else {
-            throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
         }
         
         guard let rhsValue = rhsVariable.value else {
-            throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
         }
         
         if lhsVariable.type == .integer {
@@ -312,7 +313,7 @@ class BinaryOperatorExpr: DebuggableElement, Evaluable {
                             value: (lhsValue as! Double) * (rhsValue as! Double))
             
         } else {
-            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
     }
     
@@ -323,25 +324,25 @@ class BinaryOperatorExpr: DebuggableElement, Evaluable {
                                                  environment: environment) as? Variable,
             let rhsVariable = try rhs.evaluate(context: context,
                                                environment: environment) as? Variable else {
-                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
+                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
 
         guard lhsVariable.type == rhsVariable.type else {
-            throw ProgramError(errorType: InterpreterError.binaryOperatorTypeMismatch, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.binaryOperatorTypeMismatch, debugInfo: debugInfo)
         }
         
         guard let lhsValue = lhsVariable.value else {
-            throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
         }
         
         guard let rhsValue = rhsVariable.value else {
-            throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
         }
         
         if lhsVariable.type == .integer {
             let rhsInteger = rhsValue as! Int
             if rhsInteger == 0 {
-                throw ProgramError(errorType: InterpreterError.zeroDivisionAttempt, lineNumber: lineNumber, postion: position)
+                throw ProgramError(errorType: InterpreterError.zeroDivisionAttempt, debugInfo: debugInfo)
             }
             return Variable(type: .integer,
                             isConstant: true,
@@ -350,14 +351,14 @@ class BinaryOperatorExpr: DebuggableElement, Evaluable {
         } else if lhsVariable.type == .real {
             let rhsReal = rhsValue as! Double
             if rhsReal == 0 {
-                throw ProgramError(errorType: InterpreterError.zeroDivisionAttempt, lineNumber: lineNumber, postion: position)
+                throw ProgramError(errorType: InterpreterError.zeroDivisionAttempt, debugInfo: debugInfo)
             }
             return Variable(type: .real,
                             isConstant: true,
                             value: (lhsValue as! Double) / rhsReal)
             
         } else {
-            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
     }
     
@@ -368,19 +369,19 @@ class BinaryOperatorExpr: DebuggableElement, Evaluable {
                                                  environment: environment) as? Variable,
             let rhsVariable = try rhs.evaluate(context: context,
                                                environment: environment) as? Variable else {
-                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
+                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
 
         guard lhsVariable.type == rhsVariable.type else {
-            throw ProgramError(errorType: InterpreterError.binaryOperatorTypeMismatch, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.binaryOperatorTypeMismatch, debugInfo: debugInfo)
         }
         
         guard let lhsValue = lhsVariable.value else {
-            throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
         }
         
         guard let rhsValue = rhsVariable.value else {
-            throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
         }
         
         if lhsVariable.type == .integer {
@@ -389,7 +390,7 @@ class BinaryOperatorExpr: DebuggableElement, Evaluable {
                             value: (lhsValue as! Int) % (rhsValue as! Int))
             
         } else {
-            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
     }
     
@@ -400,11 +401,11 @@ class BinaryOperatorExpr: DebuggableElement, Evaluable {
                                                  environment: environment) as? Variable,
             let rhsVariable = try rhs.evaluate(context: context,
                                                environment: environment) as? Variable else {
-                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
+                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
         
         if lhsVariable.isConstant {
-            throw ProgramError(errorType: InterpreterError.forbiddenAssignment, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.forbiddenAssignment, debugInfo: debugInfo)
         }
 
         // Check for type matching
@@ -412,10 +413,10 @@ class BinaryOperatorExpr: DebuggableElement, Evaluable {
             if lhsVariable.type != rhsVariable.type {
                 if let instance = rhsVariable.value as? Instance {
                     if !instance.isInstance(of: lhsVariable.type) {
-                        throw ProgramError(errorType: InterpreterError.expressionTypeMismatch, lineNumber: lineNumber, postion: position)
+                        throw ProgramError(errorType: InterpreterError.expressionTypeMismatch, debugInfo: debugInfo)
                     }
                 } else if rhsVariable.type != .nil {
-                    throw ProgramError(errorType: InterpreterError.expressionTypeMismatch, lineNumber: lineNumber, postion: position)
+                    throw ProgramError(errorType: InterpreterError.expressionTypeMismatch, debugInfo: debugInfo)
                 }
             }
         }
@@ -432,7 +433,7 @@ class BinaryOperatorExpr: DebuggableElement, Evaluable {
                                                  environment: environment) as? Variable,
             let rhsVariable = try rhs.evaluate(context: context,
                                                environment: environment) as? Variable else {
-                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
+                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
 
         if lhsVariable.type != rhsVariable.type {
@@ -444,7 +445,7 @@ class BinaryOperatorExpr: DebuggableElement, Evaluable {
                 return Variable(type: .boolean, isConstant: true, value: lhsVariable.value == nil)
             }
 
-            throw ProgramError(errorType: InterpreterError.expressionTypeMismatch, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.expressionTypeMismatch, debugInfo: debugInfo)
         }
         
         if lhsVariable.type == .integer {
@@ -464,7 +465,7 @@ class BinaryOperatorExpr: DebuggableElement, Evaluable {
             return Variable(type: .boolean, isConstant: true, value: value)
 
         } else {
-            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
     }
     
@@ -475,7 +476,7 @@ class BinaryOperatorExpr: DebuggableElement, Evaluable {
                                                  environment: environment) as? Variable,
             let rhsVariable = try rhs.evaluate(context: context,
                                                environment: environment) as? Variable else {
-                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
+                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
         
         if lhsVariable.type != rhsVariable.type {
@@ -487,7 +488,7 @@ class BinaryOperatorExpr: DebuggableElement, Evaluable {
                 return Variable(type: .boolean, isConstant: true, value: lhsVariable.value != nil)
             }
             
-            throw ProgramError(errorType: InterpreterError.expressionTypeMismatch, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.expressionTypeMismatch, debugInfo: debugInfo)
         }
         
         if lhsVariable.type == .integer {
@@ -507,7 +508,7 @@ class BinaryOperatorExpr: DebuggableElement, Evaluable {
             return Variable(type: .boolean, isConstant: true, value: value)
             
         } else {
-            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
     }
     
@@ -518,19 +519,19 @@ class BinaryOperatorExpr: DebuggableElement, Evaluable {
                                                  environment: environment) as? Variable,
             let rhsVariable = try rhs.evaluate(context: context,
                                                environment: environment) as? Variable else {
-                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
+                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
 
         guard lhsVariable.type == rhsVariable.type else {
-            throw ProgramError(errorType: InterpreterError.binaryOperatorTypeMismatch, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.binaryOperatorTypeMismatch, debugInfo: debugInfo)
         }
         
         guard let lhsValue = lhsVariable.value else {
-            throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
         }
         
         guard let rhsValue = rhsVariable.value else {
-            throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
         }
         
         if lhsVariable.type == .integer {
@@ -546,7 +547,7 @@ class BinaryOperatorExpr: DebuggableElement, Evaluable {
             return Variable(type: .boolean, isConstant: true, value: value)
             
         } else {
-            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
     }
     
@@ -557,19 +558,19 @@ class BinaryOperatorExpr: DebuggableElement, Evaluable {
                                                  environment: environment) as? Variable,
             let rhsVariable = try rhs.evaluate(context: context,
                                                environment: environment) as? Variable else {
-                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
+                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
 
         guard lhsVariable.type == rhsVariable.type else {
-            throw ProgramError(errorType: InterpreterError.binaryOperatorTypeMismatch, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.binaryOperatorTypeMismatch, debugInfo: debugInfo)
         }
         
         guard let lhsValue = lhsVariable.value else {
-            throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
         }
         
         guard let rhsValue = rhsVariable.value else {
-            throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
         }
         
         if lhsVariable.type == .integer {
@@ -585,7 +586,7 @@ class BinaryOperatorExpr: DebuggableElement, Evaluable {
             return Variable(type: .boolean, isConstant: true, value: value)
             
         } else {
-            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
     }
     
@@ -596,19 +597,19 @@ class BinaryOperatorExpr: DebuggableElement, Evaluable {
                                                  environment: environment) as? Variable,
             let rhsVariable = try rhs.evaluate(context: context,
                                                environment: environment) as? Variable else {
-                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
+                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
 
         guard lhsVariable.type == rhsVariable.type else {
-            throw ProgramError(errorType: InterpreterError.binaryOperatorTypeMismatch, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.binaryOperatorTypeMismatch, debugInfo: debugInfo)
         }
         
         guard let lhsValue = lhsVariable.value else {
-            throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
         }
         
         guard let rhsValue = rhsVariable.value else {
-            throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
         }
         
         if lhsVariable.type == .integer {
@@ -624,7 +625,7 @@ class BinaryOperatorExpr: DebuggableElement, Evaluable {
             return Variable(type: .boolean, isConstant: true, value: value)
             
         } else {
-            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
     }
     
@@ -635,19 +636,19 @@ class BinaryOperatorExpr: DebuggableElement, Evaluable {
                                                  environment: environment) as? Variable,
             let rhsVariable = try rhs.evaluate(context: context,
                                                environment: environment) as? Variable else {
-                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
+                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
 
         guard lhsVariable.type == rhsVariable.type else {
-            throw ProgramError(errorType: InterpreterError.binaryOperatorTypeMismatch, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.binaryOperatorTypeMismatch, debugInfo: debugInfo)
         }
         
         guard let lhsValue = lhsVariable.value else {
-            throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
         }
         
         guard let rhsValue = rhsVariable.value else {
-            throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
         }
         
         if lhsVariable.type == .integer {
@@ -663,7 +664,7 @@ class BinaryOperatorExpr: DebuggableElement, Evaluable {
             return Variable(type: .boolean, isConstant: true, value: value)
             
         } else {
-            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
     }
     
@@ -674,19 +675,19 @@ class BinaryOperatorExpr: DebuggableElement, Evaluable {
                                                  environment: environment) as? Variable,
             let rhsVariable = try rhs.evaluate(context: context,
                                                environment: environment) as? Variable else {
-                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
+                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
         
         guard lhsVariable.type == rhsVariable.type else {
-            throw ProgramError(errorType: InterpreterError.binaryOperatorTypeMismatch, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.binaryOperatorTypeMismatch, debugInfo: debugInfo)
         }
         
         guard let lhsValue = lhsVariable.value else {
-            throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
         }
         
         guard let rhsValue = rhsVariable.value else {
-            throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
         }
 
         if lhsVariable.type == .boolean {
@@ -694,7 +695,7 @@ class BinaryOperatorExpr: DebuggableElement, Evaluable {
             return Variable(type: .boolean, isConstant: true, value: value)
             
         } else {
-            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
     }
     
@@ -705,19 +706,19 @@ class BinaryOperatorExpr: DebuggableElement, Evaluable {
                                                  environment: environment) as? Variable,
             let rhsVariable = try rhs.evaluate(context: context,
                                                environment: environment) as? Variable else {
-                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
+                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
 
         guard lhsVariable.type == rhsVariable.type else {
-            throw ProgramError(errorType: InterpreterError.binaryOperatorTypeMismatch, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.binaryOperatorTypeMismatch, debugInfo: debugInfo)
         }
         
         guard let lhsValue = lhsVariable.value else {
-            throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
         }
         
         guard let rhsValue = rhsVariable.value else {
-            throw ProgramError(errorType: InterpreterError.undefinedVariable, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
         }
         
         if lhsVariable.type == .boolean {
@@ -725,7 +726,7 @@ class BinaryOperatorExpr: DebuggableElement, Evaluable {
             return Variable(type: .boolean, isConstant: true, value: value)
             
         } else {
-            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
     }
 

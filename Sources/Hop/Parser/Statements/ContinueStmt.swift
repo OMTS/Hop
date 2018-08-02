@@ -8,7 +8,8 @@
 
 import Foundation
 
-class ContinueStmt: DebuggableElement, Evaluable {
+struct ContinueStmt: Evaluable {
+    var debugInfo: DebugInfo?
 
     var description: String {
         return "continue"

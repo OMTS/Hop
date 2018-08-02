@@ -9,7 +9,8 @@
 import Foundation
 
 class IntegerExpr: Evaluable {
-    
+    var debugInfo: DebugInfo?
+
     let value: Int
     
     init(value: Int) {

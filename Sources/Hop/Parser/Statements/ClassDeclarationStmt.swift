@@ -8,8 +8,9 @@
 
 import Foundation
 
-class ClassDeclarationStmt: DebuggableElement, Evaluable {
-
+class ClassDeclarationStmt: Evaluable {
+    var debugInfo: DebugInfo?
+    
     let name: String
     let hashId: Int
     let superclassExpr: Evaluable?
@@ -73,7 +74,7 @@ class ClassDeclarationStmt: DebuggableElement, Evaluable {
     
     func evaluate(context: Scope, environment: Environment) throws -> Evaluable? {
         if context.symbolTable[hashId] != nil {
-            throw ProgramError(errorType: InterpreterError.classAlreadyDeclared, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.classAlreadyDeclared, debugInfo: debugInfo)
         }
         
         let classScope = Scope(parent: context)
@@ -85,7 +86,7 @@ class ClassDeclarationStmt: DebuggableElement, Evaluable {
                     return result + (declaration.hashId == instancePropertyDeclaration.hashId ? 1 : 0)
                 }
                 if count > 1 {
-                    throw ProgramError(errorType: InterpreterError.classMemberAlreadyDeclared, lineNumber: lineNumber, postion: position)
+                    throw ProgramError(errorType: InterpreterError.classMemberAlreadyDeclared, debugInfo: debugInfo)
                 }
             }
         }
@@ -102,7 +103,7 @@ class ClassDeclarationStmt: DebuggableElement, Evaluable {
             superclass = try superclassExpr.evaluate(context: context,
                                                      environment: environment) as? Class
             if superclass == nil {
-                throw ProgramError(errorType: InterpreterError.unresolvedIdentifier, lineNumber: lineNumber, postion: position)
+                throw ProgramError(errorType: InterpreterError.unresolvedIdentifier, debugInfo: debugInfo)
             }
             
             // Check if subclass does not redeclare one of superclass instance property
@@ -110,7 +111,7 @@ class ClassDeclarationStmt: DebuggableElement, Evaluable {
                 instancePropertyDeclarations.count > 0 {
                 for instancePropertyDeclaration in instancePropertyDeclarations {
                     if superclass!.hasInstanceProperty(with: instancePropertyDeclaration.hashId) {
-                        throw ProgramError(errorType: InterpreterError.classMemberAlreadyDeclaredInSuperclass, lineNumber: lineNumber, postion: position)
+                        throw ProgramError(errorType: InterpreterError.classMemberAlreadyDeclaredInSuperclass, debugInfo: debugInfo)
                     }
                 }
             }
@@ -126,7 +127,7 @@ class ClassDeclarationStmt: DebuggableElement, Evaluable {
             for classPropertyDeclaration in classPropertyDeclarations {
                 // Check if property is not already declared in superclass
                 if superclass?.getClassMember(for: classPropertyDeclaration.hashId) != nil {
-                    throw ProgramError(errorType: InterpreterError.classMemberAlreadyDeclaredInSuperclass, lineNumber: lineNumber, postion: position)
+                    throw ProgramError(errorType: InterpreterError.classMemberAlreadyDeclaredInSuperclass, debugInfo: debugInfo)
                 }
 
                 _ = try classPropertyDeclaration.evaluate(context: classScope,

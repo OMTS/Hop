@@ -24,7 +24,6 @@ public enum LexerError: ErrorType {
 
 public class Lexer {
 
-    private let isDebug: Bool
     private var chars: [Character]!
     public private(set) var nextCharIndex: Int = 0
     private var lineIndex: Int = 0
@@ -34,6 +33,8 @@ public class Lexer {
         }
         return nil
     }
+    fileprivate var lastTokenPosition: Int?
+    fileprivate let isDebug: Bool
     public var currentTokenValue: Any?
     
     public init(script: String, isDebug: Bool) {
@@ -52,7 +53,7 @@ public class Lexer {
     public func getNextChar() {
         nextCharIndex += 1
     }
-    
+
     public func getChar(at index: Int) -> Character? {
         if index < 0 { return nil }
         if index > chars.count - 1 { return nil }
@@ -123,61 +124,70 @@ public class Lexer {
                     }
                 }
             }
-            
+            setLastTokenPositionForDebug(forToken: .divide)
             return Token.divide
         }
         
         // Consume hash
         if currentChar == "#" {
             getNextChar()
+            setLastTokenPositionForDebug(forToken: .hash)
             return .hash
         }
         
         // Consume colon
         if currentChar == ":" {
             getNextChar()
+            setLastTokenPositionForDebug(forToken: .colon)
             return .colon
         }
         
         // Consume comma
         if currentChar == "," {
             getNextChar()
+            setLastTokenPositionForDebug(forToken: .comma)
             return .comma
         }
 
         // Consume dot
         if currentChar == "." {
             getNextChar()
+            setLastTokenPositionForDebug(forToken: .dot)
             return .dot
         }
 
         // Consume left curly brace
         if currentChar == "{" {
             getNextChar()
+            setLastTokenPositionForDebug(forToken: .leftCurlyBrace)
             return .leftCurlyBrace
         }
         
         // Consume right curly brace
         if currentChar == "}" {
             getNextChar()
+            setLastTokenPositionForDebug(forToken: .rightCurlyBrace)
             return .rightCurlyBrace
         }
         
         // Consume left parenthesis
         if currentChar == "(" {
             getNextChar()
+            setLastTokenPositionForDebug(forToken: .leftParenthesis)
             return .leftParenthesis
         }
         
         // Consume right parenthesis
         if currentChar == ")" {
             getNextChar()
+            setLastTokenPositionForDebug(forToken: .rightParenthesis)
             return .rightParenthesis
         }
         
         // Consume ones' complement
         if currentChar == "~" {
             getNextChar()
+            setLastTokenPositionForDebug(forToken: .onesComplement)
             return .onesComplement
         }
         
@@ -188,15 +198,17 @@ public class Lexer {
             // Consume not equal
             if currentChar != nil && currentChar == "=" {
                 getNextChar()
+                setLastTokenPositionForDebug(forToken: .notEqual)
                 return .notEqual
             }
-            
+            setLastTokenPositionForDebug(forToken: .logicalNegation)
             return .logicalNegation
         }
         
         // Consume plus
         if currentChar == "+" {
             getNextChar()
+            setLastTokenPositionForDebug(forToken: .plus)
             return .plus
         }
         
@@ -206,21 +218,24 @@ public class Lexer {
             
             if currentChar != nil && currentChar == ">" {
                 getNextChar()  // Consume function return token '->'
+                setLastTokenPositionForDebug(forToken: .funcReturnToken)
                 return .funcReturnToken
             }
-            
+            setLastTokenPositionForDebug(forToken: .minus)
             return .minus
         }
         
         // Consume multiplication
         if currentChar == "*" {
             getNextChar()
+            setLastTokenPositionForDebug(forToken: .multiplication)
             return .multiplication
         }
         
         // Consume remainder
         if currentChar == "%" {
             getNextChar()
+            setLastTokenPositionForDebug(forToken: .remainder)
             return .remainder
         }
 
@@ -230,9 +245,10 @@ public class Lexer {
             
             if currentChar != nil && currentChar == "=" {
                 getNextChar() // Consume equal '=='
+                setLastTokenPositionForDebug(forToken: .equal)
                 return .equal
             }
-            
+            setLastTokenPositionForDebug(forToken: .assignment)
             return .assignment
         }
         
@@ -243,9 +259,10 @@ public class Lexer {
             // Consume less than or equal to
             if currentChar != nil && currentChar == "=" {
                 getNextChar()
+                setLastTokenPositionForDebug(forToken: .lessThanOrEqualTo)
                 return .lessThanOrEqualTo
             }
-            
+            setLastTokenPositionForDebug(forToken: .lessThan)
             return .lessThan
         }
         
@@ -256,9 +273,10 @@ public class Lexer {
             // Consume greater than or equalTo
             if currentChar != nil && currentChar == "=" {
                 getNextChar()
+                setLastTokenPositionForDebug(forToken: .greaterThanOrEqualTo)
                 return .greaterThanOrEqualTo
             }
-            
+            setLastTokenPositionForDebug(forToken: .greaterThan)
             return .greaterThan
         }
         
@@ -269,10 +287,11 @@ public class Lexer {
             // Consume logical AND
             if currentChar != nil && currentChar == "&" {
                 getNextChar()
+                setLastTokenPositionForDebug(forToken: .logicalAND)
                 return .logicalAND
             }
             
-            throw ProgramError(errorType: LexerError.illegalContent, lineNumber: getLineNumber(), postion: getCurrentPosition() - 1)
+            throw ProgramError(errorType: LexerError.illegalContent, debugInfo: debugInfo)
         }
         
         // Consume logical OR
@@ -282,10 +301,11 @@ public class Lexer {
             // Consume logical OR
             if currentChar != nil && currentChar == "|" {
                 getNextChar()
+                setLastTokenPositionForDebug(forToken: .logicalOR)
                 return .logicalOR
             }
             
-            throw ProgramError(errorType: LexerError.illegalContent, lineNumber: getLineNumber(), postion: getCurrentPosition() - 1)
+            throw ProgramError(errorType: LexerError.illegalContent, debugInfo: debugInfo)
         }
         
         // Consume identifier
@@ -301,6 +321,7 @@ public class Lexer {
             // Reserved keywords
             if let token = Token(rawValue: buffer),
                 Token.reservedKeywords.contains(token) {
+                setLastTokenPositionForDebug(forToken: token)
                 return token
             }
             
@@ -308,12 +329,15 @@ public class Lexer {
             switch buffer {
             case "true":
                 currentTokenValue = true
+                setLastTokenPositionForDebug(forToken: .boolean, witValue: currentTokenValue)
                 return .boolean
             case "false":
                 currentTokenValue = false
+                setLastTokenPositionForDebug(forToken: .boolean, witValue: currentTokenValue)
                 return .boolean
             default:
                 currentTokenValue = buffer
+                setLastTokenPositionForDebug(forToken: .identifier, witValue: currentTokenValue)
                 return Token.identifier
             }
         }
@@ -333,10 +357,12 @@ public class Lexer {
             
             if hasDecimal {
                 currentTokenValue = Double(buffer)!
+                setLastTokenPositionForDebug(forToken: .real, witValue: currentTokenValue)
                 return .real
             }
             
             currentTokenValue = Int(buffer)!
+            setLastTokenPositionForDebug(forToken: .integer, witValue: currentTokenValue)
             return .integer
         }
         
@@ -365,10 +391,11 @@ public class Lexer {
             }
             
             currentTokenValue = buffer
+            setLastTokenPositionForDebug(forToken: .string, witValue: currentTokenValue)
             return .string
         }
         
-        throw ProgramError(errorType: LexerError.unknownError, lineNumber: getLineNumber(), postion: getCurrentPosition() - 1)
+        throw ProgramError(errorType: LexerError.unknownError, debugInfo: debugInfo)
     }
     
     // MARK: Helpers
@@ -405,5 +432,87 @@ public class Lexer {
         return isAlpha(character) || isNumeric(character)
     }
 
+}
+
+//Debug API
+extension Lexer {
+
+    //Debug API Herlper
+    var debugInfo: DebugInfo? {
+        let debugPosition = getLastTokenPositionForDebug()
+        let debugLine = getLineIndexForDebug(forCursorPosition: debugPosition)
+        return DebugInfo(lineNumber: debugLine, position: debugPosition)
+    }
+
+    fileprivate func getLastTokenPositionForDebug() -> Int? {
+        return lastTokenPosition
+    }
+
+    fileprivate func getLineIndexForDebug(forCursorPosition cursorPosition: Int?) -> Int?  {
+        guard let cursorPosition = cursorPosition else {
+            return nil
+        }
+        return getLineIndex(forCursorPosition:cursorPosition) + 1
+    }
+
+    fileprivate func setLastTokenPositionForDebug(forToken token: Token, witValue value: Any? = nil) {
+        if isDebug {
+            if let value = value {
+                if let name = value as? String {
+                    lastTokenPosition = nextCharIndex - name.count
+                } else if let name = value as? Int  {
+                    lastTokenPosition = nextCharIndex - String(name).count
+                } else if let name = value as? Double  {
+                    lastTokenPosition = nextCharIndex - String(name).count
+                } else if let name = value as? Bool  {
+                    lastTokenPosition = nextCharIndex - String(name).count
+                }
+            } else {
+                lastTokenPosition = nextCharIndex - token.rawValue.count
+            }
+        }
+    }
+}
+
+//Utilities
+extension Lexer {
+    private func computeLines(in characters: Array<Character>) -> [NSRange] {
+        var lines = [NSRange]()
+
+        var lineLocation = 0
+        var lineLength = 0
+
+        for character in characters {
+            lineLength += 1
+            if character == "\n" {
+                // Add line feed
+                lines.append(NSRange(location: lineLocation, length: lineLength))
+                lineLocation += lineLength
+                lineLength = 0
+            }
+        }
+
+        // Add last line
+        lines.append(NSRange(location: lineLocation, length: lineLength))
+
+        //        print("lines = \(lines)")
+        return lines
+    }
+
+    public func getLineIndex(forCursorPosition cursorPosition: Int) -> Int {
+
+        let lines: [NSRange] = computeLines(in: chars)
+        if cursorPosition >= chars.count {
+            return lines.count - 1
+        }
+
+        for (index, line) in lines.enumerated() {
+            if cursorPosition >= line.location
+                && cursorPosition < NSMaxRange(line) {
+                return index
+            }
+        }
+        return 0
+    }
 }
 

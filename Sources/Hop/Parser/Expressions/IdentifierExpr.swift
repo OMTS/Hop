@@ -8,8 +8,10 @@
 
 import Foundation
 
-class IdentifierExpr: DebuggableElement, Evaluable {
-    
+class IdentifierExpr: Evaluable {
+    var debugInfo: DebugInfo?
+
+
     var name: String
     var hashId: Int
     
@@ -24,7 +26,7 @@ class IdentifierExpr: DebuggableElement, Evaluable {
 
     func evaluate(context: Scope, environment: Environment) throws -> Evaluable? {
         guard let symbol = context.getSymbolValue(for: hashId) else {
-            throw ProgramError(errorType: InterpreterError.unresolvedIdentifier, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.unresolvedIdentifier, debugInfo: debugInfo)
         }
         
         return symbol

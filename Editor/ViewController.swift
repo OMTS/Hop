@@ -71,8 +71,8 @@ class ViewController: NSViewController {
             try interpreter.runScript(script)
             
         } catch let error {
-            if let printableError = error as? ProgramPrintableError {
-                displayLog(message: "Error: \(printableError.getDescription) at \(printableError.lineNumber ?? -1 ) on char \(printableError.postion ?? -1)")
+            if let printableError = error as? ProgramError {
+                displayLog(message: "Error: \(printableError.getDescription) at \(printableError.debugInfo?.lineNumber ?? -1 ) on char \(printableError.debugInfo?.position ?? -1)")
             } else {
                 displayLog(message: "Error: \(error)")
             }

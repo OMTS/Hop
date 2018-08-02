@@ -9,6 +9,8 @@
 import Foundation
 
 class Variable: Evaluable {
+    var debugInfo: DebugInfo?
+    
     
     var type: Type
     var isConstant: Bool

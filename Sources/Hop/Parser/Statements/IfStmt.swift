@@ -13,8 +13,9 @@ import Foundation
  If statement
  
  */
-class IfStmt: DebuggableElement, Evaluable {
-    
+struct IfStmt: Evaluable {
+    var debugInfo: DebugInfo?
+
     var conditionExpression: Evaluable
     var thenBlock: BlockStmt?
     var elseBlock: BlockStmt?
@@ -49,7 +50,7 @@ class IfStmt: DebuggableElement, Evaluable {
         guard let conditionVariable = try conditionExpression.evaluate(context: context,
                                                                        environment: environment) as? Variable,
             let conditionValue = conditionVariable.value as? Bool else {
-            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
         
         if conditionValue {

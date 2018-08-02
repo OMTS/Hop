@@ -13,8 +13,9 @@ import Foundation
  Variable declaration statement
  
  */
-class VariableDeclarationStmt: DebuggableElement, Evaluable {
-    
+class VariableDeclarationStmt: Evaluable {
+    var debugInfo: DebugInfo?
+
     var name: String
     var hashId: Int
     var typeExpr: Evaluable?
@@ -46,7 +47,7 @@ class VariableDeclarationStmt: DebuggableElement, Evaluable {
     func evaluate(context: Scope, environment: Environment) throws -> Evaluable? {
         // Check for identifier redeclaration
         guard context.symbolTable[hashId] == nil else {
-            throw ProgramError(errorType: InterpreterError.invalidRedeclaration, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.invalidRedeclaration, debugInfo: debugInfo)
         }
         
         var type: Type!
@@ -63,7 +64,7 @@ class VariableDeclarationStmt: DebuggableElement, Evaluable {
             }
             
             if type == nil {
-                throw ProgramError(errorType: InterpreterError.undefinedType, lineNumber: lineNumber, postion: position)
+                throw ProgramError(errorType: InterpreterError.undefinedType, debugInfo: debugInfo)
             }
         }
         
@@ -73,7 +74,7 @@ class VariableDeclarationStmt: DebuggableElement, Evaluable {
             let evaluatedVariable = try expr.evaluate(context: context,
                                                       environment: environment) as? Variable
             if evaluatedVariable == nil {
-                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, lineNumber: lineNumber, postion: position)
+                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
             }
 
             variable = Variable(type: evaluatedVariable!.type,
@@ -86,22 +87,22 @@ class VariableDeclarationStmt: DebuggableElement, Evaluable {
                     if type != evaluatedVariable!.type {
                         if let instance = evaluatedVariable!.value as? Instance {
                             if !instance.isInstance(of: type) {
-                                throw ProgramError(errorType: InterpreterError.expressionTypeMismatch, lineNumber: lineNumber, postion: position)
+                                throw ProgramError(errorType: InterpreterError.expressionTypeMismatch, debugInfo: debugInfo)
                             }
                         } else if evaluatedVariable!.type != .nil {
-                            throw ProgramError(errorType: InterpreterError.expressionTypeMismatch, lineNumber: lineNumber, postion: position)
+                            throw ProgramError(errorType: InterpreterError.expressionTypeMismatch, debugInfo: debugInfo)
                         }
                         variable.type = type
                     }
                 }
             } else if evaluatedVariable!.type == .nil {
-                throw ProgramError(errorType: InterpreterError.undefinedType, lineNumber: lineNumber, postion: position)
+                throw ProgramError(errorType: InterpreterError.undefinedType, debugInfo: debugInfo)
             }
         } else if let type = type {
             variable = Variable(type: type, isConstant: isConstant, value: nil)
             
         } else {
-            throw ProgramError(errorType: InterpreterError.undefinedType, lineNumber: lineNumber, postion: position)
+            throw ProgramError(errorType: InterpreterError.undefinedType, debugInfo: debugInfo)
         }
 
         // Add variable to current scope

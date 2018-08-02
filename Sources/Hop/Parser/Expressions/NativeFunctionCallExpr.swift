@@ -8,8 +8,9 @@
 
 import Foundation
 
-class NativeFunctionCallExpr : DebuggableElement, Evaluable {
-    
+struct NativeFunctionCallExpr : Evaluable {
+    var debugInfo: DebugInfo?
+
     struct Argument: Loggable {
         var name: String!
         var valueHashId: Int    // Native function call is given direct access to param hash id
@@ -59,7 +60,7 @@ class NativeFunctionCallExpr : DebuggableElement, Evaluable {
 
             for argument in arguments {
                 guard let argumentVariable = context.getSymbolValue(for: argument.valueHashId) as? Variable else {
-                    throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, lineNumber: lineNumber, postion: position)
+                    throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, debugInfo: debugInfo)
                 }
                 argumentEvaluations.append(argumentVariable)
             }

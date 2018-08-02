@@ -15,9 +15,13 @@ import Foundation
  
  */
 struct BlockStmt: Evaluable {
-    
+    var debugInfo: DebugInfo?
     var statements: [Evaluable]
-    
+
+    init(statements: [Evaluable]) {
+        self.statements = statements
+    }
+
     var description: String {
         var description = ""
         for statement in statements {

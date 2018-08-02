@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol Evaluable: Loggable {
+protocol Evaluable: Loggable, Debuggable {
 
     /**
      

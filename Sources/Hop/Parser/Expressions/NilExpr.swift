@@ -8,8 +8,9 @@
 
 import Foundation
 
-class NilExpr: DebuggableElement, Evaluable {
-    
+class NilExpr: Evaluable {
+    var debugInfo: DebugInfo?
+
     static private let nilVariable = Variable(type: .nil, isConstant: true, value: nil)
     
     var description: String {

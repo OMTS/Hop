@@ -8,16 +8,20 @@
 
 import Foundation
 
-protocol Debuggable {
-    var lineNumber: Int? {get set}
-    var position: Int? {get set}
+public struct DebugInfo {
+    let lineNumber: Int
+    let position: Int
 
-    func setDebuggabbleInfo(lineNumber: Int?, position: Int?)
-}
-
-extension Debuggable where Self: DebuggableElement {
-    func setDebuggabbleInfo(lineNumber: Int?, position: Int?) {
+    init?(lineNumber: Int?, position: Int?) {
+        guard let lineNumber = lineNumber, let position = position else {
+            return nil
+        }
         self.lineNumber = lineNumber
         self.position = position
     }
 }
+
+protocol Debuggable {
+    var debugInfo: DebugInfo? {get set}
+}
+

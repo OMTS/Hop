@@ -18,7 +18,7 @@ public class Interpreter {
     
     public func runScript(_ script: String) throws {
         let lexer = Lexer(script: script, isDebug: self.environment.isDebug)
-        let parser = Parser(with: lexer,isDebug: self.environment.isDebug)
+        let parser = Parser(with: lexer, isDebug: self.environment.isDebug)
         if let program = try parser.parseProgram() {
             try program.perform(with: environment)
         }
