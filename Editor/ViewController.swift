@@ -37,6 +37,7 @@ class ViewController: NSViewController {
         sourceTextView.isGrammarCheckingEnabled = false
         sourceTextView.isAutomaticTextCompletionEnabled = false
         sourceTextView.isAutomaticSpellingCorrectionEnabled = false
+        sourceTextView.isAutomaticQuoteSubstitutionEnabled = false
 
         logTextView.textColor = NSColor(calibratedWhite: 0.8, alpha: 1)
         logTextView.font = NSFont(name: "Arial", size: 16)
