@@ -208,4 +208,7 @@ class ParserErrorTests: XCTestCase {
             }
         }
     }
+
+    static let allTests = [("testImportStmtParserError", testImportStmtParserError),
+                           ("testFunctionStmtParserError", testFunctionStmtParserError)]
 }

@@ -60,4 +60,8 @@ class LexerTests: XCTestCase {
         XCTAssertEqual(tokensWithLF[10], Token.eof)
         XCTAssertEqual(tokensWithLF[10], tokensWithCRLF[10])
     }
+
+    static let allTests = [("testCreationFromScript", testCreationFromScript),
+                           ("testGetNextTokenForLineFeeds", testGetNextTokenForLineFeeds)]
+
 }
