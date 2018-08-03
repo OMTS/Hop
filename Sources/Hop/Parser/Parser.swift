@@ -155,12 +155,7 @@ class Parser {
 
         try getNextToken() // Consume 'import'
         
-        guard currentToken == .identifier,
-            let name = lexer.currentTokenValue as? String else {
-                throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
-        }
-
-        try getNextToken() // Consume identifier
+        let pathComponents = try parseImportPathComponents()
         
         guard currentToken == .lf else {
             throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
@@ -168,9 +163,39 @@ class Parser {
         
         try getNextToken() // Consume line feed
 
-        let importStmt = ImportStmt(name: name)
+        let importStmt = ImportStmt(pathComponents: pathComponents)
         importStmt.debugInfo = lexer.debugInfo
         return importStmt
+    }
+    
+    private func parseImportPathComponents() throws -> [String] {
+        var pathComponents = [String]()
+        
+        while true {
+            guard currentToken == .identifier,
+                let pathComponent = lexer.currentTokenValue as? String else {
+                    throw ProgramError(errorType: ParserError.expressionError,
+                                       debugInfo: lexer.debugInfo)
+            }
+
+            try getNextToken() // Consume path component
+            
+            pathComponents.append(pathComponent)
+            
+            if currentToken == .dot {
+                try getNextToken() // Consume dot
+                continue
+            }
+
+            if currentToken == .lf {
+                break
+            }
+            
+            throw ProgramError(errorType: ParserError.expressionError,
+                               debugInfo: lexer.debugInfo)
+        }
+        
+        return pathComponents
     }
     
     /**
