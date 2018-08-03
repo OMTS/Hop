@@ -9,6 +9,7 @@
 import Foundation
 
 class Module: Evaluable {
+    var debugInfo: DebugInfo?
 
     let name: String
     let hashId: Int

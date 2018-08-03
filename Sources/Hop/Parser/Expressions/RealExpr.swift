@@ -9,6 +9,7 @@
 import Foundation
 
 class RealExpr: Evaluable {
+    var debugInfo: DebugInfo?
     
     let value: Double
     

@@ -21,7 +21,7 @@ class LexerTests: XCTestCase {
 
     func testCreationFromScript() {
         let script = "const a = 3\n"
-        let lexer = Lexer(script: script)
+        let lexer = Lexer(script: script, isDebug: true)
 
         XCTAssertNotNil(lexer.getChar(at: 0))
         XCTAssertNotNil(lexer.getChar(at: 10))
@@ -31,33 +31,33 @@ class LexerTests: XCTestCase {
     }
 
     func testGetNextTokenForLineFeeds() {
-        let scriptWithN = "import Sys\nSys.print(\"42\")\n"
-        let scriptWithRN = "import Sys\r\nSys.print(\"42\")\r\n"
+        let scriptWithLF = "import Sys\nSys.print(\"42\")\n"
+        let scriptWithCRLF = "import Sys\r\nSys.print(\"42\")\r\n"
 
 
-        var tokensWithN = [Token]()
-        var tokensWithRN = [Token]()
+        var tokensWithLF = [Token]()
+        var tokensWithCRLF = [Token]()
 
         do {
-            var lexer = Lexer(script: scriptWithN)
+            var lexer = Lexer(script: scriptWithLF, isDebug: true)
             for _ in 0...10 {
-                tokensWithN.append(try lexer.getNextToken())
+                tokensWithLF.append(try lexer.getNextToken())
             }
 
-            lexer = Lexer(script: scriptWithRN)
+            lexer = Lexer(script: scriptWithCRLF, isDebug: true)
             for _ in 0...10 {
-                tokensWithRN.append(try lexer.getNextToken())
+                tokensWithCRLF.append(try lexer.getNextToken())
             }
         } catch (_) {
             XCTAssert(false)
         }
 
-        XCTAssertEqual(tokensWithN.count, tokensWithRN.count)
-        XCTAssertEqual(tokensWithN[2], Token.lf)
-        XCTAssertEqual(tokensWithN[9], Token.lf)
-        XCTAssertEqual(tokensWithN[2], tokensWithRN[2])
-        XCTAssertEqual(tokensWithN[9], tokensWithRN[9])
-        XCTAssertEqual(tokensWithN[10], Token.eof)
-        XCTAssertEqual(tokensWithN[10], tokensWithRN[10])
+        XCTAssertEqual(tokensWithLF.count, tokensWithCRLF.count)
+        XCTAssertEqual(tokensWithLF[2], Token.lf)
+        XCTAssertEqual(tokensWithLF[9], Token.lf)
+        XCTAssertEqual(tokensWithLF[2], tokensWithCRLF[2])
+        XCTAssertEqual(tokensWithLF[9], tokensWithCRLF[9])
+        XCTAssertEqual(tokensWithLF[10], Token.eof)
+        XCTAssertEqual(tokensWithLF[10], tokensWithCRLF[10])
     }
 }

@@ -12,7 +12,8 @@ class ImportStmt: Evaluable {
 
     var name: String
     var hashId: Int
-    
+    var debugInfo: DebugInfo?
+
     init(name: String) {
         self.name = name
         self.hashId = name.hashValue
@@ -39,7 +40,7 @@ class ImportStmt: Evaluable {
             return nil
         }
         
-        throw ImporterError.moduleNotFound
+        throw ProgramError(errorType: ImporterError.moduleNotFound, debugInfo: debugInfo)
+
     }
-    
 }

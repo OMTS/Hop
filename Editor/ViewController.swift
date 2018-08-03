@@ -70,7 +70,11 @@ class ViewController: NSViewController {
             try session.run(script: script)
             
         } catch let error {
-            displayLog(message: "Error: \(error)")
+            if let printableError = error as? ProgramError {
+                displayLog(message: "Error: \(printableError.getDescription) at \(printableError.debugInfo?.lineNumber ?? -1 ) on char \(printableError.debugInfo?.position ?? -1)")
+            } else {
+                displayLog(message: "Error: \(error)")
+            }
         }
         
         runButton.isEnabled = true

@@ -9,6 +9,7 @@
 import Foundation
 
 struct ContinueStmt: Evaluable {
+    var debugInfo: DebugInfo?
 
     var description: String {
         return "continue"

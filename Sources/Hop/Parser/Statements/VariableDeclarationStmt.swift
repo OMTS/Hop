@@ -14,7 +14,8 @@ import Foundation
  
  */
 class VariableDeclarationStmt: Evaluable {
-    
+    var debugInfo: DebugInfo?
+
     var name: String
     var hashId: Int
     var typeExpr: Evaluable?
@@ -47,7 +48,7 @@ class VariableDeclarationStmt: Evaluable {
                   session: Session) throws -> Evaluable? {
         // Check for identifier redeclaration
         guard context.symbolTable[hashId] == nil else {
-            throw InterpreterError.invalidRedeclaration
+            throw ProgramError(errorType: InterpreterError.invalidRedeclaration, debugInfo: debugInfo)
         }
         
         var type: Type!
@@ -64,7 +65,7 @@ class VariableDeclarationStmt: Evaluable {
             }
             
             if type == nil {
-                throw InterpreterError.undefinedType
+                throw ProgramError(errorType: InterpreterError.undefinedType, debugInfo: debugInfo)
             }
         }
         
@@ -74,7 +75,7 @@ class VariableDeclarationStmt: Evaluable {
             let evaluatedVariable = try expr.evaluate(context: context,
                                                       session: session) as? Variable
             if evaluatedVariable == nil {
-                throw InterpreterError.expressionEvaluationError
+                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
             }
 
             variable = Variable(type: evaluatedVariable!.type,
@@ -87,22 +88,22 @@ class VariableDeclarationStmt: Evaluable {
                     if type != evaluatedVariable!.type {
                         if let instance = evaluatedVariable!.value as? Instance {
                             if !instance.isInstance(of: type) {
-                                throw InterpreterError.expressionTypeMismatch
+                                throw ProgramError(errorType: InterpreterError.expressionTypeMismatch, debugInfo: debugInfo)
                             }
                         } else if evaluatedVariable!.type != .nil {
-                            throw InterpreterError.expressionTypeMismatch
+                            throw ProgramError(errorType: InterpreterError.expressionTypeMismatch, debugInfo: debugInfo)
                         }
                         variable.type = type
                     }
                 }
             } else if evaluatedVariable!.type == .nil {
-                throw InterpreterError.undefinedType
+                throw ProgramError(errorType: InterpreterError.undefinedType, debugInfo: debugInfo)
             }
         } else if let type = type {
             variable = Variable(type: type, isConstant: isConstant, value: nil)
             
         } else {
-            throw InterpreterError.undefinedType
+            throw ProgramError(errorType: InterpreterError.undefinedType, debugInfo: debugInfo)
         }
 
         // Add variable to current scope

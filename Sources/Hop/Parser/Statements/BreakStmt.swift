@@ -9,6 +9,7 @@
 import Foundation
 
 struct BreakStmt: Evaluable {
+    var debugInfo: DebugInfo?
 
     var description: String {
         return "break"

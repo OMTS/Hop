@@ -15,6 +15,7 @@ import Foundation
  */
 
 struct ForStmt: Evaluable {
+    var debugInfo: DebugInfo?
 
     private let indexName: String
     private let indexHashId: Int
@@ -56,13 +57,13 @@ struct ForStmt: Evaluable {
         guard let startVariable = try startExpression.evaluate(context: context,
                                                                session: session) as? Variable,
             let startIndex = startVariable.value as? Int else {
-            throw InterpreterError.expressionEvaluationError
+            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
         
         guard let endVariable = try endExpression.evaluate(context: context,
                                                            session: session) as? Variable,
             let endIndex = endVariable.value as? Int else {
-                throw InterpreterError.expressionEvaluationError
+                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
 
         var stepIncrement = 1
@@ -70,7 +71,7 @@ struct ForStmt: Evaluable {
                                                              session: session) {
             guard let stepVariable = stepEvaluation as? Variable,
                 let stepValue = stepVariable.value as? Int else {
-                throw InterpreterError.expressionEvaluationError
+                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
             }
             stepIncrement = stepValue
         }

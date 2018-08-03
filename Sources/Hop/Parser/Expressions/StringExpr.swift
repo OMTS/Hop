@@ -9,6 +9,8 @@
 import Foundation
 
 class StringExpr: Evaluable {
+    var debugInfo: DebugInfo?
+    
     
     let value: String
     

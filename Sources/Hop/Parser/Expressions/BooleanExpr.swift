@@ -9,7 +9,8 @@
 import Foundation
 
 class BooleanExpr: Evaluable {
-    
+    var debugInfo: DebugInfo?
+
     let value: Bool
     
     init(value: Bool) {

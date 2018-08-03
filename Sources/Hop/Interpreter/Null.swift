@@ -9,6 +9,7 @@
 import Foundation
 
 class Null: Evaluable {
+    var debugInfo: DebugInfo?
 
     static let shared = Null()
     

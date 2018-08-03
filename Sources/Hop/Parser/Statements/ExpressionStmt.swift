@@ -14,9 +14,13 @@ import Foundation
  
  */
 struct ExpressionStmt: Evaluable {
-    
+    var debugInfo: DebugInfo?
     var expr: Evaluable
-    
+
+    init(expr: Evaluable) {
+        self.expr = expr
+    }
+
     var description: String {
         return expr.description
     }

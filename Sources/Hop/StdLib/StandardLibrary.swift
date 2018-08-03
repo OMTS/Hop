@@ -52,8 +52,12 @@ private let nativesModules: [String: [FunctionClosure]] = [
     "Math": mathFunctionsDeclarations
 ]
 
-enum ImporterError: Error {
+enum ImporterError: ErrorType {
     case moduleNotFound
+
+    func getDescription() -> String {
+        return "Module Not Found"
+    }
 }
 
 func getNativeModule(name: String) -> Module? {
@@ -118,7 +122,7 @@ private func getPrintDeclaration(declarationScope: Scope) -> Closure {
         (expressions, environment) in
         
         guard let string = expressions?.first?.value as? String else {
-            throw InterpreterError.nativeFunctionCallParameterError
+            throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, debugInfo: nil)
         }
         
         let message = "[\(Date().timeIntervalSinceReferenceDate)] -- \(string)"
@@ -143,7 +147,7 @@ private func getStringDeclaration(declarationScope: Scope) -> Closure {
         (expressions, _) in
         
         guard let variable = expressions?.first else {
-            throw InterpreterError.nativeFunctionCallParameterError
+            throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, debugInfo: nil)
         }
         
         if let integer = variable.value as? Int {
@@ -176,7 +180,7 @@ private func getAcosDeclaration(declarationScope: Scope) -> Closure {
         (expressions, _) in
         
         guard let value = expressions?.first?.value as? Double else {
-            throw InterpreterError.nativeFunctionCallParameterError
+            throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, debugInfo: nil)
         }
         return Variable(type: .real, isConstant: true, value: acos(value))
     }
@@ -193,7 +197,7 @@ private func getAsinDeclaration(declarationScope: Scope) -> Closure {
         (expressions, _) in
         
         guard let value = expressions?.first?.value as? Double else {
-            throw InterpreterError.nativeFunctionCallParameterError
+            throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, debugInfo: nil)
         }
         return Variable(type: .real, isConstant: true, value: asin(value))
     }
@@ -210,7 +214,7 @@ private func getAtanDeclaration(declarationScope: Scope) -> Closure {
         (expressions, _) in
         
         guard let value = expressions?.first?.value as? Double else {
-            throw InterpreterError.nativeFunctionCallParameterError
+            throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, debugInfo: nil)
         }
         return Variable(type: .real, isConstant: true, value: atan(value))
     }
@@ -231,7 +235,7 @@ private func getAtan2Declaration(declarationScope: Scope) -> Closure {
             expressions.count == 2,
             let x = expressions[0].value as? Double,
             let y = expressions[1].value as? Double else {
-            throw InterpreterError.nativeFunctionCallParameterError
+            throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, debugInfo: nil)
         }
         return Variable(type: .real, isConstant: true, value: atan2(x, y))
     }
@@ -248,7 +252,7 @@ private func getCosDeclaration(declarationScope: Scope) -> Closure {
         (expressions, _) in
         
         guard let value = expressions?.first?.value as? Double else {
-            throw InterpreterError.nativeFunctionCallParameterError
+            throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, debugInfo: nil)
         }
         return Variable(type: .real, isConstant: true, value: cos(value))
     }
@@ -265,7 +269,7 @@ private func getSinDeclaration(declarationScope: Scope) -> Closure {
         (expressions, _) in
         
         guard let value = expressions?.first?.value as? Double else {
-            throw InterpreterError.nativeFunctionCallParameterError
+            throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, debugInfo: nil)
         }
         return Variable(type: .real, isConstant: true, value: sin(value))
     }
@@ -282,7 +286,7 @@ private func getTanDeclaration(declarationScope: Scope) -> Closure {
         (expressions, _) in
         
         guard let value = expressions?.first?.value as? Double else {
-            throw InterpreterError.nativeFunctionCallParameterError
+            throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, debugInfo: nil)
         }
         return Variable(type: .real, isConstant: true, value: tan(value))
     }
@@ -299,7 +303,7 @@ private func getAcoshDeclaration(declarationScope: Scope) -> Closure {
         (expressions, _) in
         
         guard let value = expressions?.first?.value as? Double else {
-            throw InterpreterError.nativeFunctionCallParameterError
+            throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, debugInfo: nil)
         }
         return Variable(type: .real, isConstant: true, value: acosh(value))
     }
@@ -316,7 +320,7 @@ private func getAsinhDeclaration(declarationScope: Scope) -> Closure {
         (expressions, _) in
         
         guard let value = expressions?.first?.value as? Double else {
-            throw InterpreterError.nativeFunctionCallParameterError
+            throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, debugInfo: nil)
         }
         return Variable(type: .real, isConstant: true, value: asinh(value))
     }
@@ -333,7 +337,7 @@ private func getAtanhDeclaration(declarationScope: Scope) -> Closure {
         (expressions, _) in
         
         guard let value = expressions?.first?.value as? Double else {
-            throw InterpreterError.nativeFunctionCallParameterError
+            throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, debugInfo: nil)
         }
         return Variable(type: .real, isConstant: true, value: atanh(value))
     }
@@ -350,7 +354,7 @@ private func getCoshDeclaration(declarationScope: Scope) -> Closure {
         (expressions, _) in
         
         guard let value = expressions?.first?.value as? Double else {
-            throw InterpreterError.nativeFunctionCallParameterError
+            throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, debugInfo: nil)
         }
         return Variable(type: .real, isConstant: true, value: cosh(value))
     }
@@ -367,7 +371,7 @@ private func getSinhDeclaration(declarationScope: Scope) -> Closure {
         (expressions, _) in
         
         guard let value = expressions?.first?.value as? Double else {
-            throw InterpreterError.nativeFunctionCallParameterError
+            throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, debugInfo: nil)
         }
         return Variable(type: .real, isConstant: true, value: sinh(value))
     }
@@ -384,7 +388,7 @@ private func getTanhDeclaration(declarationScope: Scope) -> Closure {
         (expressions, _) in
         
         guard let value = expressions?.first?.value as? Double else {
-            throw InterpreterError.nativeFunctionCallParameterError
+            throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, debugInfo: nil)
         }
         return Variable(type: .real, isConstant: true, value: tanh(value))
     }
@@ -401,7 +405,7 @@ private func getExpDeclaration(declarationScope: Scope) -> Closure {
         (expressions, _) in
         
         guard let value = expressions?.first?.value as? Double else {
-            throw InterpreterError.nativeFunctionCallParameterError
+            throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, debugInfo: nil)
         }
         return Variable(type: .real, isConstant: true, value: exp(value))
     }
@@ -418,7 +422,7 @@ private func getLogDeclaration(declarationScope: Scope) -> Closure {
         (expressions, _) in
         
         guard let value = expressions?.first?.value as? Double else {
-            throw InterpreterError.nativeFunctionCallParameterError
+            throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, debugInfo: nil)
         }
         return Variable(type: .real, isConstant: true, value: log(value))
     }
@@ -435,7 +439,7 @@ private func getLog10Declaration(declarationScope: Scope) -> Closure {
         (expressions, _) in
         
         guard let value = expressions?.first?.value as? Double else {
-            throw InterpreterError.nativeFunctionCallParameterError
+            throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, debugInfo: nil)
         }
         return Variable(type: .real, isConstant: true, value: log10(value))
     }
@@ -452,7 +456,7 @@ private func getFabsDeclaration(declarationScope: Scope) -> Closure {
         (expressions, _) in
         
         guard let value = expressions?.first?.value as? Double else {
-            throw InterpreterError.nativeFunctionCallParameterError
+            throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, debugInfo: nil)
         }
         return Variable(type: .real, isConstant: true, value: fabs(value))
     }
@@ -473,7 +477,7 @@ private func getHypotDeclaration(declarationScope: Scope) -> Closure {
             expressions.count == 2,
             let x = expressions[0].value as? Double,
             let y = expressions[1].value as? Double else {
-            throw InterpreterError.nativeFunctionCallParameterError
+            throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, debugInfo: nil)
         }
         return Variable(type: .real, isConstant: true, value: hypot(x, y))
     }
@@ -495,7 +499,7 @@ private func getPowDeclaration(declarationScope: Scope) -> Closure {
             expressions.count == 2,
             let x = expressions[0].value as? Double,
             let y = expressions[1].value as? Double else {
-                throw InterpreterError.nativeFunctionCallParameterError
+                throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, debugInfo: nil)
         }
 
         return Variable(type: .real, isConstant: true, value: pow(x, y))
@@ -513,7 +517,7 @@ private func getSqrtDeclaration(declarationScope: Scope) -> Closure {
         (expressions, _) in
         
         guard let value = expressions?.first?.value as? Double else {
-            throw InterpreterError.nativeFunctionCallParameterError
+            throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, debugInfo: nil)
         }
         return Variable(type: .real, isConstant: true, value: sqrt(value))
     }
@@ -530,7 +534,7 @@ private func getCeilDeclaration(declarationScope: Scope) -> Closure {
         (expressions, _) in
         
         guard let value = expressions?.first?.value as? Double else {
-            throw InterpreterError.nativeFunctionCallParameterError
+            throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, debugInfo: nil)
         }
         return Variable(type: .real, isConstant: true, value: ceil(value))
     }
@@ -547,7 +551,7 @@ private func getFloorDeclaration(declarationScope: Scope) -> Closure {
         (expressions, _) in
         
         guard let value = expressions?.first?.value as? Double else {
-            throw InterpreterError.nativeFunctionCallParameterError
+            throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, debugInfo: nil)
         }
         return Variable(type: .real, isConstant: true, value: floor(value))
     }
@@ -564,7 +568,7 @@ private func getRoundDeclaration(declarationScope: Scope) -> Closure {
         (expressions, _) in
         
         guard let value = expressions?.first?.value as? Double else {
-            throw InterpreterError.nativeFunctionCallParameterError
+            throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, debugInfo: nil)
         }
         return Variable(type: .real, isConstant: true, value: round(value))
     }
