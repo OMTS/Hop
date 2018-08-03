@@ -63,7 +63,7 @@ class ViewController: NSViewController {
         // Setup runtime session
         let session = Session(isDebug: true,
                               messenger: messenger,
-                              getScriptForModule: nil)
+                              searchPaths: nil)
         
         do {
             // Run script
