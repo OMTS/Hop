@@ -9,9 +9,9 @@
 import Foundation
 
 /**
- 
+
  Return statement
- 
+
  */
 struct ReturnStmt: Evaluable {
     var debugInfo: DebugInfo?
@@ -21,7 +21,7 @@ struct ReturnStmt: Evaluable {
     init(result: Evaluable?) {
         self.result = result
     }
-    
+
     var description: String {
         var description = "return"
         if let result = result {
@@ -29,12 +29,12 @@ struct ReturnStmt: Evaluable {
         }
         return description
     }
-    
-    func evaluate(context: Scope, environment: Environment) throws -> Evaluable? {
+
+    func evaluate(context: Scope,
+                  session: Session) throws -> Evaluable? {
         if let result = result {
             guard let resultVariable = try result.evaluate(context: context,
-                                                           environment: environment) as? Variable else {
-
+                                                           session: session) as? Variable else {
                                                             throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
             }
             context.returnedEvaluable = resultVariable
@@ -43,5 +43,5 @@ struct ReturnStmt: Evaluable {
         }
         return nil
     }
-    
+
 }

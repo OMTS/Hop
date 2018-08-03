@@ -18,6 +18,6 @@ protocol Evaluable: Loggable, Debuggable {
     
      */
     func evaluate(context: Scope,
-                  environment: Environment) throws -> Evaluable?
+                  session: Session) throws -> Evaluable?
 
 }

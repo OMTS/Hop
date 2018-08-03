@@ -22,8 +22,10 @@ class BooleanExpr: Evaluable {
     }
     
     func evaluate(context: Scope,
-                  environment: Environment) throws -> Evaluable? {
-        return Variable(type: .boolean, isConstant: true, value: value)
+                  session: Session) throws -> Evaluable? {
+        return Variable(type: .boolean,
+                        isConstant: true,
+                        value: value)
     }
     
 }

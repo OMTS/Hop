@@ -21,8 +21,11 @@ class RealExpr: Evaluable {
         return "Real(\(value))"
     }
     
-    func evaluate(context: Scope, environment: Environment) throws -> Evaluable? {
-        return Variable(type: .real, isConstant: true, value: value)
+    func evaluate(context: Scope,
+                  session: Session) throws -> Evaluable? {
+        return Variable(type: .real,
+                        isConstant: true,
+                        value: value)
     }
     
 }

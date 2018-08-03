@@ -10,7 +10,7 @@ import Foundation
 
 struct BinaryOperatorExpr: Evaluable {
     var debugInfo: DebugInfo?
-    
+
     var binOp: Token
     var lhs: Evaluable
     var rhs: Evaluable
@@ -24,67 +24,67 @@ struct BinaryOperatorExpr: Evaluable {
     var description: String {
         return "(" + lhs.description + "\(binOp.rawValue)" + rhs.description + ")"
     }
-    
+
     func evaluate(context: Scope,
-                  environment: Environment) throws -> Evaluable? {
-        
+                  session: Session) throws -> Evaluable? {
+
         switch binOp {
         case .dot:
             return try evaluateDot(context: context,
-                                   environment: environment)
+                                   session: session)
         case .plus:
             return try evaluateAddition(context: context,
-                                        environment: environment)
+                                        session: session)
         case .minus:
             return try evaluateSubstraction(context: context,
-                                            environment: environment)
+                                            session: session)
         case .multiplication:
             return try evaluateMultiplication(context: context,
-                                              environment: environment)
+                                              session: session)
         case .divide:
             return try evaluateDivision(context: context,
-                                        environment: environment)
+                                        session: session)
         case .remainder:
             return try evaluateRemainder(context: context,
-                                         environment: environment)
+                                         session: session)
         case .assignment:
             return try evaluateAssignment(context: context,
-                                          environment: environment)
+                                          session: session)
         case .equal:
             return try evaluateEquality(context: context,
-                                        environment: environment)
+                                        session: session)
         case .notEqual:
             return try evaluateNonEquality(context: context,
-                                           environment: environment)
+                                           session: session)
         case .lessThan:
             return try evaluateLessThanComparison(context: context,
-                                                  environment: environment)
+                                                  session: session)
         case .greaterThan:
             return try evaluateGreaterThanComparison(context: context,
-                                                     environment: environment)
+                                                     session: session)
         case .greaterThanOrEqualTo:
             return try evaluateGreaterThanOrEqualToComparison(context: context,
-                                                              environment: environment)
+                                                              session: session)
         case .lessThanOrEqualTo:
             return try evaluateLessThanOrEqualToComparison(context: context,
-                                                           environment: environment)
+                                                           session: session)
         case .logicalAND:
             return try evaluateLogicalANDComparison(context: context,
-                                                    environment: environment)
+                                                    session: session)
         case .logicalOR:
             return try evaluateLogicalORComparison(context: context,
-                                                   environment: environment)
+                                                   session: session)
         default:
             return nil
         }
     }
-    
+
     private func evaluateDot(context: Scope,
-                             environment: Environment) throws -> Evaluable? {
+                             session: Session) throws -> Evaluable? {
 
         //        print("--> evaluateDot: contextId = \(context.uid)")
         let lhsEvaluation = try lhs.evaluate(context: context,
-                                             environment: environment)
+                                             session: session)
 
         // lshEvaluation could be:
             // a module:
@@ -93,12 +93,12 @@ struct BinaryOperatorExpr: Evaluable {
                     // a classe <- identifier evaluated as a class
                     // a variable <- identifier evaluated as a variable
                     // a function call <- function call
-        
+
             // a class:
                 // an inner class <- identifier evaluated as a variable
                 // a class property <- identifier evaluated as a variable
                 // a class method <- function call
-        
+
             // an instance:
                 // an instance property <- identifier evaluated as a variable
                 // a class property <- identifier evaluated as a variable
@@ -107,17 +107,17 @@ struct BinaryOperatorExpr: Evaluable {
                         // evaluate with instante.class.superclass
                     // or not
                         // evaluate with instante.class
-        
+
         if let lhsModule = lhsEvaluation as? Module {
             if let rhsIdentifier = rhs as? IdentifierExpr {
                 return try rhsIdentifier.evaluate(context: lhsModule.scope,
-                                                  environment: environment)!
+                                                  session: session)!
 
             } else if let rhsFunctionCall = rhs as? FunctionCallExpr {
                 // Search for the method in the module
                 return try rhsFunctionCall.evaluateFunction(ofModule: lhsModule,
                                                             context: context,
-                                                            environment: environment)
+                                                            session: session)
             } else {
                 throw ProgramError(errorType: InterpreterError.accessorMemberError, debugInfo: debugInfo)
             }
@@ -133,7 +133,7 @@ struct BinaryOperatorExpr: Evaluable {
             } else if let rhsFunctionCall = rhs as? FunctionCallExpr {
                 return try rhsFunctionCall.evaluateMethod(ofClass: lhsClasse,
                                                           context: context,
-                                                          environment: environment)
+                                                          session: session)
             } else {
                 throw ProgramError(errorType: InterpreterError.accessorMemberError, debugInfo: debugInfo)
             }
@@ -151,16 +151,16 @@ struct BinaryOperatorExpr: Evaluable {
                             throw ProgramError(errorType: InterpreterError.classMemberNotDeclared, debugInfo: debugInfo)
                         }
                     }
-                    
+
                     // Search for property variable in instance symbol table
                     if let propertyVariable = instance.scope.getSymbolValue(for: rhsIdentifier.hashId) as? Variable {
                         return propertyVariable
-                        
+
                     } else if let propertyVariable = instance.class.getClassMember(for: rhsIdentifier.hashId) as? Variable {
                         // Then search for property variable in class scope
                         // Class properties are shared to all instances
                         return propertyVariable
-                        
+
                     } else {
                         throw ProgramError(errorType: InterpreterError.accessorMemberError, debugInfo: debugInfo)
                     }
@@ -180,14 +180,14 @@ struct BinaryOperatorExpr: Evaluable {
                             throw ProgramError(errorType: InterpreterError.classMemberNotDeclared, debugInfo: debugInfo)
                         }
                     }
-                    
+
                     let inspectedClass = (lhs is SuperExpr ?
                         instance.class.superclass! :
                         instance.class)
                     return try rhsFunctionCall.evaluateMethod(ofInstance: instance,
                                                                   inspectedClass: inspectedClass,
                                                                   context: context,
-                                                                  environment: environment)
+                                                                  session: session)
                 } else {
                     throw ProgramError(errorType: InterpreterError.accessorMemberError, debugInfo: debugInfo)
                 }
@@ -200,17 +200,17 @@ struct BinaryOperatorExpr: Evaluable {
             throw ProgramError(errorType: InterpreterError.accessorOwnerError, debugInfo: debugInfo)
         }
     }
-    
+
     private func evaluateAddition(context: Scope,
-                                  environment: Environment) throws -> Evaluable? {
-        
+                                  session: Session) throws -> Evaluable? {
+
         guard let lhsVariable = try lhs.evaluate(context: context,
-                                                 environment: environment) as? Variable,
+                                                 session: session) as? Variable,
             let rhsVariable = try rhs.evaluate(context: context,
-                                               environment: environment) as? Variable else {
+                                               session: session) as? Variable else {
               throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
-        
+
         guard lhsVariable.type == rhsVariable.type else {
             throw ProgramError(errorType: InterpreterError.binaryOperatorTypeMismatch, debugInfo: debugInfo)
         }
@@ -218,21 +218,21 @@ struct BinaryOperatorExpr: Evaluable {
         guard let lhsValue = lhsVariable.value else {
             throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
         }
-        
+
         guard let rhsValue = rhsVariable.value else {
             throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
         }
-        
+
         if lhsVariable.type == .integer {
             return Variable(type: .integer,
                             isConstant: true,
                             value: (lhsValue as! Int) + (rhsValue as! Int))
-            
+
         } else if lhsVariable.type == .real {
             return Variable(type: .real,
                             isConstant: true,
                             value: (lhsValue as! Double) + (rhsValue as! Double))
-            
+
         }  else if lhsVariable.type == .string {
             return Variable(type: .string,
                             isConstant: true,
@@ -241,51 +241,51 @@ struct BinaryOperatorExpr: Evaluable {
             throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
     }
-    
+
     private func evaluateSubstraction(context: Scope,
-                                      environment: Environment) throws -> Evaluable? {
-        
+                                      session: Session) throws -> Evaluable? {
+
         guard let lhsVariable = try lhs.evaluate(context: context,
-                                                 environment: environment) as? Variable,
+                                                 session: session) as? Variable,
             let rhsVariable = try rhs.evaluate(context: context,
-                                               environment: environment) as? Variable else {
+                                               session: session) as? Variable else {
                 throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
-        
+
         guard lhsVariable.type == rhsVariable.type else {
             throw ProgramError(errorType: InterpreterError.binaryOperatorTypeMismatch, debugInfo: debugInfo)
         }
-        
+
         guard let lhsValue = lhsVariable.value else {
            throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
         }
-        
+
         guard let rhsValue = rhsVariable.value else {
             throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
         }
-        
+
         if lhsVariable.type == .integer {
             return Variable(type: .integer,
                             isConstant: true,
                             value: (lhsValue as! Int) - (rhsValue as! Int))
-            
+
         } else if lhsVariable.type == .real {
             return Variable(type: .real,
                             isConstant: true,
                             value: (lhsValue as! Double) - (rhsValue as! Double))
-            
+
         } else {
             throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
     }
-    
+
     private func evaluateMultiplication(context: Scope,
-                                        environment: Environment) throws -> Evaluable? {
-        
+                                        session: Session) throws -> Evaluable? {
+
         guard let lhsVariable = try lhs.evaluate(context: context,
-                                                 environment: environment) as? Variable,
+                                                 session: session) as? Variable,
             let rhsVariable = try rhs.evaluate(context: context,
-                                               environment: environment) as? Variable else {
+                                               session: session) as? Variable else {
                  throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
 
         }
@@ -293,52 +293,52 @@ struct BinaryOperatorExpr: Evaluable {
         guard lhsVariable.type == rhsVariable.type else {
             throw ProgramError(errorType: InterpreterError.binaryOperatorTypeMismatch, debugInfo: debugInfo)
         }
-        
+
         guard let lhsValue = lhsVariable.value else {
             throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
         }
-        
+
         guard let rhsValue = rhsVariable.value else {
             throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
         }
-        
+
         if lhsVariable.type == .integer {
             return Variable(type: .integer,
                             isConstant: true,
                             value: (lhsValue as! Int) * (rhsValue as! Int))
-            
+
         } else if lhsVariable.type == .real {
             return Variable(type: .real,
                             isConstant: true,
                             value: (lhsValue as! Double) * (rhsValue as! Double))
-            
+
         } else {
             throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
     }
-    
+
     private func evaluateDivision(context: Scope,
-                                  environment: Environment) throws -> Evaluable? {
-        
+                                  session: Session) throws -> Evaluable? {
+
         guard let lhsVariable = try lhs.evaluate(context: context,
-                                                 environment: environment) as? Variable,
+                                                 session: session) as? Variable,
             let rhsVariable = try rhs.evaluate(context: context,
-                                               environment: environment) as? Variable else {
+                                               session: session) as? Variable else {
                 throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
 
         guard lhsVariable.type == rhsVariable.type else {
             throw ProgramError(errorType: InterpreterError.binaryOperatorTypeMismatch, debugInfo: debugInfo)
         }
-        
+
         guard let lhsValue = lhsVariable.value else {
             throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
         }
-        
+
         guard let rhsValue = rhsVariable.value else {
             throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
         }
-        
+
         if lhsVariable.type == .integer {
             let rhsInteger = rhsValue as! Int
             if rhsInteger == 0 {
@@ -347,7 +347,7 @@ struct BinaryOperatorExpr: Evaluable {
             return Variable(type: .integer,
                             isConstant: true,
                             value: (lhsValue as! Int) / rhsInteger)
-            
+
         } else if lhsVariable.type == .real {
             let rhsReal = rhsValue as! Double
             if rhsReal == 0 {
@@ -356,54 +356,54 @@ struct BinaryOperatorExpr: Evaluable {
             return Variable(type: .real,
                             isConstant: true,
                             value: (lhsValue as! Double) / rhsReal)
-            
+
         } else {
             throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
     }
-    
+
     private func evaluateRemainder(context: Scope,
-                                   environment: Environment) throws -> Evaluable? {
-        
+                                   session: Session) throws -> Evaluable? {
+
         guard let lhsVariable = try lhs.evaluate(context: context,
-                                                 environment: environment) as? Variable,
+                                                 session: session) as? Variable,
             let rhsVariable = try rhs.evaluate(context: context,
-                                               environment: environment) as? Variable else {
+                                               session: session) as? Variable else {
                 throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
 
         guard lhsVariable.type == rhsVariable.type else {
             throw ProgramError(errorType: InterpreterError.binaryOperatorTypeMismatch, debugInfo: debugInfo)
         }
-        
+
         guard let lhsValue = lhsVariable.value else {
             throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
         }
-        
+
         guard let rhsValue = rhsVariable.value else {
             throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
         }
-        
+
         if lhsVariable.type == .integer {
             return Variable(type: .integer,
                             isConstant: true,
                             value: (lhsValue as! Int) % (rhsValue as! Int))
-            
+
         } else {
             throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
     }
-    
+
     private func evaluateAssignment(context: Scope,
-                                    environment: Environment) throws -> Evaluable? {
-        
+                                    session: Session) throws -> Evaluable? {
+
         guard let lhsVariable = try lhs.evaluate(context: context,
-                                                 environment: environment) as? Variable,
+                                                 session: session) as? Variable,
             let rhsVariable = try rhs.evaluate(context: context,
-                                               environment: environment) as? Variable else {
+                                               session: session) as? Variable else {
                 throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
-        
+
         if lhsVariable.isConstant {
             throw ProgramError(errorType: InterpreterError.forbiddenAssignment, debugInfo: debugInfo)
         }
@@ -420,19 +420,19 @@ struct BinaryOperatorExpr: Evaluable {
                 }
             }
         }
-        
+
         lhsVariable.value = rhsVariable.value
 
         return nil
     }
-    
+
     private func evaluateEquality(context: Scope,
-                                  environment: Environment) throws -> Evaluable? {
-        
+                                  session: Session) throws -> Evaluable? {
+
         guard let lhsVariable = try lhs.evaluate(context: context,
-                                                 environment: environment) as? Variable,
+                                                 session: session) as? Variable,
             let rhsVariable = try rhs.evaluate(context: context,
-                                               environment: environment) as? Variable else {
+                                               session: session) as? Variable else {
                 throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
 
@@ -440,22 +440,22 @@ struct BinaryOperatorExpr: Evaluable {
             if lhsVariable.type == .nil {
                 return Variable(type: .boolean, isConstant: true, value: rhsVariable.value == nil)
             }
-            
+
             if rhsVariable.type == .nil {
                 return Variable(type: .boolean, isConstant: true, value: lhsVariable.value == nil)
             }
 
             throw ProgramError(errorType: InterpreterError.expressionTypeMismatch, debugInfo: debugInfo)
         }
-        
+
         if lhsVariable.type == .integer {
             let value = (lhsVariable.value as! Int?) == (rhsVariable.value as! Int?)
             return Variable(type: .boolean, isConstant: true, value: value)
-            
+
         } else if lhsVariable.type == .real {
             let value = (lhsVariable.value as! Double?) == (rhsVariable.value as! Double?)
             return Variable(type: .boolean, isConstant: true, value: value)
-            
+
         } else if lhsVariable.type == .boolean {
             let value = (lhsVariable.value as! Bool?) == (rhsVariable.value as! Bool?)
             return Variable(type: .boolean, isConstant: true, value: value)
@@ -468,224 +468,224 @@ struct BinaryOperatorExpr: Evaluable {
             throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
     }
-    
+
     private func evaluateNonEquality(context: Scope,
-                                     environment: Environment) throws -> Evaluable? {
-        
+                                     session: Session) throws -> Evaluable? {
+
         guard let lhsVariable = try lhs.evaluate(context: context,
-                                                 environment: environment) as? Variable,
+                                                 session: session) as? Variable,
             let rhsVariable = try rhs.evaluate(context: context,
-                                               environment: environment) as? Variable else {
+                                               session: session) as? Variable else {
                 throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
-        
+
         if lhsVariable.type != rhsVariable.type {
             if lhsVariable.type == .nil {
                 return Variable(type: .boolean, isConstant: true, value: rhsVariable.value != nil)
             }
-            
+
             if rhsVariable.type == .nil {
                 return Variable(type: .boolean, isConstant: true, value: lhsVariable.value != nil)
             }
-            
+
             throw ProgramError(errorType: InterpreterError.expressionTypeMismatch, debugInfo: debugInfo)
         }
-        
+
         if lhsVariable.type == .integer {
             let value = (lhsVariable.value as! Int?) != (rhsVariable.value as! Int?)
             return Variable(type: .boolean, isConstant: true, value: value)
-            
+
         } else if lhsVariable.type == .real {
             let value = (lhsVariable.value as! Double?) != (rhsVariable.value as! Double?)
             return Variable(type: .boolean, isConstant: true, value: value)
-            
+
         } else if lhsVariable.type == .boolean {
             let value = (lhsVariable.value as! Bool?) != (rhsVariable.value as! Bool?)
             return Variable(type: .boolean, isConstant: true, value: value)
-            
+
         } else if lhsVariable.type == .string {
             let value = (lhsVariable.value as! String?) != (rhsVariable.value as! String?)
             return Variable(type: .boolean, isConstant: true, value: value)
-            
+
         } else {
             throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
     }
-    
+
     private func evaluateLessThanComparison(context: Scope,
-                                            environment: Environment) throws -> Evaluable? {
-        
+                                            session: Session) throws -> Evaluable? {
+
         guard let lhsVariable = try lhs.evaluate(context: context,
-                                                 environment: environment) as? Variable,
+                                                 session: session) as? Variable,
             let rhsVariable = try rhs.evaluate(context: context,
-                                               environment: environment) as? Variable else {
+                                               session: session) as? Variable else {
                 throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
 
         guard lhsVariable.type == rhsVariable.type else {
             throw ProgramError(errorType: InterpreterError.binaryOperatorTypeMismatch, debugInfo: debugInfo)
         }
-        
+
         guard let lhsValue = lhsVariable.value else {
             throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
         }
-        
+
         guard let rhsValue = rhsVariable.value else {
             throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
         }
-        
+
         if lhsVariable.type == .integer {
             let value = (lhsValue as! Int) < (rhsValue as! Int)
             return Variable(type: .boolean, isConstant: true, value: value)
-            
+
         } else if lhsVariable.type == .real {
             let value = (lhsValue as! Double) < (rhsValue as! Double)
             return Variable(type: .boolean, isConstant: true, value: value)
-            
+
         } else if lhsVariable.type == .string {
             let value = (lhsValue as! String) < (rhsValue as! String)
             return Variable(type: .boolean, isConstant: true, value: value)
-            
+
         } else {
             throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
     }
-    
+
     private func evaluateGreaterThanComparison(context: Scope,
-                                               environment: Environment) throws -> Evaluable? {
-        
+                                               session: Session) throws -> Evaluable? {
+
         guard let lhsVariable = try lhs.evaluate(context: context,
-                                                 environment: environment) as? Variable,
+                                                 session: session) as? Variable,
             let rhsVariable = try rhs.evaluate(context: context,
-                                               environment: environment) as? Variable else {
+                                               session: session) as? Variable else {
                 throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
 
         guard lhsVariable.type == rhsVariable.type else {
             throw ProgramError(errorType: InterpreterError.binaryOperatorTypeMismatch, debugInfo: debugInfo)
         }
-        
+
         guard let lhsValue = lhsVariable.value else {
             throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
         }
-        
+
         guard let rhsValue = rhsVariable.value else {
             throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
         }
-        
+
         if lhsVariable.type == .integer {
             let value = (lhsValue as! Int) > (rhsValue as! Int)
             return Variable(type: .boolean, isConstant: true, value: value)
-            
+
         } else if lhsVariable.type == .real {
             let value = (lhsValue as! Double) > (rhsValue as! Double)
             return Variable(type: .boolean, isConstant: true, value: value)
-            
+
         } else if lhsVariable.type == .string {
             let value = (lhsValue as! String) > (rhsValue as! String)
             return Variable(type: .boolean, isConstant: true, value: value)
-            
+
         } else {
             throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
     }
-    
+
     private func evaluateGreaterThanOrEqualToComparison(context: Scope,
-                                                        environment: Environment) throws -> Evaluable? {
-        
+                                                        session: Session) throws -> Evaluable? {
+
         guard let lhsVariable = try lhs.evaluate(context: context,
-                                                 environment: environment) as? Variable,
+                                                 session: session) as? Variable,
             let rhsVariable = try rhs.evaluate(context: context,
-                                               environment: environment) as? Variable else {
+                                               session: session) as? Variable else {
                 throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
 
         guard lhsVariable.type == rhsVariable.type else {
             throw ProgramError(errorType: InterpreterError.binaryOperatorTypeMismatch, debugInfo: debugInfo)
         }
-        
+
         guard let lhsValue = lhsVariable.value else {
             throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
         }
-        
+
         guard let rhsValue = rhsVariable.value else {
             throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
         }
-        
+
         if lhsVariable.type == .integer {
             let value = (lhsValue as! Int) >= (rhsValue as! Int)
             return Variable(type: .boolean, isConstant: true, value: value)
-            
+
         } else if lhsVariable.type == .real {
             let value = (lhsValue as! Double) >= (rhsValue as! Double)
             return Variable(type: .boolean, isConstant: true, value: value)
-            
+
         } else if lhsVariable.type == .string {
             let value = (lhsValue as! String) >= (rhsValue as! String)
             return Variable(type: .boolean, isConstant: true, value: value)
-            
+
         } else {
             throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
     }
-    
+
     private func evaluateLessThanOrEqualToComparison(context: Scope,
-                                                     environment: Environment) throws -> Evaluable? {
-        
+                                                     session: Session) throws -> Evaluable? {
+
         guard let lhsVariable = try lhs.evaluate(context: context,
-                                                 environment: environment) as? Variable,
+                                                 session: session) as? Variable,
             let rhsVariable = try rhs.evaluate(context: context,
-                                               environment: environment) as? Variable else {
+                                               session: session) as? Variable else {
                 throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
 
         guard lhsVariable.type == rhsVariable.type else {
             throw ProgramError(errorType: InterpreterError.binaryOperatorTypeMismatch, debugInfo: debugInfo)
         }
-        
+
         guard let lhsValue = lhsVariable.value else {
             throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
         }
-        
+
         guard let rhsValue = rhsVariable.value else {
             throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
         }
-        
+
         if lhsVariable.type == .integer {
             let value = (lhsValue as! Int) <= (rhsValue as! Int)
             return Variable(type: .boolean, isConstant: true, value: value)
-            
+
         } else if lhsVariable.type == .real {
             let value = (lhsValue as! Double) <= (rhsValue as! Double)
             return Variable(type: .boolean, isConstant: true, value: value)
-            
+
         } else if lhsVariable.type == .string {
             let value = (lhsValue as! String) <= (rhsValue as! String)
             return Variable(type: .boolean, isConstant: true, value: value)
-            
+
         } else {
             throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
     }
-    
+
     private func evaluateLogicalANDComparison(context: Scope,
-                                              environment: Environment) throws -> Evaluable? {
-        
+                                              session: Session) throws -> Evaluable? {
+
         guard let lhsVariable = try lhs.evaluate(context: context,
-                                                 environment: environment) as? Variable,
+                                                 session: session) as? Variable,
             let rhsVariable = try rhs.evaluate(context: context,
-                                               environment: environment) as? Variable else {
+                                               session: session) as? Variable else {
                 throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
-        
+
         guard lhsVariable.type == rhsVariable.type else {
             throw ProgramError(errorType: InterpreterError.binaryOperatorTypeMismatch, debugInfo: debugInfo)
         }
-        
+
         guard let lhsValue = lhsVariable.value else {
             throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
         }
-        
+
         guard let rhsValue = rhsVariable.value else {
             throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
         }
@@ -693,38 +693,38 @@ struct BinaryOperatorExpr: Evaluable {
         if lhsVariable.type == .boolean {
             let value = (lhsValue as! Bool) && (rhsValue as! Bool)
             return Variable(type: .boolean, isConstant: true, value: value)
-            
+
         } else {
             throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
     }
-    
+
     private func evaluateLogicalORComparison(context: Scope,
-                                             environment: Environment) throws -> Evaluable? {
-        
+                                             session: Session) throws -> Evaluable? {
+
         guard let lhsVariable = try lhs.evaluate(context: context,
-                                                 environment: environment) as? Variable,
+                                                 session: session) as? Variable,
             let rhsVariable = try rhs.evaluate(context: context,
-                                               environment: environment) as? Variable else {
+                                               session: session) as? Variable else {
                 throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
 
         guard lhsVariable.type == rhsVariable.type else {
             throw ProgramError(errorType: InterpreterError.binaryOperatorTypeMismatch, debugInfo: debugInfo)
         }
-        
+
         guard let lhsValue = lhsVariable.value else {
             throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
         }
-        
+
         guard let rhsValue = rhsVariable.value else {
             throw ProgramError(errorType: InterpreterError.undefinedVariable, debugInfo: debugInfo)
         }
-        
+
         if lhsVariable.type == .boolean {
             let value = (lhsValue as! Bool) || (rhsValue as! Bool)
             return Variable(type: .boolean, isConstant: true, value: value)
-            
+
         } else {
             throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }

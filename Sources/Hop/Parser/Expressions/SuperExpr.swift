@@ -15,7 +15,8 @@ struct SuperExpr: Evaluable {
         return Token.superToken.rawValue
     }
     
-    func evaluate(context: Scope, environment: Environment) throws -> Evaluable? {
+    func evaluate(context: Scope,
+                  session: Session) throws -> Evaluable? {
         // Search for self in scope hierarchy (super.<instance method> case)
         if let selfValue = context.getSymbolValue(for: SelfParameter.hashId) {
             if let selfVariable = selfValue as? Variable,

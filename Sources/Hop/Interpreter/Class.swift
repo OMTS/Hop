@@ -104,7 +104,8 @@ class Class: Evaluable {
         return "Class(\(name))"
     }
     
-    func evaluate(context: Scope, environment: Environment) throws -> Evaluable? {
+    func evaluate(context: Scope,
+                  session: Session) throws -> Evaluable? {
         return self
     }
     

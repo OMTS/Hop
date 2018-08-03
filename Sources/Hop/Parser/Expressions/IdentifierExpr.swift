@@ -24,7 +24,8 @@ class IdentifierExpr: Evaluable {
         return "Id(\(name))"
     }
 
-    func evaluate(context: Scope, environment: Environment) throws -> Evaluable? {
+    func evaluate(context: Scope,
+                  session: Session) throws -> Evaluable? {
         guard let symbol = context.getSymbolValue(for: hashId) else {
             throw ProgramError(errorType: InterpreterError.unresolvedIdentifier, debugInfo: debugInfo)
         }

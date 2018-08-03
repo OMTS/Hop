@@ -72,7 +72,8 @@ class ClassDeclarationStmt: Evaluable {
         return description
     }
     
-    func evaluate(context: Scope, environment: Environment) throws -> Evaluable? {
+    func evaluate(context: Scope,
+                  session: Session) throws -> Evaluable? {
         if context.symbolTable[hashId] != nil {
             throw ProgramError(errorType: InterpreterError.classAlreadyDeclared, debugInfo: debugInfo)
         }
@@ -101,7 +102,7 @@ class ClassDeclarationStmt: Evaluable {
         var superclass: Class?
         if let superclassExpr = superclassExpr {
             superclass = try superclassExpr.evaluate(context: context,
-                                                     environment: environment) as? Class
+                                                     session: session) as? Class
             if superclass == nil {
                 throw ProgramError(errorType: InterpreterError.unresolvedIdentifier, debugInfo: debugInfo)
             }
@@ -131,7 +132,7 @@ class ClassDeclarationStmt: Evaluable {
                 }
 
                 _ = try classPropertyDeclaration.evaluate(context: classScope,
-                                                          environment: environment)
+                                                          session: session)
             }
         }
         
@@ -140,7 +141,7 @@ class ClassDeclarationStmt: Evaluable {
             classMethodDeclarations.count > 0 {
             for classMethodDeclaration in classMethodDeclarations {
                 _ = try classMethodDeclaration.evaluate(context: classScope,
-                                                        environment: environment)
+                                                        session: session)
             }
         }
         
@@ -175,7 +176,7 @@ class ClassDeclarationStmt: Evaluable {
                 let functionDeclarationStmt = FunctionDeclarationStmt(prototype: instanceMethodPrototype,
                                                                       block: instanceMethodDeclaration.block)
                 _ = try functionDeclarationStmt.evaluate(context: classScope,
-                                                         environment: environment)
+                                                         session: session)
             }
         }
 
@@ -184,7 +185,7 @@ class ClassDeclarationStmt: Evaluable {
             innerClassDeclarations.count > 0 {
             for innerClassDeclaration in innerClassDeclarations {
                 _ = try innerClassDeclaration.evaluate(context: classScope,
-                                                       environment: environment)
+                                                       session: session)
             }
         }
         

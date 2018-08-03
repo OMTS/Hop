@@ -37,6 +37,7 @@ class ViewController: NSViewController {
         sourceTextView.isGrammarCheckingEnabled = false
         sourceTextView.isAutomaticTextCompletionEnabled = false
         sourceTextView.isAutomaticSpellingCorrectionEnabled = false
+        sourceTextView.isAutomaticQuoteSubstitutionEnabled = false
 
         logTextView.textColor = NSColor(calibratedWhite: 0.8, alpha: 1)
         logTextView.font = NSFont(name: "Arial", size: 16)
@@ -59,16 +60,14 @@ class ViewController: NSViewController {
             }
         }
         
-        // Setupo runtime environment
-        let environment = Environment(isDebug: true,
-                                      messenger: messenger,
-                                      getScriptForModule: nil)
-        
-        // Then create & run intepreter
-        let interpreter = Interpreter(environment: environment)
+        // Setup runtime session
+        let session = Session(isDebug: true,
+                              messenger: messenger,
+                              getScriptForModule: nil)
         
         do {
-            try interpreter.runScript(script)
+            // Run script
+            try session.run(script: script)
             
         } catch let error {
             if let printableError = error as? ProgramError {

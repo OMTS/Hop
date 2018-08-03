@@ -40,7 +40,8 @@ class Variable: Evaluable {
         return isConstant ? "const " : "" + "variable<\(type.name)>"
     }
     
-    func evaluate(context: Scope, environment: Environment) throws -> Evaluable? {
+    func evaluate(context: Scope,
+                  session: Session) throws -> Evaluable? {
         return self
     }
     

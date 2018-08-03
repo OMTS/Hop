@@ -81,7 +81,7 @@ class Parser {
             }
         }
         if statements.count > 0 {
-            return Program(block: BlockStmt(statements: statements))
+            return Program(statements: statements)
         }
         
         return nil

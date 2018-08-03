@@ -10,28 +10,26 @@ import XCTest
 @testable import Hop
 
 class ParserErrorTests: XCTestCase {
-    var environment: Environment!
-    var interpreter: Interpreter!
+    var session: Session!
     override func setUp() {
         super.setUp()
-        environment = Environment(isDebug: true,
-                                      messenger: nil,
-                                      getScriptForModule: nil)
-        interpreter = Interpreter(environment: environment)
+        // Setup runtime session
+        session = Session(isDebug: true,
+                          messenger: nil,
+                          getScriptForModule: nil)
 
     }
 
     override func tearDown() {
         super.tearDown()
-        environment = nil
-        interpreter = nil
+        session = nil
     }
 
     func testImportStmtParserError() {
         //EXPRESSION ERROR
         let script = "\n\nimport\n\n"
         do {
-            try interpreter.runScript(script)
+            try session.run(script: script)
         } catch let error {
             if let printableError = error as? ProgramError {
                 guard case ParserError.expressionError = printableError.errorType else {
@@ -49,7 +47,7 @@ class ParserErrorTests: XCTestCase {
         //MODULE NOT FOUND
         let script2 = "\n\nimport Syst\n\n"
         do {
-            try interpreter.runScript(script2)
+            try session.run(script: script2)
         } catch let error {
             if let printableError = error as? ProgramError {
                 guard case ImporterError.moduleNotFound = printableError.errorType else {
@@ -67,7 +65,7 @@ class ParserErrorTests: XCTestCase {
         //LF NOT FOUND
         let script3 = "\n\nimport Sys const a = 3\n\n"
         do {
-            try interpreter.runScript(script3)
+            try session.run(script: script3)
         } catch let error {
             if let printableError = error as? ProgramError {
                 guard case ParserError.expressionError = printableError.errorType else {
@@ -87,7 +85,7 @@ class ParserErrorTests: XCTestCase {
         //PROTOTYPE ERROR
         let script = "\n\nfunc\n\n"
         do {
-            try interpreter.runScript(script)
+            try session.run(script: script)
         } catch let error {
             if let printableError = error as? ProgramError {
                 guard case ParserError.prototypeError = printableError.errorType else {
@@ -105,7 +103,7 @@ class ParserErrorTests: XCTestCase {
         //PROTOTYPE ERROR
         let script2 = "\n\nfunc(\n\n"
         do {
-            try interpreter.runScript(script2)
+            try session.run(script: script2)
         } catch let error {
             if let printableError = error as? ProgramError {
                 guard case ParserError.prototypeError = printableError.errorType else {
@@ -123,7 +121,7 @@ class ParserErrorTests: XCTestCase {
         //PROTOTYPE ERROR
         let script3 = "\n\nfunc if(#n: Int)\n\n"
         do {
-            try interpreter.runScript(script3)
+            try session.run(script: script3)
         } catch let error {
             if let printableError = error as? ProgramError {
                 guard case ParserError.prototypeError = printableError.errorType else {
@@ -141,7 +139,7 @@ class ParserErrorTests: XCTestCase {
         //PROTOTYPE ERROR
         let script4 = "\n\nfunc test(: Int)\n\n"
         do {
-            try interpreter.runScript(script4)
+            try session.run(script: script4)
         } catch let error {
             if let printableError = error as? ProgramError {
                 guard case ParserError.prototypeError = printableError.errorType else {
@@ -159,7 +157,7 @@ class ParserErrorTests: XCTestCase {
         //PROTOTYPE ERROR
         let script5 = "\n\nfunc test(n: Int, Int)\n\n"
         do {
-            try interpreter.runScript(script5)
+            try session.run(script: script5)
         } catch let error {
             if let printableError = error as? ProgramError {
                 guard case ParserError.prototypeError = printableError.errorType else {
@@ -177,7 +175,7 @@ class ParserErrorTests: XCTestCase {
         //PROTOTYPE ERROR
         let script6 = "\n\nfunc test(n: Int\n\n"
         do {
-            try interpreter.runScript(script6)
+            try session.run(script: script6)
         } catch let error {
             if let printableError = error as? ProgramError {
                 guard case ParserError.prototypeError = printableError.errorType else {
@@ -195,7 +193,7 @@ class ParserErrorTests: XCTestCase {
         //PROTOTYPE ERROR
         let script7 = "\n\nfunc test(n: Int)}\n\n"
         do {
-            try interpreter.runScript(script7)
+            try session.run(script: script7)
         } catch let error {
             if let printableError = error as? ProgramError {
                 guard case ParserError.expressionError = printableError.errorType else {

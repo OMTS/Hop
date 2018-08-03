@@ -10,21 +10,38 @@ import Foundation
 
 struct Program: Loggable {
     
-    var block: BlockStmt?
-    
+    var statements: [Evaluable]
+
     var description: String {
         var description = ""
-        if let block = block {
-            description += block.description
+        for statement in statements {
+            description += statement.description + "\n"
         }
         return description
     }
     
-    func perform(with environment: Environment) throws {
+    @discardableResult func perform(with session: Session) throws -> Scope {
+        
         let context = Scope(parent: nil)
-        importArrayClass(in: context)
-        _ = try block?.evaluate(context: context,
-                                environment: environment)
+        
+        for statement in statements {
+            _ = try statement.evaluate(context: context,
+                                       session: session)
+            
+            if context.returnedEvaluable != nil {
+                break
+            }
+            
+            if context.isBreakRequested {
+                break
+            }
+            
+            if context.isContinueRequested {
+                break
+            }
+        }
+        
+        return context
     }
-    
+
 }

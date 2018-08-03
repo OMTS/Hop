@@ -17,7 +17,8 @@ class NilExpr: Evaluable {
         return "nil"
     }
     
-    func evaluate(context: Scope, environment: Environment) throws -> Evaluable? {
+    func evaluate(context: Scope,
+                  session: Session) throws -> Evaluable? {
         return NilExpr.nilVariable
     }
     
