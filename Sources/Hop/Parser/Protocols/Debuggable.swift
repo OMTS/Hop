@@ -9,8 +9,8 @@
 import Foundation
 
 public struct DebugInfo {
-    let lineNumber: Int
-    let position: Int
+    public let lineNumber: Int
+    public let position: Int
 
     init?(lineNumber: Int?, position: Int?) {
         guard let lineNumber = lineNumber, let position = position else {
