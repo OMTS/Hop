@@ -17,6 +17,8 @@ public enum Token: String {
     case rightParenthesis       = ")"
     case leftCurlyBrace         = "{"
     case rightCurlyBrace        = "}"
+    case leftSquareBracket      = "["
+    case rightSquareBracket     = "]"
     case onesComplement         = "~"
     case logicalNegation        = "!"
     case plus                   = "+"

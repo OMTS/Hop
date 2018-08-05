@@ -183,6 +183,20 @@ public class Lexer {
             setLastTokenPositionForDebug(forToken: .rightParenthesis)
             return .rightParenthesis
         }
+
+        // Consume left square bracket
+        if currentChar == "[" {
+            getNextChar()
+            setLastTokenPositionForDebug(forToken: .leftSquareBracket)
+            return .leftSquareBracket
+        }
+        
+        // Consume right square bracket
+        if currentChar == "]" {
+            getNextChar()
+            setLastTokenPositionForDebug(forToken: .rightSquareBracket)
+            return .rightSquareBracket
+        }
         
         // Consume ones' complement
         if currentChar == "~" {

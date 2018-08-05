@@ -1012,6 +1012,9 @@ class Parser {
         case .leftParenthesis:
             return try parseParenthesisExpression()
             
+        case .leftSquareBracket:
+            return try parseContainerLiteral()
+            
         case .superToken:
             return try parseSuperExpression()
             
@@ -1200,6 +1203,109 @@ class Parser {
         try getNextToken() // Consume right parenthesis: )
         
         return parsedExpression
+    }
+
+    enum ContainerType {
+        case undefined
+        case array
+        case dictionary
+    }
+
+    private func parseContainerLiteral() throws -> Evaluable {
+        
+        try getNextToken() // Consume left square bracket
+        
+        var containerType: ContainerType = .undefined
+        var itemExpressions = [Evaluable]()
+        
+        while true {
+            
+            let item = try parseContainerItem(containerType: &containerType)
+            
+            if !item.isEmpty {
+                itemExpressions.append(contentsOf: item)
+            }
+            
+            if currentToken == .comma {
+                try getNextToken() // Consume first comma
+                continue
+            }
+            
+            if currentToken == .rightSquareBracket {
+                break
+            }
+            
+            throw ProgramError(errorType: ParserError.expressionError,
+                               debugInfo: lexer.debugInfo)
+        }
+        
+        try getNextToken() // Consume right square bracket
+        
+        if containerType == .array {
+            return ArrayLiteralExpr(itemExpressions: itemExpressions)
+        }
+
+        // Dictionary
+        return DictionaryLiteralExpr(itemExpressions: itemExpressions)
+    }
+    
+    private func parseContainerItem(containerType: inout ContainerType) throws -> [Evaluable] {
+        if containerType == .undefined {
+            let expression = try parseExpression()
+            
+            if currentToken == .comma {
+                if let expression = expression {
+                    containerType = .array
+                    return [expression]
+
+                } else {
+                    throw ProgramError(errorType: ParserError.expressionError,
+                                       debugInfo: lexer.debugInfo)
+                }
+            } else if currentToken == .colon {
+                try getNextToken() // Consume first colon
+
+                if let valueExpr = try parseExpression() {
+                    if let expression = expression {
+                        containerType = .dictionary
+                        return [expression, valueExpr]
+                    } else {
+                        throw ProgramError(errorType: ParserError.expressionError,
+                                           debugInfo: lexer.debugInfo)
+                    }
+                }
+            } else {
+                containerType = .array
+                return (expression == nil ? [] : [expression!])
+            }
+        } else if containerType == .array {
+            if let expression = try parseExpression() {
+                return [expression]
+            } else {
+                throw ProgramError(errorType: ParserError.expressionError,
+                                   debugInfo: lexer.debugInfo)
+            }
+        } else { // .dictionary
+            if let keyExpr = try parseExpression() {
+                if currentToken == .colon {
+                    try getNextToken() // Consume ':'
+                    
+                    if let valueExpr = try parseExpression() {
+                        return [keyExpr, valueExpr]
+                    } else {
+                        throw ProgramError(errorType: ParserError.expressionError,
+                                           debugInfo: lexer.debugInfo)
+                    }
+                } else {
+                    throw ProgramError(errorType: ParserError.expressionError,
+                                       debugInfo: lexer.debugInfo)
+                }
+            } else {
+                throw ProgramError(errorType: ParserError.expressionError,
+                                   debugInfo: lexer.debugInfo)
+            }
+        }
+        return []
     }
     
     /**
