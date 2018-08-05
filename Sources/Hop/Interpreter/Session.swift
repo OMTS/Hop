@@ -59,6 +59,7 @@ public class Session {
         let lexer = Lexer(script: script, isDebug: self.isDebug)
         let parser = Parser(with: lexer, isDebug: self.isDebug)
         if let program = try parser.parseProgram() {
+            print(program.description)
             try program.perform(with: self)
         }
     }

@@ -22,7 +22,12 @@ struct BinaryOperatorExpr: Evaluable {
     }
 
     var description: String {
-        return "(" + lhs.description + "\(binOp.rawValue)" + rhs.description + ")"
+        return "("
+            + lhs.description
+            + "\(binOp.rawValue)"
+            + rhs.description
+            + (binOp == .leftSquareBracket ? "]" : "")
+            + ")"
     }
 
     func evaluate(context: Scope,

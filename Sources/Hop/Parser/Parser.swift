@@ -23,7 +23,8 @@ private let binOpPrecedences: [Token : Int] = [
     .multiplication: 60,
     .divide: 60,
     .remainder: 60,
-    .dot: 70
+    .dot: 70,
+    .leftSquareBracket: 80
 ]
 
 enum ParserError: ErrorType {
@@ -1375,6 +1376,10 @@ class Parser {
             
             // Parse the primary expression after the binary operator.
             var rhs = try parseUnaryExpression()
+            if binOp == .leftSquareBracket,
+                currentToken == .rightSquareBracket {
+                try getNextToken() // Consume subscript ']'
+            }
             if rhs == nil {
                 return nil
             }
