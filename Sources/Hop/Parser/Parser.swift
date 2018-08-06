@@ -510,7 +510,7 @@ class Parser {
         guard let startExpression = try parseExpression() else {
             throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
-        
+
         guard currentToken == .to else {
             throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
         }
@@ -542,19 +542,17 @@ class Parser {
 
         try getNextToken() // Consume line feed
 
-        if block != nil {
-            var forStmt = ForStmt(indexName: indexName,
-                                  startExpression: startExpression,
-                                  endExpression: endExpression,
-                                  stepExpression: stepExpression,
-                                  block: block!)
-            forStmt.debugInfo = lexer.debugInfo
-            return forStmt
-        }
-        
+        var forStmt = ForStmt(indexName: indexName,
+                              startExpression: startExpression,
+                              endExpression: endExpression,
+                              stepExpression: stepExpression,
+                              block: block)
+        forStmt.debugInfo = lexer.debugInfo
+        return forStmt
+
         // No for loop body
         // => no needed to register a for loop
-        return nil
+        //return nil
     }
 
     /**
@@ -698,13 +696,13 @@ class Parser {
 
         // Parse assignment
         guard currentToken == .assignment else {
-            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
+            throw ProgramError(errorType: InterpreterError.missingConstantInitialization, debugInfo: lexer.debugInfo)
         }
 
         try getNextToken() // Consume '='
 
         guard let expression = try parseExpression() else {
-            throw ProgramError(errorType: ParserError.expressionError, debugInfo: lexer.debugInfo)
+            throw ProgramError(errorType: InterpreterError.missingConstantInitialization, debugInfo: lexer.debugInfo)
         }
         
         guard currentToken == .lf else {
@@ -713,11 +711,14 @@ class Parser {
 
         try getNextToken() // Consume '\n'
 
-        return VariableDeclarationStmt(name: name,
-                                       typeExpr: typeExpr,
-                                       isConstant: true,
-                                       isPrivate: false,
-                                       expr: expression)
+        let variableDeclarationStmt = VariableDeclarationStmt(name: name,
+                                                              typeExpr: typeExpr,
+                                                              isConstant: true,
+                                                              isPrivate: false,
+                                                              expr: expression)
+
+        variableDeclarationStmt.debugInfo = lexer.debugInfo
+        return variableDeclarationStmt
     }
 
     /**
@@ -778,12 +779,15 @@ class Parser {
         }
         
         try getNextToken() // Consume '\n'
-        
-        return VariableDeclarationStmt(name: name,
-                                       typeExpr: typeExpr,
-                                       isConstant: false,
-                                       isPrivate: false,
-                                       expr: expression)
+
+        let variableDeclarationStmt = VariableDeclarationStmt(name: name,
+                                                              typeExpr: typeExpr,
+                                                              isConstant: false,
+                                                              isPrivate: false,
+                                                              expr: expression);
+        variableDeclarationStmt.debugInfo = lexer.debugInfo
+
+        return variableDeclarationStmt
     }
     
     /**
@@ -1139,6 +1143,7 @@ class Parser {
         }
         
         let integerExpression = IntegerExpr(value: value)
+        integerExpression.debugInfo = lexer.debugInfo
         try getNextToken() // consume the integer number
         return integerExpression
     }
@@ -1153,6 +1158,7 @@ class Parser {
         }
         
         let realExpression = RealExpr(value: value)
+        realExpression.debugInfo = lexer.debugInfo
         try getNextToken() // consume the real number
         return realExpression
     }
@@ -1167,6 +1173,7 @@ class Parser {
         }
         
         let booleanExpression = BooleanExpr(value: value)
+        booleanExpression.debugInfo = lexer.debugInfo
         try getNextToken() // consume the boolean
         return booleanExpression
     }
@@ -1181,6 +1188,7 @@ class Parser {
         }
         
         let stringExpression = StringExpr(value: value)
+        stringExpression.debugInfo = lexer.debugInfo
         try getNextToken() // consume the string
         return stringExpression
     }
@@ -1198,7 +1206,7 @@ class Parser {
         }
         
         try getNextToken() // Consume right parenthesis: )
-        
+
         return parsedExpression
     }
     
@@ -1269,6 +1277,7 @@ class Parser {
             
             // Parse the primary expression after the binary operator.
             var rhs = try parseUnaryExpression()
+            rhs?.debugInfo = lexer.debugInfo
             if rhs == nil {
                 return nil
             }
@@ -1295,7 +1304,6 @@ class Parser {
         guard let lhs = try parseUnaryExpression() else {
             return nil
         }
-        
         return try parseBinOpRHS(lhs: lhs, expressionPrecedence: 0)
     }
 }

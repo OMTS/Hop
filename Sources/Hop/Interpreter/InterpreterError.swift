@@ -46,6 +46,8 @@ enum InterpreterError: String, ErrorType {
     case classMemberAlreadyDeclaredInSuperclass
     case classMemberAlreadyDeclared
     case classMemberNotDeclared
+    case missingConstantInitialization
+
 
     func getDescription() -> String {
         return self.rawValue

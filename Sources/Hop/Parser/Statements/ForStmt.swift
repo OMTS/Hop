@@ -22,13 +22,13 @@ struct ForStmt: Evaluable {
     private let startExpression: Evaluable
     private let endExpression: Evaluable
     private let stepExpression: Evaluable?
-    private let block: BlockStmt
+    private let block: BlockStmt?
     
     init(indexName: String,
          startExpression: Evaluable,
          endExpression: Evaluable,
          stepExpression: Evaluable?,
-         block: BlockStmt) {
+         block: BlockStmt?) {
         self.indexName = indexName
         self.indexHashId = indexName.hashValue
         self.startExpression = startExpression
@@ -45,7 +45,7 @@ struct ForStmt: Evaluable {
             + " to "
             + endExpression.description
             + " {\n"
-        description += block.description
+        description += block?.description ?? ""
         description += "}\n"
         return description
     }
@@ -57,13 +57,13 @@ struct ForStmt: Evaluable {
         guard let startVariable = try startExpression.evaluate(context: context,
                                                                session: session) as? Variable,
             let startIndex = startVariable.value as? Int else {
-            throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
+            throw ProgramError(errorType: InterpreterError.expressionTypeMismatch, debugInfo: startExpression.debugInfo)
         }
         
         guard let endVariable = try endExpression.evaluate(context: context,
                                                            session: session) as? Variable,
             let endIndex = endVariable.value as? Int else {
-                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
+                throw ProgramError(errorType: InterpreterError.expressionTypeMismatch, debugInfo: endExpression.debugInfo)
         }
 
         var stepIncrement = 1
@@ -71,7 +71,7 @@ struct ForStmt: Evaluable {
                                                              session: session) {
             guard let stepVariable = stepEvaluation as? Variable,
                 let stepValue = stepVariable.value as? Int else {
-                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
+                throw ProgramError(errorType: InterpreterError.expressionTypeMismatch, debugInfo: debugInfo)
             }
             stepIncrement = stepValue
         }
@@ -83,7 +83,7 @@ struct ForStmt: Evaluable {
         for i in stride(from: startIndex, to: endIndex, by: stepIncrement) {
             indexVariable.value = i
             
-            _ = try block.evaluate(context: indexContext,
+            _ = try block?.evaluate(context: indexContext,
                                    session: session)
             
             if indexContext.returnedEvaluable != nil {
