@@ -25,6 +25,12 @@ class ImportStmt: Evaluable {
                   session: Session) throws -> Evaluable? {
         // WIP! Import no longer available during package & module management implementation!
         
+        /*
+ 
+         On check d'abord qu'un module existe dans le module courrant
+         
+        */
+        
 //        // Check if module has already been imported in global context
 //        let module: Module! = session.globalScope.symbolTable[hashId] as? Module
 //

@@ -132,6 +132,9 @@ struct BinaryOperatorExpr: Evaluable {
                 return try rhsFunctionCall.evaluateFunction(ofModule: lhsModule,
                                                             context: context,
                                                             session: session)
+            } else if let rhsClass = rhs as? Class {
+                return rhsClass
+                
             } else {
                 throw ProgramError(errorType: InterpreterError.accessorMemberError,
                                    debugInfo: debugInfo)
