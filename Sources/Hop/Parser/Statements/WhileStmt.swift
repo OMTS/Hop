@@ -12,9 +12,9 @@ class WhileStmt: Evaluable {
     var debugInfo: DebugInfo?
 
     private let conditionExpression: Evaluable
-    private let block: BlockStmt
+    private let block: BlockStmt?
     
-    init(conditionExpression: Evaluable, block: BlockStmt) {
+    init(conditionExpression: Evaluable, block: BlockStmt?) {
         self.conditionExpression = conditionExpression
         self.block = block
     }
@@ -23,7 +23,7 @@ class WhileStmt: Evaluable {
         var description = "while "
             + conditionExpression.description
             + " {\n"
-        description += block.description
+        description += block?.description ?? ""
         description += "}\n"
         return description
     }
@@ -47,7 +47,7 @@ class WhileStmt: Evaluable {
                                     context: context,
                                     session: session) {
 
-            _ = try block.evaluate(context: context,
+            _ = try block?.evaluate(context: context,
                                    session: session)
             
             if context.returnedEvaluable != nil {

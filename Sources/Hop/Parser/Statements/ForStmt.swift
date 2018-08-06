@@ -71,7 +71,7 @@ struct ForStmt: Evaluable {
                                                              session: session) {
             guard let stepVariable = stepEvaluation as? Variable,
                 let stepValue = stepVariable.value as? Int else {
-                throw ProgramError(errorType: InterpreterError.expressionTypeMismatch, debugInfo: debugInfo)
+                throw ProgramError(errorType: InterpreterError.expressionTypeMismatch, debugInfo: stepExpression!.debugInfo)
             }
             stepIncrement = stepValue
         }

@@ -549,10 +549,6 @@ class Parser {
                               block: block)
         forStmt.debugInfo = lexer.debugInfo
         return forStmt
-
-        // No for loop body
-        // => no needed to register a for loop
-        //return nil
     }
 
     /**
@@ -577,13 +573,9 @@ class Parser {
         
         try getNextToken() // Consume line feed
         
-        if block != nil {
-            return WhileStmt(conditionExpression: conditionExpression, block: block!)
-        }
-        
-        // No while loop body
-        // => no needed to register a while loop
-        return nil
+        let whileStmt = WhileStmt(conditionExpression: conditionExpression, block: block)
+        whileStmt.debugInfo = lexer.debugInfo
+        return whileStmt
     }
     
     /**

@@ -16,7 +16,11 @@ class ParserErrorTests: XCTestCase {
                            ("testBreakStmtParserError", testBreakStmtParserError),
                            ("testContinueStmtParserError", testContinueStmtParserError),
                            ("testIfStmtParserError", testIfStmtParserError),
-                           ("testConstantDeclarationStmtParserError", testConstantDeclarationStmtParserError)]
+                           ("testForStmtParserError", testForStmtParserError),
+                           ("testWhileStmtParserError", testWhileStmtParserError),
+                           ("testVariableDeclarationStmtParserError", testVariableDeclarationStmtParserError),
+                           ("testConstantDeclarationStmtParserError", testConstantDeclarationStmtParserError),
+                           ("testClassDeclarationStmtParserError",testClassDeclarationStmtParserError)]
 
     var session: Session!
     override func setUp() {
@@ -350,6 +354,206 @@ class ParserErrorTests: XCTestCase {
         }
     }
 
+    //"for" <id> "in" <expression> "to" <expression> ["step" <expression>] "{" <block> "}" "\n"
+    func testForStmtParserError() {
+        let script = "\nfor i: Int in 0 to 10 step 1 {\n}\n"
+        do {
+            try session.run(script: script)
+        } catch let error {
+            if let printableError = error as? ProgramError {
+                guard case ParserError.expressionError = printableError.errorType else {
+                    XCTFail("Should Throw a ParserError.expressionError but did Throw a \(printableError.errorType)")
+                    return
+                }
+                XCTAssertNotNil(printableError.debugInfo)
+                XCTAssertEqual(printableError.debugInfo!.lineNumber,2)
+                XCTAssertEqual(printableError.debugInfo!.position,6)
+
+            } else {
+                XCTFail("Error Thrown is not a ProgramError")
+            }
+        }
+
+        let script2 = "for i in 5 to \"dummy\" {\n}\n"
+        do {
+            try session.run(script: script2)
+        } catch let error {
+            if let printableError = error as? ProgramError {
+                guard case InterpreterError.expressionTypeMismatch = printableError.errorType else {
+                    XCTFail("Should Throw a InterpreterError.expressionTypeMismatch but did Throw a \(printableError.errorType)")
+                    return
+                }
+                XCTAssertNotNil(printableError.debugInfo)
+                XCTAssertEqual(printableError.debugInfo!.lineNumber,1)
+                XCTAssertEqual(printableError.debugInfo!.position,16)
+
+            } else {
+                XCTFail("Error Thrown is not a ProgramError")
+            }
+        }
+
+        let script3 = "for i in \"dummy1\" to 3 {\n}\n"
+        do {
+            try session.run(script: script3)
+        } catch let error {
+            if let printableError = error as? ProgramError {
+                guard case InterpreterError.expressionTypeMismatch = printableError.errorType else {
+                    XCTFail("Should Throw a InterpreterError.expressionTypeMismatch but did Throw a \(printableError.errorType)")
+                    return
+                }
+                XCTAssertNotNil(printableError.debugInfo)
+                XCTAssertEqual(printableError.debugInfo!.lineNumber,1)
+                XCTAssertEqual(printableError.debugInfo!.position,11)
+            } else {
+                XCTFail("Error Thrown is not a ProgramError")
+            }
+        }
+
+        let script4 = "for i in 0 to 10 step 2.3 {\n}\n"
+        do {
+            try session.run(script: script4)
+        } catch let error {
+            if let printableError = error as? ProgramError {
+                guard case InterpreterError.expressionTypeMismatch = printableError.errorType else {
+                    XCTFail("Should Throw a InterpreterError.expressionTypeMismatch but did Throw a \(printableError.errorType)")
+                    return
+                }
+                XCTAssertNotNil(printableError.debugInfo)
+                XCTAssertEqual(printableError.debugInfo!.lineNumber,1)
+                XCTAssertEqual(printableError.debugInfo!.position,22)
+            } else {
+                XCTFail("Error Thrown is not a ProgramError")
+            }
+        }
+
+        let script5 = "\nfor i in 0 to 10 step {\n}\n"
+        do {
+            try session.run(script: script5)
+        } catch let error {
+            if let printableError = error as? ProgramError {
+                guard case ParserError.expressionError = printableError.errorType else {
+                    XCTFail("Should Throw a ParserError.expressionError but did Throw a \(printableError.errorType)")
+                    return
+                }
+                XCTAssertNotNil(printableError.debugInfo)
+                XCTAssertEqual(printableError.debugInfo!.lineNumber,2)
+                XCTAssertEqual(printableError.debugInfo!.position,23)
+            } else {
+                XCTFail("Error Thrown is not a ProgramError")
+            }
+        }
+    }
+
+    //"while" <expression> "{" <block> "}" "\n"
+     func testWhileStmtParserError() {
+        let script = "var a = 2\nwhile\n a > 0 {\n}\n"
+        do {
+            try session.run(script: script)
+        } catch let error {
+            if let printableError = error as? ProgramError {
+                guard case ParserError.expressionError = printableError.errorType else {
+                    XCTFail("Should Throw a ParserError.expressionError but did Throw a \(printableError.errorType)")
+                    return
+                }
+                XCTAssertNotNil(printableError.debugInfo)
+                XCTAssertEqual(printableError.debugInfo!.lineNumber,2)
+                XCTAssertEqual(printableError.debugInfo!.position,10)
+
+            } else {
+                XCTFail("Error Thrown is not a ProgramError")
+            }
+        }
+
+        let script2 = "var a = 2\nwhile b > 0 {\n}\n"
+        do {
+            try session.run(script: script2)
+        } catch let error {
+            if let printableError = error as? ProgramError {
+                guard case InterpreterError.unresolvedIdentifier = printableError.errorType else {
+                    XCTFail("Should Throw a InterpreterError.unresolvedIdentifier but did Throw a \(printableError.errorType)")
+                    return
+                }
+                XCTAssertNotNil(printableError.debugInfo)
+                XCTAssertEqual(printableError.debugInfo!.lineNumber,2)
+                XCTAssertEqual(printableError.debugInfo!.position,18)
+
+            } else {
+                XCTFail("Error Thrown is not a ProgramError")
+            }
+        }
+
+        let script3 = "while {\n}\n"
+        do {
+            try session.run(script: script3)
+        } catch let error {
+            if let printableError = error as? ProgramError {
+                guard case ParserError.expressionError = printableError.errorType else {
+                    XCTFail("Should Throw a ParserError.expressionError but did Throw a \(printableError.errorType)")
+                    return
+                }
+                XCTAssertNotNil(printableError.debugInfo)
+                XCTAssertEqual(printableError.debugInfo!.lineNumber,1)
+                XCTAssertEqual(printableError.debugInfo!.position,6)
+
+            } else {
+                XCTFail("Error Thrown is not a ProgramError")
+            }
+        }
+    }
+
+    // "var" <id> ":" <id> ["=" <expression>] "\n"
+    func testVariableDeclarationStmtParserError() {
+        let script = "var \n a = 3\n"
+        do {
+            try session.run(script: script)
+        } catch let error {
+            if let printableError = error as? ProgramError {
+                guard case ParserError.expressionError = printableError.errorType else {
+                    XCTFail("Should Throw a ParserError.expressionError but did Throw a \(printableError.errorType)")
+                    return
+                }
+                XCTAssertNotNil(printableError.debugInfo)
+                XCTAssertEqual(printableError.debugInfo!.lineNumber,1)
+                XCTAssertEqual(printableError.debugInfo!.position,0)
+            } else {
+                XCTFail("Error Thrown is not a ProgramError")
+            }
+        }
+
+        let script2 = "var a = \n3\n"
+        do {
+            try session.run(script: script2)
+        } catch let error {
+            if let printableError = error as? ProgramError {
+                guard case ParserError.expressionError = printableError.errorType else {
+                    XCTFail("Should Throw a ParserError.expressionError but did Throw a \(printableError.errorType)")
+                    return
+                }
+                XCTAssertNotNil(printableError.debugInfo)
+                XCTAssertEqual(printableError.debugInfo!.lineNumber,1)
+                XCTAssertEqual(printableError.debugInfo!.position,6)
+            } else {
+                XCTFail("Error Thrown is not a ProgramError")
+            }
+        }
+
+        let script3 = "var a: String = 42\n"
+        do {
+            try session.run(script: script3)
+        } catch let error {
+            if let printableError = error as? ProgramError {
+                guard case InterpreterError.expressionTypeMismatch = printableError.errorType else {
+                    XCTFail("Should Throw a InterpreterError.expressionTypeMismatch but did Throw a \(printableError.errorType)")
+                    return
+                }
+                XCTAssertNotNil(printableError.debugInfo)
+                XCTAssertEqual(printableError.debugInfo!.lineNumber,1)
+                XCTAssertEqual(printableError.debugInfo!.position,16)
+            } else {
+                XCTFail("Error Thrown is not a ProgramError")
+            }
+        }
+    }
 
     //"const" <id> ":" <id> "=" <expression> "\n"
     func testConstantDeclarationStmtParserError() {
@@ -422,9 +626,9 @@ class ParserErrorTests: XCTestCase {
         }
     }
 
-    //"for" <id> "in" <expression> "to" <expression> ["step" <expression>] "{" <block> "}" "\n"
-    func testForStmtParserError() {
-        let script = "\nfor i: Int in 0 to 10 step 1 {\n}\n"
+    //"class" <id> "{" <statement>* "}" "\n"
+    func testClassDeclarationStmtParserError() {
+        let script = "class Person \n{ const a = 42 }\n"
         do {
             try session.run(script: script)
         } catch let error {
@@ -434,27 +638,42 @@ class ParserErrorTests: XCTestCase {
                     return
                 }
                 XCTAssertNotNil(printableError.debugInfo)
-                XCTAssertEqual(printableError.debugInfo!.lineNumber,2)
-                XCTAssertEqual(printableError.debugInfo!.position,6)
-
+                XCTAssertEqual(printableError.debugInfo!.lineNumber, 1)
+                XCTAssertEqual(printableError.debugInfo!.position, 6)
             } else {
                 XCTFail("Error Thrown is not a ProgramError")
             }
         }
 
-        let script2 = "for i in 5 to \"dummy\" {\n}\n"
+        let script2 = "class \nPerson { const a = 42 }\n"
         do {
             try session.run(script: script2)
         } catch let error {
             if let printableError = error as? ProgramError {
-                guard case InterpreterError.expressionTypeMismatch = printableError.errorType else {
-                    XCTFail("Should Throw a InterpreterError.expressionTypeMismatch but did Throw a \(printableError.errorType)")
+                guard case ParserError.expressionError = printableError.errorType else {
+                    XCTFail("Should Throw a ParserError.expressionError but did Throw a \(printableError.errorType)")
                     return
                 }
                 XCTAssertNotNil(printableError.debugInfo)
-                XCTAssertEqual(printableError.debugInfo!.lineNumber,1)
-                XCTAssertEqual(printableError.debugInfo!.position,16)
+                XCTAssertEqual(printableError.debugInfo!.lineNumber, 1)
+                XCTAssertEqual(printableError.debugInfo!.position, 0)
+            } else {
+                XCTFail("Error Thrown is not a ProgramError")
+            }
+        }
 
+        let script3 = "class == { const a = 42 }\n"
+        do {
+            try session.run(script: script3)
+        } catch let error {
+            if let printableError = error as? ProgramError {
+                guard case ParserError.expressionError = printableError.errorType else {
+                    XCTFail("Should Throw a ParserError.expressionError but did Throw a \(printableError.errorType)")
+                    return
+                }
+                XCTAssertNotNil(printableError.debugInfo)
+                XCTAssertEqual(printableError.debugInfo!.lineNumber, 1)
+                XCTAssertEqual(printableError.debugInfo!.position, 6)
             } else {
                 XCTFail("Error Thrown is not a ProgramError")
             }
