@@ -35,6 +35,12 @@ class Variable: Evaluable {
         self.isConstant = isConstant
         self.value = value
     }
+    
+    func copy() -> Variable {
+        return Variable(type: type,
+                        isConstant: true,
+                        value: value)
+    }
 
     var description: String {
         return isConstant ? "const " : "" + "variable<\(type.name)>"

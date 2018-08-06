@@ -26,11 +26,15 @@ class IdentifierExpr: Evaluable {
 
     func evaluate(context: Scope,
                   session: Session) throws -> Evaluable? {
-        guard let symbol = context.getSymbolValue(for: hashId) else {
-            throw ProgramError(errorType: InterpreterError.unresolvedIdentifier, debugInfo: debugInfo)
+        if let symbol = context.getSymbolValue(for: hashId) {
+            return symbol
         }
-        
-        return symbol
+
+        if let symbol = session.globalScope.getSymbolValue(for: hashId) {
+            return symbol
+        }
+
+        throw ProgramError(errorType: InterpreterError.unresolvedIdentifier, debugInfo: debugInfo)
     }
 
 }

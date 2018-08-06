@@ -47,7 +47,7 @@ public class Session {
         let globalScope = Scope(parent: nil)
 
         // Inject array class
-        // ...
+        importArrayClass(in: globalScope)
 
         // Inject dictionary class
         // ...

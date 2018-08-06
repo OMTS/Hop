@@ -115,6 +115,13 @@ struct FunctionCallExpr : Evaluable {
                                         context: context,
                                         session: session)
         }
+        
+        // Search for global function
+        if let closure = session.globalScope.getSymbolValue(for: signatureHashId) as? Closure {
+            return try closure.evaluate(arguments: arguments,
+                                        context: context,
+                                        session: session)
+        }
 
         // Then: search for class initializer
         if let `class` = (parent ?? context).getSymbolValue(for: hashId) as? Class {
@@ -126,8 +133,18 @@ struct FunctionCallExpr : Evaluable {
                                       session: session)
         }
 
-        throw ProgramError(errorType: InterpreterError.functionNotDeclared, debugInfo: debugInfo)
-
+        // Search for global class initializer
+        if let `class` = session.globalScope.getSymbolValue(for: hashId) as? Class {
+            // Instance variable creation
+            // --------------------------
+            
+            return try createInstance(of: `class`,
+                                      context: context,
+                                      session: session)
+        }
+        
+        throw ProgramError(errorType: InterpreterError.functionNotDeclared,
+                           debugInfo: debugInfo)
     }
 
     private func createInstance(of class: Class,

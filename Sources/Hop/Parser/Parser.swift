@@ -1220,11 +1220,18 @@ class Parser {
         var itemExpressions = [Evaluable]()
         
         while true {
+            if currentToken == .lf {
+                try getNextToken() // Consume line feed
+            }
             
             let item = try parseContainerItem(containerType: &containerType)
             
             if !item.isEmpty {
                 itemExpressions.append(contentsOf: item)
+            }
+            
+            if currentToken == .lf {
+                try getNextToken() // Consume line feed
             }
             
             if currentToken == .comma {

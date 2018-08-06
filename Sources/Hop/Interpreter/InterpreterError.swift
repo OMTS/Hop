@@ -46,6 +46,9 @@ enum InterpreterError: String, ErrorType {
     case classMemberAlreadyDeclaredInSuperclass
     case classMemberAlreadyDeclared
     case classMemberNotDeclared
+    case subscriptNotAvailable
+    case subscriptIndexTypeMismatch
+    case subscriptIndexOutOfRange
 
     func getDescription() -> String {
         return self.rawValue

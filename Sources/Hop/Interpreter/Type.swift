@@ -83,13 +83,15 @@ extension Type: Equatable {
 // MARK: - Basic types
 extension Type {
     
-    static let void     = Type(name: "Void")
-    static let integer  = Type(name: "Int")
-    static let real     = Type(name: "Real")
-    static let boolean  = Type(name: "Bool")
-    static let string   = Type(name: "String")
-    static let any      = Type(name: "Any")
-    static let `nil`    = Type(name: "Nil") // Private type
+    static let void         = Type(name: "Void")
+    static let integer      = Type(name: "Int")
+    static let real         = Type(name: "Real")
+    static let boolean      = Type(name: "Bool")
+    static let string       = Type(name: "String")
+    static let any          = Type(name: "Any")
+    static let `nil`        = Type(name: "Nil") // Private type
+    static let array        = Type(name: "Array")
+    static let dictionary   = Type(name: "Dictionary")
     
     static let basicTypes: [Type] = [
         .void, .integer, .real, .boolean, .string, .any

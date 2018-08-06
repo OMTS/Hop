@@ -79,6 +79,9 @@ struct BinaryOperatorExpr: Evaluable {
         case .logicalOR:
             return try evaluateLogicalORComparison(context: context,
                                                    session: session)
+        case .leftSquareBracket:
+            return try evaluateSubscript(context: context,
+                                         session: session)
         default:
             return nil
         }
@@ -733,6 +736,70 @@ struct BinaryOperatorExpr: Evaluable {
         } else {
             throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
+    }
+    
+    private func evaluateSubscript(context: Scope,
+                                   session: Session) throws -> Evaluable? {
+        guard let lhsVariable = try lhs.evaluate(context: context,
+                                                 session: session) as? Variable,
+            let rhsVariable = try rhs.evaluate(context: context,
+                                               session: session) as? Variable else {
+                                                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
+        }
+        
+        guard (lhsVariable.type == .array
+            || lhsVariable.type == .dictionary) else {
+            throw ProgramError(errorType: InterpreterError.subscriptNotAvailable,
+                               debugInfo: lhsVariable.debugInfo)
+        }
+
+        guard lhsVariable.value != nil else {
+            throw ProgramError(errorType: InterpreterError.undefinedVariable,
+                               debugInfo: lhsVariable.debugInfo)
+        }
+        
+        // Array management
+        if lhsVariable.type == .array {
+            guard rhsVariable.type == .integer  else {
+                throw ProgramError(errorType: InterpreterError.subscriptIndexTypeMismatch,
+                                   debugInfo: debugInfo)
+            }
+
+            guard let index = rhsVariable.value as? Int else {
+                throw ProgramError(errorType: InterpreterError.undefinedVariable,
+                                   debugInfo: rhsVariable.debugInfo)
+            }
+            
+            guard let lhsInstance = lhsVariable.value as? Instance,
+                let arrayVariable = lhsInstance.scope.getSymbolValue(for: "__array__".hashValue) as? Variable,
+                let array = arrayVariable.value as? NSMutableArray else {
+                    throw ProgramError(errorType: InterpreterError.expressionEvaluationError,
+                                       debugInfo: lhsVariable.debugInfo)
+            }
+            
+            guard index >= 0 && index < array.count else {
+                throw ProgramError(errorType: InterpreterError.subscriptIndexOutOfRange,
+                                   debugInfo: rhsVariable.debugInfo)
+            }
+            
+            let elementVariable = array.object(at: index) as! Variable
+            
+            return elementVariable.copy()
+            
+        }
+        
+        // Dictionary management
+        guard rhsVariable.type == .string  else {
+            throw ProgramError(errorType: InterpreterError.subscriptIndexTypeMismatch,
+                               debugInfo: debugInfo)
+        }
+
+        guard let rhsValue = rhsVariable.value else {
+            throw ProgramError(errorType: InterpreterError.undefinedVariable,
+                               debugInfo: rhsVariable.debugInfo)
+        }
+        
+        return nil
     }
 
 }

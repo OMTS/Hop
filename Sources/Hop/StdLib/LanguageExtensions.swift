@@ -29,10 +29,12 @@ func importArrayClass(in context: Scope) {
                                 isAnonymous: false)
         
     // Default initializer: Array()
-    computeInitializer(in: classScope, selfArgument: selfArgument)
+    computeInitializer(in: classScope,
+                       selfArgument: selfArgument)
     
     // method:  func append(#element: Any)
-    computeMethodAppendElement(in: classScope, selfArgument: selfArgument)
+    computeMethodAppendElement(in: classScope,
+                               selfArgument: selfArgument)
 
     // method:  func append(contentOf: Array)
 
@@ -51,11 +53,16 @@ func importArrayClass(in context: Scope) {
     // method:  func last()
 
     // method:  func element(at: Int)
-    computeMethodElementAt(in: classScope, selfArgument: selfArgument)
+    computeMethodElementAt(in: classScope,
+                           selfArgument: selfArgument)
 
     // method:  func isEmpty()
+    computeMethodIsEmpty(in: classScope,
+                         selfArgument: selfArgument)
 
     // method:  func count()
+    computeMethodCount(in: classScope,
+                       selfArgument: selfArgument)
 
     // method:  func shuffled()
 
@@ -116,7 +123,7 @@ private func computeMethodAppendElement(in classScope: Scope,
         
         // Self argument
         guard let selfInstance = arguments?[0].value as? Instance,
-            let element = arguments?[1].value else {
+            let elementVariable = arguments?[1] else {
             throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, debugInfo: nil)
         }
         
@@ -125,7 +132,7 @@ private func computeMethodAppendElement(in classScope: Scope,
             throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: nil)
         }
         
-        array.add(element)
+        array.add(elementVariable.copy())
         
         return nil
     }
@@ -205,11 +212,9 @@ private func computeMethodElementAt(in classScope: Scope,
             throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: nil)
         }
         
-        let element = array.object(at: index)
+        let elementVariable = array.object(at: index) as! Variable
         
-        return Variable(type: Type.type(of: element),
-                        isConstant: true,
-                        value: element)
+        return elementVariable.copy()
     }
     
     // Set closure in class scope
