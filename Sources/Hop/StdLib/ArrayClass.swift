@@ -51,15 +51,23 @@ struct ArrayClass {
         // method:  func remove(at: <index>)
         computeMethodRemoveAt(in: classScope,
                               selfArgument: selfArgument)
-        
+
+        // method:  func removeAll()
+        computeMethodRemoveAll(in: classScope,
+                               selfArgument: selfArgument)
+
         // method:  func insert(#element: Any, at: Int)
         computeMethodInsertAt(in: classScope,
                               selfArgument: selfArgument)
         
         // method:  func popFirst()
-        
+        computeMethodPopFirst(in: classScope,
+                              selfArgument: selfArgument)
+
         // method:  func popLast()
-        
+        computeMethodPopLast(in: classScope,
+                             selfArgument: selfArgument)
+
         // method:  func first()
         computeMethodFirst(in: classScope,
                            selfArgument: selfArgument)
@@ -81,9 +89,13 @@ struct ArrayClass {
                            selfArgument: selfArgument)
         
         // method:  func shuffled()
-        
+        computeMethodShuffled(in: classScope,
+                              selfArgument: selfArgument)
+
         // method:  func reversed()
-        
+        computeMethodReversed(in: classScope,
+                              selfArgument: selfArgument)
+
         context.symbolTable[name.hashValue] = Class(name: name,
                                                     superclass: nil,
                                                     instancePropertyDeclarations: [privateArrayDeclaration],
@@ -309,6 +321,37 @@ struct ArrayClass {
         classScope.symbolTable[prototype.hashId] = closure
     }
 
+    // method:  func removeAll()
+    private static func computeMethodRemoveAll(in classScope: Scope,
+                                               selfArgument: Argument) {
+        // Prototype
+        // ---------
+        let prototype = Prototype(name: "removeAll",
+                                  arguments: [selfArgument],
+                                  type: .void)
+        
+        let closure = getNativeFunctionClosure(prototype: prototype, declarationScope: classScope) {
+            (arguments, _) in
+            
+            // Self argument
+            guard let selfInstance = arguments?[0].value as? Instance else {
+                    throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, debugInfo: nil)
+            }
+            
+            guard let arrayVariable = selfInstance.scope.getSymbolValue(for: backendInstanceHashId) as? Variable,
+                let array = arrayVariable.value as? NSMutableArray else {
+                    throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: nil)
+            }
+            
+            array.removeAllObjects()
+            
+            return nil
+        }
+        
+        // Set closure in class scope
+        classScope.symbolTable[prototype.hashId] = closure
+    }
+    
     // method:  func insert(#element: Any, at: Int)
     private static func computeMethodInsertAt(in classScope: Scope,
                                        selfArgument: Argument) {
@@ -362,13 +405,69 @@ struct ArrayClass {
     // method:  func popFirst()
     private static func computeMethodPopFirst(in classScope: Scope,
                                        selfArgument: Argument) {
+        // Prototype
+        // ---------
+        let prototype = Prototype(name: "popFirst",
+                                  arguments: [selfArgument],
+                                  type: .any)
         
+        let closure = getNativeFunctionClosure(prototype: prototype, declarationScope: classScope) {
+            (arguments, _) in
+            
+            // Self argument
+            guard let selfInstance = arguments?[0].value as? Instance else {
+                throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, debugInfo: nil)
+            }
+            
+            guard let arrayVariable = selfInstance.scope.getSymbolValue(for: backendInstanceHashId) as? Variable,
+                let array = arrayVariable.value as? NSMutableArray else {
+                    throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: nil)
+            }
+            
+            if let firstElementVariable = array.firstObject as? Variable {
+                array.removeObject(at: 0)
+                return firstElementVariable.copy()
+            }
+            
+            return NilExpr.nilVariable
+        }
+        
+        // Set closure in class scope
+        classScope.symbolTable[prototype.hashId] = closure
     }
 
     // method:  func popLast()
     private static func computeMethodPopLast(in classScope: Scope,
                                       selfArgument: Argument) {
+        // Prototype
+        // ---------
+        let prototype = Prototype(name: "popLast",
+                                  arguments: [selfArgument],
+                                  type: .any)
         
+        let closure = getNativeFunctionClosure(prototype: prototype, declarationScope: classScope) {
+            (arguments, _) in
+            
+            // Self argument
+            guard let selfInstance = arguments?[0].value as? Instance else {
+                throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, debugInfo: nil)
+            }
+            
+            guard let arrayVariable = selfInstance.scope.getSymbolValue(for: backendInstanceHashId) as? Variable,
+                let array = arrayVariable.value as? NSMutableArray else {
+                    throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: nil)
+            }
+            
+            if let lastElementVariable = array.lastObject as? Variable {
+                array.removeLastObject()
+                return lastElementVariable.copy()
+            }
+            
+            return NilExpr.nilVariable
+        }
+        
+        // Set closure in class scope
+        classScope.symbolTable[prototype.hashId] = closure
     }
 
     // method:  func first()
@@ -537,7 +636,119 @@ struct ArrayClass {
     }
 
     // method:  func shuffled()
+    private static func computeMethodShuffled(in classScope: Scope,
+                                              selfArgument: Argument) {
+        // Prototype
+        // ---------
+        let prototype = Prototype(name: "shuffled",
+                                  arguments: [selfArgument],
+                                  type: .array)
+        
+        let closure = getNativeFunctionClosure(prototype: prototype, declarationScope: classScope) {
+            (arguments, session) in
+            
+            // Self argument
+            guard let selfInstance = arguments?.first?.value as? Instance else {
+                throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, debugInfo: nil)
+            }
+            
+            guard let arrayVariable = selfInstance.scope.getSymbolValue(for: backendInstanceHashId) as? Variable,
+                let array = arrayVariable.value as? NSMutableArray else {
+                    throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: nil)
+            }
 
+            // Instantiate new array
+            let functionCallExpr = FunctionCallExpr(name: name,
+                                                    arguments: nil)
+            
+            let instanceVariable = try functionCallExpr.evaluate(context: session.globalScope,
+                                                                 session: session) as! Variable
+            guard let instanceValue = instanceVariable.value as? Instance,
+                let newArrayVariable = instanceValue.scope.getSymbolValue(for: backendInstanceHashId) as? Variable,
+                let newArray = newArrayVariable.value as? NSMutableArray else {
+                    throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: nil)
+            }
+            
+            // Instantiate elements copies
+            var newElements = [Variable]()
+            for element in array {
+                let newElement = (element as! Variable).copy()
+                newElement.isTypeMutabilityAllowed = true
+                newElement.isConstant = false
+                newElements.append(newElement)
+            }
+            
+            // Shuffle elements copies
+            var last = newElements.count - 1
+            
+            while last > 0 {
+                let rand = Int(arc4random_uniform(UInt32(last)))
+                
+                newElements.swapAt(last, rand)
+                
+                last -= 1
+            }
+            
+            newArray.addObjects(from: newElements)
+            
+            return instanceVariable
+        }
+        
+        // Set closure in class scope
+        classScope.symbolTable[prototype.hashId] = closure
+    }
+    
     // method:  func reversed()
+    private static func computeMethodReversed(in classScope: Scope,
+                                              selfArgument: Argument) {
+        // Prototype
+        // ---------
+        let prototype = Prototype(name: "reversed",
+                                  arguments: [selfArgument],
+                                  type: .array)
+        
+        let closure = getNativeFunctionClosure(prototype: prototype, declarationScope: classScope) {
+            (arguments, session) in
+            
+            // Self argument
+            guard let selfInstance = arguments?.first?.value as? Instance else {
+                throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, debugInfo: nil)
+            }
+            
+            guard let arrayVariable = selfInstance.scope.getSymbolValue(for: backendInstanceHashId) as? Variable,
+                let array = arrayVariable.value as? NSMutableArray else {
+                    throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: nil)
+            }
+            
+            // Instantiate new array
+            let functionCallExpr = FunctionCallExpr(name: name,
+                                                    arguments: nil)
+            
+            let instanceVariable = try functionCallExpr.evaluate(context: session.globalScope,
+                                                                 session: session) as! Variable
+            guard let instanceValue = instanceVariable.value as? Instance,
+                let newArrayVariable = instanceValue.scope.getSymbolValue(for: backendInstanceHashId) as? Variable,
+                let newArray = newArrayVariable.value as? NSMutableArray else {
+                    throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: nil)
+            }
+            
+            // Instantiate reversed elements
+            var reversedElements = [Variable]()
+            for reversedElement in array.reversed() {
+                let newReversedElement = (reversedElement as! Variable).copy()
+                newReversedElement.isTypeMutabilityAllowed = true
+                newReversedElement.isConstant = false
+                reversedElements.append(newReversedElement)
+            }
+            
+            newArray.addObjects(from: reversedElements)
+            
+            return instanceVariable
+        }
+        
+        // Set closure in class scope
+        classScope.symbolTable[prototype.hashId] = closure
+    }
+    
 }
 
