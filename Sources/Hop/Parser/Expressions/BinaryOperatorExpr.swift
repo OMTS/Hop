@@ -419,7 +419,10 @@ struct BinaryOperatorExpr: Evaluable {
         // Check for type matching
         if lhsVariable.type != .any {     // `Any` welcome any type
             if lhsVariable.type != rhsVariable.type {
-                if let instance = rhsVariable.value as? Instance {
+                if lhsVariable.isTypeMutabilityAllowed {
+                    lhsVariable.type = rhsVariable.type
+
+                } else if let instance = rhsVariable.value as? Instance {
                     if !instance.isInstance(of: lhsVariable.type) {
                         throw ProgramError(errorType: InterpreterError.expressionTypeMismatch, debugInfo: debugInfo)
                     }
@@ -771,7 +774,8 @@ struct BinaryOperatorExpr: Evaluable {
             }
             
             guard let lhsInstance = lhsVariable.value as? Instance,
-                let arrayVariable = lhsInstance.scope.getSymbolValue(for: "__array__".hashValue) as? Variable,
+                let arrayVariable = lhsInstance.scope.getSymbolValue(for:
+                    ArrayClass.backendInstanceHashId) as? Variable,
                 let array = arrayVariable.value as? NSMutableArray else {
                     throw ProgramError(errorType: InterpreterError.expressionEvaluationError,
                                        debugInfo: lhsVariable.debugInfo)
@@ -784,8 +788,7 @@ struct BinaryOperatorExpr: Evaluable {
             
             let elementVariable = array.object(at: index) as! Variable
             
-            return elementVariable.copy()
-            
+            return elementVariable
         }
         
         // Dictionary management

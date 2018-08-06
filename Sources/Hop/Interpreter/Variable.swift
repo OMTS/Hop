@@ -13,6 +13,7 @@ class Variable: Evaluable {
     
     
     var type: Type
+    var isTypeMutabilityAllowed: Bool = false   // Used by container variables
     var isConstant: Bool
     var value: Any? {
         willSet {

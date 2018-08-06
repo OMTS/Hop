@@ -10,11 +10,11 @@ import Foundation
 
 class DictionaryLiteralExpr: Evaluable {
 
-    let itemExpressions: [Evaluable]
+    let elementExpressions: [Evaluable]
     var debugInfo: DebugInfo?
     
-    init(itemExpressions: [Evaluable]) {
-        self.itemExpressions = itemExpressions
+    init(elementExpressions: [Evaluable]) {
+        self.elementExpressions = elementExpressions
     }
     
     var description: String {

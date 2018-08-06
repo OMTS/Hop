@@ -785,7 +785,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bk7-RR-SqO">
-                                <rect key="frame" x="30" y="213" width="70" height="32"/>
+                                <rect key="frame" x="600" y="213" width="70" height="32"/>
                                 <buttonCell key="cell" type="push" title="Save" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hAv-8O-K1e">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -802,7 +802,7 @@
                             <constraint firstAttribute="trailing" secondItem="IKI-Ov-Nmh" secondAttribute="trailing" constant="20" id="EUK-5v-Fmr"/>
                             <constraint firstItem="bk7-RR-SqO" firstAttribute="bottom" secondItem="qQy-n6-jEv" secondAttribute="bottom" constant="-16" id="IPV-4t-6Ff"/>
                             <constraint firstItem="IKI-Ov-Nmh" firstAttribute="height" secondItem="qQy-n6-jEv" secondAttribute="height" multiplier="0.5" id="PJh-Eq-18v"/>
-                            <constraint firstItem="bk7-RR-SqO" firstAttribute="leading" secondItem="qQy-n6-jEv" secondAttribute="leading" constant="16" id="aXt-nM-Lgl"/>
+                            <constraint firstItem="tfP-jg-uQo" firstAttribute="leading" secondItem="bk7-RR-SqO" secondAttribute="trailing" constant="16" id="RXO-eL-x3P"/>
                             <constraint firstItem="DDe-bU-vxJ" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="dfJ-eK-eRe"/>
                             <constraint firstAttribute="trailing" secondItem="DDe-bU-vxJ" secondAttribute="trailing" id="e6N-li-BR5"/>
                             <constraint firstItem="IKI-Ov-Nmh" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="egR-ip-LpF"/>

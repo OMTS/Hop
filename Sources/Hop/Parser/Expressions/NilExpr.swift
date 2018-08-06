@@ -11,7 +11,7 @@ import Foundation
 class NilExpr: Evaluable {
     var debugInfo: DebugInfo?
 
-    static private let nilVariable = Variable(type: .nil, isConstant: true, value: nil)
+    static let nilVariable = Variable(type: .nil, isConstant: true, value: nil)
     
     var description: String {
         return "nil"

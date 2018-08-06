@@ -1217,7 +1217,7 @@ class Parser {
         try getNextToken() // Consume left square bracket
         
         var containerType: ContainerType = .undefined
-        var itemExpressions = [Evaluable]()
+        var elementExpressions = [Evaluable]()
         
         while true {
             if currentToken == .lf {
@@ -1227,7 +1227,7 @@ class Parser {
             let item = try parseContainerItem(containerType: &containerType)
             
             if !item.isEmpty {
-                itemExpressions.append(contentsOf: item)
+                elementExpressions.append(contentsOf: item)
             }
             
             if currentToken == .lf {
@@ -1250,11 +1250,11 @@ class Parser {
         try getNextToken() // Consume right square bracket
         
         if containerType == .array {
-            return ArrayLiteralExpr(itemExpressions: itemExpressions)
+            return ArrayLiteralExpr(elementExpressions: elementExpressions)
         }
 
         // Dictionary
-        return DictionaryLiteralExpr(itemExpressions: itemExpressions)
+        return DictionaryLiteralExpr(elementExpressions: elementExpressions)
     }
     
     private func parseContainerItem(containerType: inout ContainerType) throws -> [Evaluable] {

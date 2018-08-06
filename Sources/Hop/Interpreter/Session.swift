@@ -46,10 +46,10 @@ public class Session {
     private static func getInitializedGlobalScope() -> Scope {
         let globalScope = Scope(parent: nil)
 
-        // Inject array class
-        importArrayClass(in: globalScope)
+        // Array class injection in global scope
+        ArrayClass.importClass(in: globalScope)
 
-        // Inject dictionary class
+        // Dictionary class injection in global scope
         // ...
 
         return globalScope

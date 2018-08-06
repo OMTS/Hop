@@ -10,11 +10,11 @@ import Foundation
 
 class ArrayLiteralExpr: Evaluable {
 
-    let itemExpressions: [Evaluable]
+    let elementExpressions: [Evaluable]
     var debugInfo: DebugInfo?
     
-    init(itemExpressions: [Evaluable]) {
-        self.itemExpressions = itemExpressions
+    init(elementExpressions: [Evaluable]) {
+        self.elementExpressions = elementExpressions
     }
     
     var description: String {
@@ -29,8 +29,8 @@ class ArrayLiteralExpr: Evaluable {
                                                 arguments: nil)
         
         let instanceVariable = try functionCallExpr.evaluate(context: context,
-                                                            session: session) as! Variable
-        if itemExpressions.count > 0 {
+                                                             session: session) as! Variable
+        if elementExpressions.count > 0 {
             guard let instance = instanceVariable.value as? Instance,
                 let arrayVariable = instance.scope.getSymbolValue(for: "__array__".hashValue) as? Variable,
                 let array = arrayVariable.value as? NSMutableArray else {
@@ -38,17 +38,23 @@ class ArrayLiteralExpr: Evaluable {
                                    debugInfo: debugInfo)
             }
 
-            var evaluatedVariables = [Variable]()
-            for itemExpression in itemExpressions {
-                guard let evaluatedVariable = try itemExpression.evaluate(context: context,
-                                                                       session: session) as? Variable else {
+            var elementVariables = [Variable]()
+            for elementExpression in elementExpressions {
+                guard let elementVariable = try elementExpression.evaluate(context: context,
+                                                                           session: session) as? Variable else {
                     throw ProgramError(errorType: InterpreterError.expressionEvaluationError,
-                                       debugInfo: itemExpression.debugInfo)
+                                       debugInfo: elementExpression.debugInfo)
                 }
-                evaluatedVariables.append(evaluatedVariable)
+                let newElementVariable = elementVariable.copy()
+                // Type mutability is allowed to container variable,
+                // as container variables are reused by assignment
+                // and must accept any types assignment.
+                newElementVariable.isConstant = false
+                newElementVariable.isTypeMutabilityAllowed = true
+                elementVariables.append(newElementVariable)
             }
             
-            array.addObjects(from: evaluatedVariables)
+            array.addObjects(from: elementVariables)
         }
         
         return instanceVariable
