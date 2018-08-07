@@ -9,7 +9,8 @@
 import Foundation
 
 public enum MessageType {
-    case stdout
+    case stdout     // target for message logging
+    case export     // target for data export
 }
 
 public struct Message {

@@ -88,7 +88,7 @@
 		CB86DAE2210FA2FE00B9E3EF /* Variable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB9F210905DC00D644C2 /* Variable.swift */; };
 		CB86DAE3210FA2FE00B9E3EF /* ClassInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABA0210905DC00D644C2 /* ClassInitializer.swift */; };
 		CB86DAE4210FA2FE00B9E3EF /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB89956210B34300051A66D /* Session.swift */; };
-		CB86DAE5210FA30400B9E3EF /* StandardLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABC5210905DC00D644C2 /* StandardLibrary.swift */; };
+		CB86DAE5210FA30400B9E3EF /* StandardModules.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABC5210905DC00D644C2 /* StandardModules.swift */; };
 		CB8BE4992109D41300880C7E /* Messenger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8BE4982109D41300880C7E /* Messenger.swift */; };
 		CB8BE49A2109E1C000880C7E /* Messenger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8BE4982109D41300880C7E /* Messenger.swift */; };
 		CB8BE49B2109E1C000880C7E /* Messenger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8BE4982109D41300880C7E /* Messenger.swift */; };
@@ -101,6 +101,24 @@
 		CBADFFA6211890610008699E /* ArrayClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBADFFA421188E980008699E /* ArrayClass.swift */; };
 		CBADFFA7211890620008699E /* ArrayClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBADFFA421188E980008699E /* ArrayClass.swift */; };
 		CBADFFA8211890620008699E /* ArrayClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBADFFA421188E980008699E /* ArrayClass.swift */; };
+		CBAF8ECF211987EB0045B8D6 /* ArrayClassTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAF8ECE211987EB0045B8D6 /* ArrayClassTests.swift */; };
+		CBAF8ED0211987EB0045B8D6 /* ArrayClassTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAF8ECE211987EB0045B8D6 /* ArrayClassTests.swift */; };
+		CBAF8ED1211987EB0045B8D6 /* ArrayClassTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAF8ECE211987EB0045B8D6 /* ArrayClassTests.swift */; };
+		CBAF8ED32119CCD50045B8D6 /* SysModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAF8ED22119CCD50045B8D6 /* SysModule.swift */; };
+		CBAF8ED52119CCE40045B8D6 /* MathModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAF8ED42119CCE40045B8D6 /* MathModule.swift */; };
+		CBAF8ED72119CE520045B8D6 /* TestModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAF8ED62119CE520045B8D6 /* TestModule.swift */; };
+		CBAF8ED82119CEC50045B8D6 /* TestModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAF8ED62119CE520045B8D6 /* TestModule.swift */; };
+		CBAF8ED92119CEC60045B8D6 /* TestModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAF8ED62119CE520045B8D6 /* TestModule.swift */; };
+		CBAF8EDA2119CEC70045B8D6 /* TestModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAF8ED62119CE520045B8D6 /* TestModule.swift */; };
+		CBAF8EDC2119DBC00045B8D6 /* TestModuleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAF8EDB2119DBC00045B8D6 /* TestModuleTests.swift */; };
+		CBAF8EDD2119DBC00045B8D6 /* TestModuleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAF8EDB2119DBC00045B8D6 /* TestModuleTests.swift */; };
+		CBAF8EDE2119DBC00045B8D6 /* TestModuleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAF8EDB2119DBC00045B8D6 /* TestModuleTests.swift */; };
+		CBAF8EDF2119E0900045B8D6 /* MathModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAF8ED42119CCE40045B8D6 /* MathModule.swift */; };
+		CBAF8EE02119E0900045B8D6 /* MathModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAF8ED42119CCE40045B8D6 /* MathModule.swift */; };
+		CBAF8EE12119E0910045B8D6 /* MathModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAF8ED42119CCE40045B8D6 /* MathModule.swift */; };
+		CBAF8EE22119E0940045B8D6 /* SysModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAF8ED22119CCD50045B8D6 /* SysModule.swift */; };
+		CBAF8EE32119E0950045B8D6 /* SysModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAF8ED22119CCD50045B8D6 /* SysModule.swift */; };
+		CBAF8EE42119E0960045B8D6 /* SysModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAF8ED22119CCD50045B8D6 /* SysModule.swift */; };
 		CBB89957210B34300051A66D /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB89956210B34300051A66D /* Session.swift */; };
 		CBDFABC7210905DC00D644C2 /* Scope.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB90210905DC00D644C2 /* Scope.swift */; };
 		CBDFABC8210905DC00D644C2 /* Argument.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB91210905DC00D644C2 /* Argument.swift */; };
@@ -148,7 +166,7 @@
 		CBDFABF3210905DC00D644C2 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABC0210905DC00D644C2 /* Parser.swift */; };
 		CBDFABF4210905DC00D644C2 /* Evaluable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABC2210905DC00D644C2 /* Evaluable.swift */; };
 		CBDFABF5210905DC00D644C2 /* Loggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABC3210905DC00D644C2 /* Loggable.swift */; };
-		CBDFABF6210905DC00D644C2 /* StandardLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABC5210905DC00D644C2 /* StandardLibrary.swift */; };
+		CBDFABF6210905DC00D644C2 /* StandardModules.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABC5210905DC00D644C2 /* StandardModules.swift */; };
 		CBDFABF8210905EA00D644C2 /* Scope.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB90210905DC00D644C2 /* Scope.swift */; };
 		CBDFABF9210905EA00D644C2 /* Argument.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB91210905DC00D644C2 /* Argument.swift */; };
 		CBDFABFA210905EA00D644C2 /* SelfParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFAB92210905DC00D644C2 /* SelfParameter.swift */; };
@@ -241,8 +259,8 @@
 		CBDFAC532109060D00D644C2 /* Loggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABC3210905DC00D644C2 /* Loggable.swift */; };
 		CBDFAC542109060E00D644C2 /* Evaluable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABC2210905DC00D644C2 /* Evaluable.swift */; };
 		CBDFAC552109060E00D644C2 /* Loggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABC3210905DC00D644C2 /* Loggable.swift */; };
-		CBDFAC562109061400D644C2 /* StandardLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABC5210905DC00D644C2 /* StandardLibrary.swift */; };
-		CBDFAC582109061500D644C2 /* StandardLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABC5210905DC00D644C2 /* StandardLibrary.swift */; };
+		CBDFAC562109061400D644C2 /* StandardModules.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABC5210905DC00D644C2 /* StandardModules.swift */; };
+		CBDFAC582109061500D644C2 /* StandardModules.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFABC5210905DC00D644C2 /* StandardModules.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -299,6 +317,11 @@
 		CB8BE4982109D41300880C7E /* Messenger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messenger.swift; sourceTree = "<group>"; };
 		CB8BE49C210A00ED00880C7E /* NilExpr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NilExpr.swift; sourceTree = "<group>"; };
 		CBADFFA421188E980008699E /* ArrayClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayClass.swift; sourceTree = "<group>"; };
+		CBAF8ECE211987EB0045B8D6 /* ArrayClassTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayClassTests.swift; sourceTree = "<group>"; };
+		CBAF8ED22119CCD50045B8D6 /* SysModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SysModule.swift; sourceTree = "<group>"; };
+		CBAF8ED42119CCE40045B8D6 /* MathModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathModule.swift; sourceTree = "<group>"; };
+		CBAF8ED62119CE520045B8D6 /* TestModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModule.swift; sourceTree = "<group>"; };
+		CBAF8EDB2119DBC00045B8D6 /* TestModuleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModuleTests.swift; sourceTree = "<group>"; };
 		CBB89956210B34300051A66D /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		CBDFAB90210905DC00D644C2 /* Scope.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scope.swift; sourceTree = "<group>"; };
 		CBDFAB91210905DC00D644C2 /* Argument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Argument.swift; sourceTree = "<group>"; };
@@ -346,7 +369,7 @@
 		CBDFABC0210905DC00D644C2 /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 		CBDFABC2210905DC00D644C2 /* Evaluable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Evaluable.swift; sourceTree = "<group>"; };
 		CBDFABC3210905DC00D644C2 /* Loggable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Loggable.swift; sourceTree = "<group>"; };
-		CBDFABC5210905DC00D644C2 /* StandardLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandardLibrary.swift; sourceTree = "<group>"; };
+		CBDFABC5210905DC00D644C2 /* StandardModules.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandardModules.swift; sourceTree = "<group>"; };
 		CBDFAC5B2109064800D644C2 /* HopTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HopTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -602,7 +625,10 @@
 		CBDFABC4210905DC00D644C2 /* StdLib */ = {
 			isa = PBXGroup;
 			children = (
-				CBDFABC5210905DC00D644C2 /* StandardLibrary.swift */,
+				CBDFABC5210905DC00D644C2 /* StandardModules.swift */,
+				CBAF8ED22119CCD50045B8D6 /* SysModule.swift */,
+				CBAF8ED42119CCE40045B8D6 /* MathModule.swift */,
+				CBAF8ED62119CE520045B8D6 /* TestModule.swift */,
 				CBADFFA421188E980008699E /* ArrayClass.swift */,
 			);
 			path = StdLib;
@@ -614,6 +640,8 @@
 				0FF7D3E721091927002E8439 /* LexerTests.swift */,
 				CBDFAC5B2109064800D644C2 /* HopTests.swift */,
 				0FBA0659211208B8009C5594 /* ParserErrorTests.swift */,
+				CBAF8ECE211987EB0045B8D6 /* ArrayClassTests.swift */,
+				CBAF8EDB2119DBC00045B8D6 /* TestModuleTests.swift */,
 			);
 			path = HopTests;
 			sourceTree = "<group>";
@@ -897,13 +925,14 @@
 				CBDFABCC210905DC00D644C2 /* InterpreterError.swift in Sources */,
 				CBDFABC8210905DC00D644C2 /* Argument.swift in Sources */,
 				CBDFABE2210905DC00D644C2 /* FunctionDeclarationStmt.swift in Sources */,
-				CBDFABF6210905DC00D644C2 /* StandardLibrary.swift in Sources */,
+				CBDFABF6210905DC00D644C2 /* StandardModules.swift in Sources */,
 				CBDFABD4210905DC00D644C2 /* Program.swift in Sources */,
 				CBDFABE0210905DC00D644C2 /* ForStmt.swift in Sources */,
 				CB0712232117979E00DFB284 /* DictionaryLiteralExpr.swift in Sources */,
 				CBDFABF1210905DC00D644C2 /* UnaryOperatorExpr.swift in Sources */,
 				CBDFABE6210905DC00D644C2 /* ExpressionStmt.swift in Sources */,
 				CBDFABCA210905DC00D644C2 /* Closure.swift in Sources */,
+				CBAF8ED32119CCD50045B8D6 /* SysModule.swift in Sources */,
 				CBDFABDA210905DC00D644C2 /* ImportStmt.swift in Sources */,
 				CB3E2D5821175F1100D62376 /* ArrayLiteralExpr.swift in Sources */,
 				CBDFABF0210905DC00D644C2 /* BinaryOperatorExpr.swift in Sources */,
@@ -919,6 +948,8 @@
 				CB8BE4992109D41300880C7E /* Messenger.swift in Sources */,
 				0F329F43210FCF8900E9042F /* ProgramError.swift in Sources */,
 				CBDFABD5210905DC00D644C2 /* Module.swift in Sources */,
+				CBAF8ED72119CE520045B8D6 /* TestModule.swift in Sources */,
+				CBAF8ED52119CCE40045B8D6 /* MathModule.swift in Sources */,
 				CBDFABEC210905DC00D644C2 /* IdentifierExpr.swift in Sources */,
 				CBDFABEF210905DC00D644C2 /* FunctionCallExpr.swift in Sources */,
 				CBDFABF4210905DC00D644C2 /* Evaluable.swift in Sources */,
@@ -951,6 +982,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBAF8ECF211987EB0045B8D6 /* ArrayClassTests.swift in Sources */,
+				CBAF8EDC2119DBC00045B8D6 /* TestModuleTests.swift in Sources */,
 				0FF7D3E921091930002E8439 /* LexerTests.swift in Sources */,
 				0FBA065A211208B8009C5594 /* ParserErrorTests.swift in Sources */,
 			);
@@ -967,7 +1000,7 @@
 				CBDFABFD210905EA00D644C2 /* InterpreterError.swift in Sources */,
 				CBDFABF9210905EA00D644C2 /* Argument.swift in Sources */,
 				CBDFAC26210905F900D644C2 /* FunctionDeclarationStmt.swift in Sources */,
-				CBDFAC562109061400D644C2 /* StandardLibrary.swift in Sources */,
+				CBDFAC562109061400D644C2 /* StandardModules.swift in Sources */,
 				CBDFAC05210905EA00D644C2 /* Program.swift in Sources */,
 				CBDFAC24210905F900D644C2 /* ForStmt.swift in Sources */,
 				CBDFAC432109060100D644C2 /* UnaryOperatorExpr.swift in Sources */,
@@ -985,11 +1018,13 @@
 				CB8BE49E210A031900880C7E /* NilExpr.swift in Sources */,
 				0F329F44210FCF8900E9042F /* ProgramError.swift in Sources */,
 				CBA1937A211338600036B203 /* Session.swift in Sources */,
+				CBAF8ED82119CEC50045B8D6 /* TestModule.swift in Sources */,
 				CBDFAC23210905F900D644C2 /* BreakStmt.swift in Sources */,
 				CBDFAC442109060100D644C2 /* BooleanExpr.swift in Sources */,
 				CB8BE49A2109E1C000880C7E /* Messenger.swift in Sources */,
 				CBDFAC06210905EA00D644C2 /* Module.swift in Sources */,
 				CBDFAC3E2109060100D644C2 /* IdentifierExpr.swift in Sources */,
+				CBAF8EDF2119E0900045B8D6 /* MathModule.swift in Sources */,
 				CBDFAC412109060100D644C2 /* FunctionCallExpr.swift in Sources */,
 				CBDFAC522109060D00D644C2 /* Evaluable.swift in Sources */,
 				CBDFAC02210905EA00D644C2 /* Null.swift in Sources */,
@@ -1001,6 +1036,7 @@
 				CBDFABFA210905EA00D644C2 /* SelfParameter.swift in Sources */,
 				CBDFAC3D2109060100D644C2 /* IntegerExpr.swift in Sources */,
 				CBDFAC2B210905F900D644C2 /* FunctionDeclarationPrototype.swift in Sources */,
+				CBAF8EE22119E0940045B8D6 /* SysModule.swift in Sources */,
 				CBDFAC04210905EA00D644C2 /* SuperParameter.swift in Sources */,
 				CBDFAC502109060500D644C2 /* Parser.swift in Sources */,
 				CBDFAC21210905F900D644C2 /* BlockStmt.swift in Sources */,
@@ -1022,6 +1058,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBAF8ED0211987EB0045B8D6 /* ArrayClassTests.swift in Sources */,
+				CBAF8EDD2119DBC00045B8D6 /* TestModuleTests.swift in Sources */,
 				0FF7D3EA21091932002E8439 /* LexerTests.swift in Sources */,
 				0FBA065B211208B8009C5594 /* ParserErrorTests.swift in Sources */,
 			);
@@ -1038,7 +1076,7 @@
 				CBDFAC0E210905EB00D644C2 /* InterpreterError.swift in Sources */,
 				CBDFAC0A210905EB00D644C2 /* Argument.swift in Sources */,
 				CBDFAC34210905FA00D644C2 /* FunctionDeclarationStmt.swift in Sources */,
-				CBDFAC582109061500D644C2 /* StandardLibrary.swift in Sources */,
+				CBDFAC582109061500D644C2 /* StandardModules.swift in Sources */,
 				CBDFAC16210905EB00D644C2 /* Program.swift in Sources */,
 				CBDFAC32210905FA00D644C2 /* ForStmt.swift in Sources */,
 				CBDFAC4E2109060200D644C2 /* UnaryOperatorExpr.swift in Sources */,
@@ -1056,11 +1094,13 @@
 				CB8BE49F210A031900880C7E /* NilExpr.swift in Sources */,
 				0F329F45210FCF8900E9042F /* ProgramError.swift in Sources */,
 				CBA1937B211338600036B203 /* Session.swift in Sources */,
+				CBAF8ED92119CEC60045B8D6 /* TestModule.swift in Sources */,
 				CBDFAC31210905FA00D644C2 /* BreakStmt.swift in Sources */,
 				CBDFAC4F2109060200D644C2 /* BooleanExpr.swift in Sources */,
 				CB8BE49B2109E1C000880C7E /* Messenger.swift in Sources */,
 				CBDFAC17210905EB00D644C2 /* Module.swift in Sources */,
 				CBDFAC492109060200D644C2 /* IdentifierExpr.swift in Sources */,
+				CBAF8EE02119E0900045B8D6 /* MathModule.swift in Sources */,
 				CBDFAC4C2109060200D644C2 /* FunctionCallExpr.swift in Sources */,
 				CBDFAC542109060E00D644C2 /* Evaluable.swift in Sources */,
 				CBDFAC13210905EB00D644C2 /* Null.swift in Sources */,
@@ -1072,6 +1112,7 @@
 				CBDFAC0B210905EB00D644C2 /* SelfParameter.swift in Sources */,
 				CBDFAC482109060200D644C2 /* IntegerExpr.swift in Sources */,
 				CBDFAC39210905FA00D644C2 /* FunctionDeclarationPrototype.swift in Sources */,
+				CBAF8EE32119E0950045B8D6 /* SysModule.swift in Sources */,
 				CBDFAC15210905EB00D644C2 /* SuperParameter.swift in Sources */,
 				CBDFAC512109060600D644C2 /* Parser.swift in Sources */,
 				CBDFAC2F210905FA00D644C2 /* BlockStmt.swift in Sources */,
@@ -1093,6 +1134,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBAF8ED1211987EB0045B8D6 /* ArrayClassTests.swift in Sources */,
+				CBAF8EDE2119DBC00045B8D6 /* TestModuleTests.swift in Sources */,
 				0FF7D3EB21091932002E8439 /* LexerTests.swift in Sources */,
 				0FBA065C211208B8009C5594 /* ParserErrorTests.swift in Sources */,
 			);
@@ -1133,6 +1176,7 @@
 				CB86DAD2210FA2FE00B9E3EF /* Scope.swift in Sources */,
 				CB86DADF210FA2FE00B9E3EF /* SuperParameter.swift in Sources */,
 				CB86DACF210FA2F700B9E3EF /* BinaryOperatorExpr.swift in Sources */,
+				CBAF8EDA2119CEC70045B8D6 /* TestModule.swift in Sources */,
 				CB86DAC6210FA2F700B9E3EF /* NilExpr.swift in Sources */,
 				CB86DA8A210F9C2100B9E3EF /* AppDelegate.swift in Sources */,
 				CB86DAD7210FA2FE00B9E3EF /* InterpreterError.swift in Sources */,
@@ -1140,7 +1184,7 @@
 				CB86DAE0210FA2FE00B9E3EF /* Program.swift in Sources */,
 				CB86DACB210FA2F700B9E3EF /* IdentifierExpr.swift in Sources */,
 				CB86DAC4210FA2F100B9E3EF /* ExpressionStmt.swift in Sources */,
-				CB86DAE5210FA30400B9E3EF /* StandardLibrary.swift in Sources */,
+				CB86DAE5210FA30400B9E3EF /* StandardModules.swift in Sources */,
 				CB86DABC210FA2F100B9E3EF /* WhileStmt.swift in Sources */,
 				CB86DAC2210FA2F100B9E3EF /* ClassDeclarationStmt.swift in Sources */,
 				CB86DAB8210FA2F100B9E3EF /* ImportStmt.swift in Sources */,
@@ -1148,6 +1192,7 @@
 				0F394B8A21109E1100C43901 /* Debuggable.swift in Sources */,
 				CB86DAE1210FA2FE00B9E3EF /* Module.swift in Sources */,
 				CB86DAC0210FA2F100B9E3EF /* FunctionDeclarationStmt.swift in Sources */,
+				CBAF8EE42119E0960045B8D6 /* SysModule.swift in Sources */,
 				CB86DAD3210FA2FE00B9E3EF /* Argument.swift in Sources */,
 				CB86DAD6210FA2FE00B9E3EF /* Type.swift in Sources */,
 				CB86DACE210FA2F700B9E3EF /* FunctionCallExpr.swift in Sources */,
@@ -1157,6 +1202,7 @@
 				CB86DAE3210FA2FE00B9E3EF /* ClassInitializer.swift in Sources */,
 				CB0712212117615900DFB284 /* ArrayLiteralExpr.swift in Sources */,
 				CB86DAB4210FA2DF00B9E3EF /* Token.swift in Sources */,
+				CBAF8EE12119E0910045B8D6 /* MathModule.swift in Sources */,
 				CB86DAC5210FA2F100B9E3EF /* FunctionDeclarationPrototype.swift in Sources */,
 				CB86DAE2210FA2FE00B9E3EF /* Variable.swift in Sources */,
 			);

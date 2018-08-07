@@ -1,27 +1,15 @@
 //
-//  StandardLibrary.swift
-//  TestLexer
+//  MathModule.swift
+//  Hop iOS
 //
-//  Created by poisson florent on 04/06/2018.
+//  Created by poisson florent on 07/08/2018.
 //  Copyright © 2018 poisson florent. All rights reserved.
 //
 
 import Foundation
 
-//
-// Standard modules definition
-//
-
-typealias FunctionClosure = (_ declarationScope: Scope) -> Closure
-
-// Sys module functions
-private let sysFunctionDeclarations: [FunctionClosure] = [
-    getPrintDeclaration,
-    getStringDeclaration
-]
-
 // Math module functions
-private var mathFunctionsDeclarations: [FunctionClosure] = [
+var mathFunctionsDeclarations: [FunctionClosure] = [
     getAcosDeclaration,
     getAsinDeclaration,
     getAtanDeclaration,
@@ -46,126 +34,6 @@ private var mathFunctionsDeclarations: [FunctionClosure] = [
     getFloorDeclaration,
     getRoundDeclaration
 ]
-
-private let nativesModules: [String: [FunctionClosure]] = [
-    "Sys": sysFunctionDeclarations,
-    "Math": mathFunctionsDeclarations
-]
-
-enum ImporterError: ErrorType {
-    case moduleNotFound
-
-    func getDescription() -> String {
-        return "Module Not Found"
-    }
-}
-
-func getNativeModule(name: String) -> Module? {
-    // NOTE: For now, native modules only contain functions
-    if let functionDeclarations = nativesModules[name] {
-        let scope = Scope(parent: nil)
-        functionDeclarations.forEach {
-            let closure = $0(scope)
-            scope.symbolTable[closure.prototype.hashId] = closure
-        }
-        return Module(name: name, scope: scope)
-    }
-    
-    return nil
-}
-
-func getNativeFunctionClosure(prototype: Prototype,
-                              declarationScope: Scope,
-                              evaluation: @escaping (_ arguments: [Variable]?, _ session: Session) throws -> Variable?) -> Closure {
-    // Function declaration
-    // ====================
-    
-    // Body
-    // ----
-    
-    // Native function call expression
-    var arguments: [NativeFunctionCallExpr.Argument]?
-    if let prototypeArguments = prototype.arguments {
-        arguments = [NativeFunctionCallExpr.Argument]()
-        for prototypeArgument in prototypeArguments {
-            arguments?.append(NativeFunctionCallExpr.Argument(name: nil, valueHashId: prototypeArgument.hashId))
-        }
-    }
-    
-    let type = prototype.type
-    let nativeFunctionCall = NativeFunctionCallExpr(arguments: arguments, evaluation: evaluation) {
-        () -> Type in
-        return type
-    }
-
-    // Embedding return statement
-    let statement = ReturnStmt(result: nativeFunctionCall)
-    
-    // Body block
-    let block = BlockStmt(statements: [statement])
-    
-    // Function declaration closure
-    return Closure(prototype: prototype,
-                   block: block,
-                   declarationScope: declarationScope)
-}
-
-// MARK: - Default standard functions
-
-/// Native binding for print(String)
-private func getPrintDeclaration(declarationScope: Scope) -> Closure {
-    // Prototype
-    let argument = Argument(name: "text", type: .string, isAnonymous: true)
-    let prototype = Prototype(name: "print", arguments: [argument], type: .void)
-
-    return getNativeFunctionClosure(prototype: prototype, declarationScope: declarationScope) {
-        (expressions, environment) in
-        
-        guard let string = expressions?.first?.value as? String else {
-            throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, debugInfo: nil)
-        }
-        
-        let message = "[\(Date().timeIntervalSinceReferenceDate)] -- \(string)"
-        
-        print(message)
-        
-        environment.messenger?.post(message: Message(type: .stdout,
-                                                     identifier: nil,
-                                                     data: message))
-        return nil
-    }
-}
-
-// MARK: - Type conversion
-
-private func getStringDeclaration(declarationScope: Scope) -> Closure {
-    // Prototype
-    let argument = Argument(name: "value", type: .any, isAnonymous: true)
-    let prototype = Prototype(name: "string", arguments: [argument], type: .string)
-    
-    return getNativeFunctionClosure(prototype: prototype, declarationScope: declarationScope) {
-        (expressions, _) in
-        
-        guard let variable = expressions?.first else {
-            throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, debugInfo: nil)
-        }
-        
-        if let integer = variable.value as? Int {
-            return Variable(type: .string, isConstant: true, value: String(integer))
-            
-        } else if let real = variable.value as? Double {
-            return Variable(type: .string, isConstant: true, value: String(real))
-            
-        } else if let boolean = variable.value as? Bool {
-            return Variable(type: .string, isConstant: true, value: String(boolean))
-            
-        } else if let string = variable.value as? String {
-            return Variable(type: .string, isConstant: true, value: string)
-        }
-        
-        return Variable(type: .string, isConstant: true, value: "")    // TODO: throwing error instead of default empty value
-    }
-}
 
 // MARK: - Math functions
 
@@ -235,7 +103,7 @@ private func getAtan2Declaration(declarationScope: Scope) -> Closure {
             expressions.count == 2,
             let x = expressions[0].value as? Double,
             let y = expressions[1].value as? Double else {
-            throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, debugInfo: nil)
+                throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, debugInfo: nil)
         }
         return Variable(type: .real, isConstant: true, value: atan2(x, y))
     }
@@ -477,7 +345,7 @@ private func getHypotDeclaration(declarationScope: Scope) -> Closure {
             expressions.count == 2,
             let x = expressions[0].value as? Double,
             let y = expressions[1].value as? Double else {
-            throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, debugInfo: nil)
+                throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, debugInfo: nil)
         }
         return Variable(type: .real, isConstant: true, value: hypot(x, y))
     }
@@ -501,7 +369,7 @@ private func getPowDeclaration(declarationScope: Scope) -> Closure {
             let y = expressions[1].value as? Double else {
                 throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, debugInfo: nil)
         }
-
+        
         return Variable(type: .real, isConstant: true, value: pow(x, y))
     }
 }

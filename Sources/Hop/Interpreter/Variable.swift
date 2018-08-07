@@ -11,7 +11,6 @@ import Foundation
 class Variable: Evaluable {
     var debugInfo: DebugInfo?
     
-    
     var type: Type
     var isTypeMutabilityAllowed: Bool = false   // Used by container variables
     var isConstant: Bool
