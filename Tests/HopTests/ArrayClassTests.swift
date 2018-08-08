@@ -15,11 +15,13 @@ class ArrayClassTests: XCTestCase {
         ("test_ArrayInitialization_DefaultInitializer", test_ArrayInitialization_DefaultInitializer),
         ("test_ArrayInitialization_ArrayLiteral_NoElements", test_ArrayInitialization_ArrayLiteral_NoElements),
         ("test_ArrayInitialization_ArrayLiteral_NElements", test_ArrayInitialization_ArrayLiteral_NElements),
+        ("test_ArrayInitialization_ArrayLiteral_NNilElements", test_ArrayInitialization_ArrayLiteral_NNilElements),
         ("test_ArrayInitialization_ArrayLiteral_SubArrayLiteral", test_ArrayInitialization_ArrayLiteral_SubArrayLiteral),
         ("test_ArrayElementAccess_Subscript", test_ArrayElementAccess_Subscript),
         ("test_ArrayElementAccess_Subscript_OutOfRange_Bottom", test_ArrayElementAccess_Subscript_OutOfRange_Bottom),
         ("test_ArrayElementAccess_Subscript_OutOfRange_Upper", test_ArrayElementAccess_Subscript_OutOfRange_Upper),
-        ("test_ArrayElementAssignment_Subscript", test_ArrayElementAssignment_Subscript),
+        ("test_ArrayElementAssignment_Subscript_NonNilElement", test_ArrayElementAssignment_Subscript_NonNilElement),
+        ("test_ArrayElementAssignment_Subscript_NilElement", test_ArrayElementAssignment_Subscript_NilElement),
         ("test_MethodAppendElement_NonNilElement", test_MethodAppendElement_NonNilElement),
         ("test_MethodAppendElement_NilElement", test_MethodAppendElement_NilElement),
         ("test_MethodAppendContent_NonNilArray", test_MethodAppendContent_NonNilArray),
@@ -114,6 +116,8 @@ class ArrayClassTests: XCTestCase {
      
      */
     
+    // MARK: - Helpers
+    
     private func run(script: String) {
         do {
             try session.run(script: script)
@@ -125,6 +129,16 @@ class ArrayClassTests: XCTestCase {
             }
         }
     }
+    
+    private func getArray(for label: String) -> NSArray? {
+        if let arrayInstance = symbolTable[label] as? Instance,
+            let arrayBackendVariable = arrayInstance.scope.getSymbolValue(for: ArrayClass.backendInstanceHashId) as? Variable {
+            return arrayBackendVariable.value as? NSArray
+        }
+        return nil
+    }
+    
+    // MARK: - Tests
     
     // Array initialization with default initializer
     func test_ArrayInitialization_DefaultInitializer() {
@@ -268,6 +282,79 @@ class ArrayClassTests: XCTestCase {
         }
     }
 
+    // Array initialization with array literal expression with nil elements
+    func test_ArrayInitialization_ArrayLiteral_NNilElements() {
+        // given
+        let script = """
+        import Test
+
+        const array = [nil, nil]
+
+        Test.export((array[0] == nil), label: "hasNilElement0")
+        Test.export((array[1] == nil), label: "hasNilElement1")
+
+        """
+        
+        // when
+        run(script: script)
+        
+        // then
+        let arrayObject = symbolTable["array"]
+        
+        XCTAssertNotNil(arrayObject, "Error: array variable should not be nil!")
+        
+        let arrayInstance = arrayObject as? Instance
+        
+        XCTAssertNotNil(arrayObject, "Error: array instance error!")
+        
+        XCTAssertEqual(arrayInstance!.class.type, Type.array, "Error: array type error!")
+        
+        let arrayBackendVariable = arrayInstance!.scope.getSymbolValue(for: ArrayClass.backendInstanceHashId) as? Variable
+        
+        XCTAssertNotNil(arrayBackendVariable, "Error: array backend variable not found!")
+        
+        let array = arrayBackendVariable!.value as? NSMutableArray
+        
+        XCTAssertNotNil(array, "Error: array backend type error!")
+        
+        XCTAssertEqual(array!.count, 5, "Error: array size error!")
+        
+        guard let value0Variable = array![0] as? Variable,
+            let value0 = value0Variable.value as? Int,
+            value0 == 1 else {
+                XCTFail("Error: array content error!")
+                return
+        }
+        
+        guard let value1Variable = array![1] as? Variable,
+            let value1 = value1Variable.value as? Double,
+            value1 == 2.0 else {
+                XCTFail("Error: array content error!")
+                return
+        }
+        
+        guard let value2Variable = array![2] as? Variable,
+            let value2 = value2Variable.value as? Bool,
+            value2 == true else {
+                XCTFail("Error: array content error!")
+                return
+        }
+        
+        guard let value3Variable = array![3] as? Variable,
+            let value3 = value3Variable.value as? String,
+            value3 == "Hello world!" else {
+                XCTFail("Error: array content error!")
+                return
+        }
+        
+        guard let value4Variable = array![4] as? Variable,
+            let value4 = value4Variable.value as? Instance,
+            value4.class.type == .array else {
+                XCTFail("Error: array content error!")
+                return
+        }
+    }
+    
     // Array initialization with array literal expression with sub array literals
     func test_ArrayInitialization_ArrayLiteral_SubArrayLiteral() {
         // given
@@ -408,8 +495,13 @@ class ArrayClassTests: XCTestCase {
         }
     }
 
-    // Array element assignment with subscript
-    func test_ArrayElementAssignment_Subscript() {
+    /**
+     Array element assignment with subscript
+     
+        - non nil element
+     
+     */
+    func test_ArrayElementAssignment_Subscript_NonNilElement() {
         // given
         let script = """
         import Test
@@ -431,6 +523,36 @@ class ArrayClassTests: XCTestCase {
         // ...
     }
 
+    /**
+     Array element assignment with subscript
+     
+     - nil element
+     
+     */
+    func test_ArrayElementAssignment_Subscript_NilElement() {
+        // given
+        let script = """
+        import Test
+
+        const array = [1, 2]
+
+        const nilValue: Int = nil
+
+        array[0] = nilValue
+        array[1] = nil
+
+        Test.export(array[0] == nil, label: "hasNilElement0")
+        Test.export(array[1] == nil, label: "hasNilElement1")
+
+        """
+        
+        // when
+        run(script: script)
+        
+        // then
+        // ...
+    }
+    
     /**
      Test method func append(#element: Any)
      
@@ -1060,7 +1182,13 @@ class ArrayClassTests: XCTestCase {
         run(script: script)
         
         // then
-        // ...
+        if let array = getArray(for: "array") {
+            XCTAssertEqual(array.count, 0, "Error: array content error!")
+        } else {
+            XCTFail("Error: array intialization error!")
+        }
+        
+        XCTAssertNil(symbolTable["lastValue"], "Error: last value must be nil!")
     }
 
     // func element(at: Int) -> Any
@@ -1085,7 +1213,23 @@ class ArrayClassTests: XCTestCase {
         run(script: script)
         
         // then
-        // ...
+        guard let valueAtIndex0 = symbolTable["valueAtIndex0"] as? Int,
+            valueAtIndex0 == 1 else {
+                XCTFail("Error: array element access error!")
+                return
+        }
+
+        guard let valueAtIndex1 = symbolTable["valueAtIndex1"] as? Int,
+            valueAtIndex1 == 2 else {
+                XCTFail("Error: array element access error!")
+                return
+        }
+        
+        guard let valueAtIndex2 = symbolTable["valueAtIndex2"] as? Int,
+            valueAtIndex2 == 3 else {
+                XCTFail("Error: array element access error!")
+                return
+        }
     }
 
     /**
@@ -1268,24 +1412,44 @@ class ArrayClassTests: XCTestCase {
         const array = [1, 2, 3]
         const shuffledArray = array.shuffled()
 
+        Test.export(array, label: "array")
         Test.export(shuffledArray, label: "shuffledArray")
 
         """
 
-        /*
-         != 1 2 3
-         1 3 2
-         2 1 3
-         2 3 1
-         3 1 2
-         3 2 1
-        */
-        
         // when
         run(script: script)
         
         // then
-        // ...
+        if let array = getArray(for: "array") {
+            var reducedValue = ""
+            for element in array {
+                let variable = element as! Variable
+                if let value = variable.value as? Int {
+                    reducedValue += String(value)
+                }
+            }
+            XCTAssertEqual(reducedValue, "123", "Error: array content error!")
+        } else {
+            XCTFail("Error: array intialization error!")
+        }
+        
+        if let shuffledArray = getArray(for: "shuffledArray") {
+            var reducedValue = ""
+            for element in shuffledArray {
+                let variable = element as! Variable
+                if let value = variable.value as? Int {
+                    reducedValue += String(value)
+                }
+            }
+
+            // Check in shuffled possibilities
+            if !["132", "213", "231", "312", "321"].contains(reducedValue) {
+                XCTFail("Error: shuffled array content error!")
+            }
+        } else {
+            XCTFail("Error: shuffled array intialization error!")
+        }
     }
 
     /**
@@ -1302,6 +1466,7 @@ class ArrayClassTests: XCTestCase {
         const array = []
         const shuffledArray = array.shuffled()
 
+        Test.export(array, label: "array")
         Test.export(shuffledArray, label: "shuffledArray")
 
         """
@@ -1310,7 +1475,17 @@ class ArrayClassTests: XCTestCase {
         run(script: script)
         
         // then
-        // ...
+        if let array = getArray(for: "array") {
+            XCTAssertEqual(array.count, 0, "Error: array content error!")
+        } else {
+            XCTFail("Error: array intialization error!")
+        }
+        
+        if let shuffledArray = getArray(for: "shuffledArray") {
+            XCTAssertEqual(shuffledArray.count, 0, "Error: shuffled array content error!")
+        } else {
+            XCTFail("Error: reversed array intialization error!")
+        }
     }
 
     /**
@@ -1334,6 +1509,7 @@ class ArrayClassTests: XCTestCase {
 
         // Shuffled array values should still the same!
 
+        Test.export(array, label: "array")
         Test.export(shuffledArray, label: "shuffledArray")
 
         """
@@ -1342,7 +1518,35 @@ class ArrayClassTests: XCTestCase {
         run(script: script)
         
         // then
-        // ...
+        if let array = getArray(for: "array") {
+            var reducedValue = ""
+            for element in array {
+                let variable = element as! Variable
+                if let value = variable.value as? Int {
+                    reducedValue += String(value)
+                }
+            }
+            XCTAssertEqual(reducedValue, "456", "Error: array content error!")
+        } else {
+            XCTFail("Error: array intialization error!")
+        }
+        
+        if let shuffledArray = getArray(for: "shuffledArray") {
+            var reducedValue = ""
+            for element in shuffledArray {
+                let variable = element as! Variable
+                if let value = variable.value as? Int {
+                    reducedValue += String(value)
+                }
+            }
+            
+            // Check in shuffled possibilities
+            if !["132", "213", "231", "312", "321"].contains(reducedValue) {
+                XCTFail("Error: shuffled array content error!")
+            }
+        } else {
+            XCTFail("Error: shuffled array intialization error!")
+        }
     }
 
     /**
@@ -1359,6 +1563,7 @@ class ArrayClassTests: XCTestCase {
         const array = [1, 2, 3]
         const reversedArray = array.reversed()
 
+        Test.export(array, label: "array")
         Test.export(reversedArray, label: "reversedArray")
 
         """
@@ -1367,9 +1572,33 @@ class ArrayClassTests: XCTestCase {
         run(script: script)
         
         // then
-        // ...
+        if let array = getArray(for: "array") {
+            var reducedValue = ""
+            for element in array {
+                let variable = element as! Variable
+                if let value = variable.value as? Int {
+                   reducedValue += String(value)
+                }
+            }
+            XCTAssertEqual(reducedValue, "123", "Error: array content error!")
+        } else {
+            XCTFail("Error: array intialization error!")
+        }
+        
+        if let reversedArray = getArray(for: "reversedArray") {
+            var reducedValue = ""
+            for element in reversedArray {
+                let variable = element as! Variable
+                if let value = variable.value as? Int {
+                    reducedValue += String(value)
+                }
+            }
+            XCTAssertEqual(reducedValue, "321", "Error: reversed array content error!")
+        } else {
+            XCTFail("Error: reversed array intialization error!")
+        }
     }
-
+    
     /**
      func reversed() -> Array
      
@@ -1384,6 +1613,7 @@ class ArrayClassTests: XCTestCase {
         const array = []
         const reversedArray = array.reversed()
 
+        Test.export(array, label: "array")
         Test.export(reversedArray, label: "reversedArray")
 
         """
@@ -1392,7 +1622,17 @@ class ArrayClassTests: XCTestCase {
         run(script: script)
         
         // then
-        // ...
+        if let array = getArray(for: "array") {
+            XCTAssertEqual(array.count, 0, "Error: array content error!")
+        } else {
+            XCTFail("Error: array intialization error!")
+        }
+        
+        if let reversedArray = getArray(for: "reversedArray") {
+            XCTAssertEqual(reversedArray.count, 0, "Error: reversed array content error!")
+        } else {
+            XCTFail("Error: reversed array intialization error!")
+        }
     }
 
     /**
@@ -1416,6 +1656,7 @@ class ArrayClassTests: XCTestCase {
 
         // Shuffled array values should still the same!
 
+        Test.export(array, label: "array")
         Test.export(reversedArray, label: "reversedArray")
 
         """
@@ -1424,7 +1665,31 @@ class ArrayClassTests: XCTestCase {
         run(script: script)
         
         // then
-        // ...
+        if let array = getArray(for: "array") {
+            var reducedValue = ""
+            for element in array {
+                let variable = element as! Variable
+                if let value = variable.value as? Int {
+                    reducedValue += String(value)
+                }
+            }
+            XCTAssertEqual(reducedValue, "456", "Error: array content error!")
+        } else {
+            XCTFail("Error: array intialization error!")
+        }
+        
+        if let reversedArray = getArray(for: "reversedArray") {
+            var reducedValue = ""
+            for element in reversedArray {
+                let variable = element as! Variable
+                if let value = variable.value as? Int {
+                    reducedValue += String(value)
+                }
+            }
+            XCTAssertEqual(reducedValue, "321", "Error: reversed array content error!")
+        } else {
+            XCTFail("Error: reversed array intialization error!")
+        }
     }
 
 }
