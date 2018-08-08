@@ -474,7 +474,10 @@ struct BinaryOperatorExpr: Evaluable {
         } else if lhsVariable.type == .string {
             let value = (lhsVariable.value as! String?) == (rhsVariable.value as! String?)
             return Variable(type: .boolean, isConstant: true, value: value)
-
+        
+        } else if lhsVariable.type == .nil {
+            return Variable(type: .boolean, isConstant: true, value: true)
+        
         } else {
             throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: debugInfo)
         }
