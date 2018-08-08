@@ -17,7 +17,8 @@ class ArrayClassTests: XCTestCase {
         ("test_ArrayInitialization_ArrayLiteral_NElements", test_ArrayInitialization_ArrayLiteral_NElements),
         ("test_ArrayInitialization_ArrayLiteral_SubArrayLiteral", test_ArrayInitialization_ArrayLiteral_SubArrayLiteral),
         ("test_ArrayElementAccess_Subscript", test_ArrayElementAccess_Subscript),
-        ("test_ArrayElementAccess_Subscript_OutOfRange", test_ArrayElementAccess_Subscript_OutOfRange),
+        ("test_ArrayElementAccess_Subscript_OutOfRange_Bottom", test_ArrayElementAccess_Subscript_OutOfRange_Bottom),
+        ("test_ArrayElementAccess_Subscript_OutOfRange_Upper", test_ArrayElementAccess_Subscript_OutOfRange_Upper),
         ("test_ArrayElementAssignment_Subscript", test_ArrayElementAssignment_Subscript),
         ("test_MethodAppendElement_NonNilElement", test_MethodAppendElement_NonNilElement),
         ("test_MethodAppendElement_NilElement", test_MethodAppendElement_NilElement),
@@ -25,13 +26,16 @@ class ArrayClassTests: XCTestCase {
         ("test_MethodAppendContent_NilArray", test_MethodAppendContent_NilArray),
         ("test_MethodSetElementAt_NonNilElement", test_MethodSetElementAt_NonNilElement),
         ("test_MethodSetElementAt_NilElement", test_MethodSetElementAt_NilElement),
-        ("test_MethodSetElementAt_IndexOutOfRange", test_MethodSetElementAt_IndexOutOfRange),
+        ("test_MethodSetElementAt_IndexOutOfRange_Bottom", test_MethodSetElementAt_IndexOutOfRange_Bottom),
+        ("test_MethodSetElementAt_IndexOutOfRange_Upper", test_MethodSetElementAt_IndexOutOfRange_Upper),
         ("test_MethodRemoveAt", test_MethodRemoveAt),
-        ("test_MethodRemoveAt_IndexOutOfRange", test_MethodRemoveAt_IndexOutOfRange),
+        ("test_MethodRemoveAt_IndexOutOfRange_Bottom", test_MethodRemoveAt_IndexOutOfRange_Bottom),
+        ("test_MethodRemoveAt_IndexOutOfRange_Upper", test_MethodRemoveAt_IndexOutOfRange_Upper),
         ("test_MethodRemoveAll", test_MethodRemoveAll),
         ("test_MethodInsertAt", test_MethodInsertAt),
         ("test_MethodInsertAt_TheEnd", test_MethodInsertAt_TheEnd),
-        ("test_MethodInsertAt_IndexOutOfRange", test_MethodInsertAt_IndexOutOfRange),
+        ("test_MethodInsertAt_IndexOutOfRange_Bottom", test_MethodInsertAt_IndexOutOfRange_Bottom),
+        ("test_MethodInsertAt_IndexOutOfRange_Upper", test_MethodInsertAt_IndexOutOfRange_Upper),
         ("test_MethodPopFirst_NonEmptyArray", test_MethodPopFirst_NonEmptyArray),
         ("test_MethodPopFirst_EmptyArray", test_MethodPopFirst_EmptyArray),
         ("test_MethodPopLast_NonEmptyArray", test_MethodPopLast_NonEmptyArray),
@@ -41,7 +45,8 @@ class ArrayClassTests: XCTestCase {
         ("test_MethodLast_NonEmptyArray", test_MethodLast_NonEmptyArray),
         ("test_MethodLast_EmptyArray", test_MethodLast_EmptyArray),
         ("testMethodElementAt", testMethodElementAt),
-        ("testMethodElementAt_IndexOutOfRange", testMethodElementAt_IndexOutOfRange),
+        ("testMethodElementAt_IndexOutOfRange_Bottom", testMethodElementAt_IndexOutOfRange_Bottom),
+        ("testMethodElementAt_IndexOutOfRange_Upper", testMethodElementAt_IndexOutOfRange_Upper),
         ("testMethodIsEmpty_NonEmptyArray", testMethodIsEmpty_NonEmptyArray),
         ("testMethodIsEmpty_EmptyArray", testMethodIsEmpty_EmptyArray),
         ("testMethodCount_NonEmptyArray", testMethodCount_NonEmptyArray),
@@ -75,6 +80,7 @@ class ArrayClassTests: XCTestCase {
     }
     
     override func tearDown() {
+        symbolTable.removeAll()
         session = nil
         super.tearDown()
     }
@@ -122,16 +128,13 @@ class ArrayClassTests: XCTestCase {
     
     // Array initialization with default initializer
     func test_ArrayInitialization_DefaultInitializer() {
-        symbolTable.removeAll()
-        
         // given
-        
         let script = """
         import Test
 
         const array = Array()
 
-        Test.export(a, label: "array")
+        Test.export(array, label: "array")
 
         """
         
@@ -139,108 +142,290 @@ class ArrayClassTests: XCTestCase {
         run(script: script)
         
         // then
-        if let arrayObject = symbolTable["array"] {
-            if let arrayInstance = arrayObject as? Instance {
-                if arrayInstance.class.type == .array {
-                    if let arrayBackendVariable = arrayInstance.scope.getSymbolValue(for: ArrayClass.backendInstanceHashId) as? Variable {
-                        if let array = arrayBackendVariable.value as? NSMutableArray {
-                            
-                        } else {
-                            
-                        }
-                    } else {
-                        
-                    }
-                } else {
-                    
-                }
-            } else {
-                
-            }
-        } else {
-            
-        }
+        let arrayObject = symbolTable["array"]
+        
+        XCTAssertNotNil(arrayObject, "Error: array variable should not be nil!")
+        
+        let arrayInstance = arrayObject as? Instance
+        
+        XCTAssertNotNil(arrayObject, "Error: array instance error!")
+
+        XCTAssertEqual(arrayInstance!.class.type, Type.array, "Error: array type error!")
+
+        let arrayBackendVariable = arrayInstance!.scope.getSymbolValue(for: ArrayClass.backendInstanceHashId) as? Variable
+        
+        XCTAssertNotNil(arrayBackendVariable, "Error: array backend variable not found!")
+
+        let array = arrayBackendVariable!.value as? NSMutableArray
+        
+        XCTAssertNotNil(array, "Error: array backend type error!")
     }
     
     // Array initialization with array literal expression with no elements
     func test_ArrayInitialization_ArrayLiteral_NoElements() {
-        symbolTable.removeAll()
-        
         // given
-        // ...
+        let script = """
+        import Test
+
+        const array = []
+
+        Test.export(array, label: "array")
+
+        """
         
         // when
-        // ...
+        run(script: script)
         
         // then
-        // ...
+        let arrayObject = symbolTable["array"]
+        
+        XCTAssertNotNil(arrayObject, "Error: array variable should not be nil!")
+        
+        let arrayInstance = arrayObject as? Instance
+        
+        XCTAssertNotNil(arrayObject, "Error: array instance error!")
+        
+        XCTAssertEqual(arrayInstance!.class.type, Type.array, "Error: array type error!")
+        
+        let arrayBackendVariable = arrayInstance!.scope.getSymbolValue(for: ArrayClass.backendInstanceHashId) as? Variable
+        
+        XCTAssertNotNil(arrayBackendVariable, "Error: array backend variable not found!")
+        
+        let array = arrayBackendVariable!.value as? NSMutableArray
+        
+        XCTAssertNotNil(array, "Error: array backend type error!")
     }
 
     // Array initialization with array literal expression with elements
     func test_ArrayInitialization_ArrayLiteral_NElements() {
-        symbolTable.removeAll()
-        
         // given
-        // ...
+        let script = """
+        import Test
+
+        const array = [1, 2.0, true, "Hello world!", Array()]
+
+        Test.export(array, label: "array")
+
+        """
         
         // when
-        // ...
+        run(script: script)
         
         // then
-        // ...
+        let arrayObject = symbolTable["array"]
+        
+        XCTAssertNotNil(arrayObject, "Error: array variable should not be nil!")
+        
+        let arrayInstance = arrayObject as? Instance
+        
+        XCTAssertNotNil(arrayObject, "Error: array instance error!")
+        
+        XCTAssertEqual(arrayInstance!.class.type, Type.array, "Error: array type error!")
+        
+        let arrayBackendVariable = arrayInstance!.scope.getSymbolValue(for: ArrayClass.backendInstanceHashId) as? Variable
+        
+        XCTAssertNotNil(arrayBackendVariable, "Error: array backend variable not found!")
+        
+        let array = arrayBackendVariable!.value as? NSMutableArray
+        
+        XCTAssertNotNil(array, "Error: array backend type error!")
+        
+        XCTAssertEqual(array!.count, 5, "Error: array size error!")
+        
+        guard let value0Variable = array![0] as? Variable,
+            let value0 = value0Variable.value as? Int,
+            value0 == 1 else {
+                XCTFail("Error: array content error!")
+                return
+        }
+        
+        guard let value1Variable = array![1] as? Variable,
+            let value1 = value1Variable.value as? Double,
+            value1 == 2.0 else {
+                XCTFail("Error: array content error!")
+                return
+        }
+        
+        guard let value2Variable = array![2] as? Variable,
+            let value2 = value2Variable.value as? Bool,
+            value2 == true else {
+                XCTFail("Error: array content error!")
+                return
+        }
+        
+        guard let value3Variable = array![3] as? Variable,
+            let value3 = value3Variable.value as? String,
+            value3 == "Hello world!" else {
+                XCTFail("Error: array content error!")
+                return
+        }
+        
+        guard let value4Variable = array![4] as? Variable,
+            let value4 = value4Variable.value as? Instance,
+            value4.class.type == .array else {
+                XCTFail("Error: array content error!")
+                return
+        }
     }
 
     // Array initialization with array literal expression with sub array literals
     func test_ArrayInitialization_ArrayLiteral_SubArrayLiteral() {
-        symbolTable.removeAll()
-        
         // given
-        // ...
+        let script = """
+        import Test
+
+        const array = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+
+        Test.export(array, label: "array")
+
+        """
         
         // when
-        // ...
+        run(script: script)
         
         // then
-        // ...
+        let arrayObject = symbolTable["array"]
+        
+        XCTAssertNotNil(arrayObject, "Error: array variable should not be nil!")
+        
+        let arrayInstance = arrayObject as? Instance
+        
+        XCTAssertNotNil(arrayObject, "Error: array instance error!")
+        
+        XCTAssertEqual(arrayInstance!.class.type, Type.array, "Error: array type error!")
+        
+        let arrayBackendVariable = arrayInstance!.scope.getSymbolValue(for: ArrayClass.backendInstanceHashId) as? Variable
+        
+        XCTAssertNotNil(arrayBackendVariable, "Error: array backend variable not found!")
+        
+        let array = arrayBackendVariable!.value as? NSMutableArray
+        
+        XCTAssertNotNil(array, "Error: array backend type error!")
+        
+        XCTAssertEqual(array!.count, 3, "Error: array size error!")
+        
+        for index in 0..<3 {
+            guard let valueVariable = array![index] as? Variable,
+                let value = valueVariable.value as? Instance,
+                value.class.type == .array,
+                let backendArrayVariable = value.scope.getSymbolValue(for: ArrayClass.backendInstanceHashId) as? Variable,
+                let array = backendArrayVariable.value as? NSMutableArray,
+                array.count == 3 else {
+                    XCTFail("Error: array content error at index: \(index)!")
+                    return
+            }
+        }
     }
 
     // Array element access with subscript
     func test_ArrayElementAccess_Subscript() {
-        symbolTable.removeAll()
-        
         // given
-        // ...
-        
+        let script = """
+        import Test
+
+        const array = [1, 2, 3]
+
+        const valueAtIndex0 = array[0]
+        const valueAtIndex1 = array[1]
+        const valueAtIndex2 = array[2]
+
+        Test.export(valueAtIndex0, label: "valueAtIndex0")
+        Test.export(valueAtIndex1, label: "valueAtIndex1")
+        Test.export(valueAtIndex2, label: "valueAtIndex2")
+
+        """
+
         // when
-        // ...
+        run(script: script)
         
         // then
-        // ...
+        guard let valueAtIndex0 = symbolTable["valueAtIndex0"] as? Int,
+            valueAtIndex0 == 1 else {
+                XCTFail("Error: array content error!")
+                return
+        }
+
+        guard let valueAtIndex1 = symbolTable["valueAtIndex1"] as? Int,
+            valueAtIndex1 == 2 else {
+                XCTFail("Error: array content error!")
+                return
+        }
+
+        guard let valueAtIndex2 = symbolTable["valueAtIndex2"] as? Int,
+            valueAtIndex2 == 3 else {
+                XCTFail("Error: array content error!")
+                return
+        }
     }
 
-    // Array element access with subscript out of range
-    func test_ArrayElementAccess_Subscript_OutOfRange() {
-        symbolTable.removeAll()
-        
+    /**
+     Array element access with subscript out of range
+     
+     - index < 0
+     
+     */
+    func test_ArrayElementAccess_Subscript_OutOfRange_Bottom() {
         // given
-        // ...
+        let script = """
+        import Test
+
+        const array = [1, 2, 3]
+
+        const value = array[-1]
+
+        """
         
-        // when
-        // ...
+        // when & then
+        XCTAssertThrowsError(try session.run(script: script)) {
+            (error) in
+            XCTAssertEqual((error as? ProgramError)?.errorType as? InterpreterError,
+                           InterpreterError.subscriptIndexOutOfRange)
+        }
+    }
+    
+    /**
+     Array element access with subscript out of range
+     
+     - index >= size
+     
+    */
+    func test_ArrayElementAccess_Subscript_OutOfRange_Upper() {
+        // given
+        let script = """
+        import Test
+
+        const array = [1, 2, 3]
+
+        const value = array[3]
+
+        """
         
-        // then
-        // ...
+        // when & then
+        XCTAssertThrowsError(try session.run(script: script)) {
+            (error) in
+            XCTAssertEqual((error as? ProgramError)?.errorType as? InterpreterError,
+                           InterpreterError.subscriptIndexOutOfRange)
+        }
     }
 
     // Array element assignment with subscript
     func test_ArrayElementAssignment_Subscript() {
-        symbolTable.removeAll()
-        
         // given
-        // ...
+        let script = """
+        import Test
+
+        const array = [1, 2, 3]
+
+        array[0] = 4
+        array[1] = 5
+        array[2] = 6
+
+        Test.export(array, label: "array")
+
+        """
         
         // when
-        // ...
+        run(script: script)
         
         // then
         // ...
@@ -253,14 +438,21 @@ class ArrayClassTests: XCTestCase {
      
      */
     func test_MethodAppendElement_NonNilElement() {
-        symbolTable.removeAll()
-
         // given
-        // ...
+        let script = """
+        import Test
+
+        const array = [1, 2, 3]
+
+        array.append(4)
+
+        Test.export(array, label: "array")
+
+        """
         
         // when
-        // ...
-        
+        run(script: script)
+
         // then
         // ...
     }
@@ -272,13 +464,19 @@ class ArrayClassTests: XCTestCase {
      
      */
     func test_MethodAppendElement_NilElement() {
-        symbolTable.removeAll()
-
         // given
-        // ...
+        let script = """
+        import Test
+
+        const array = [1, 2, 3]
+        const value: Int = nil
+
+        array.append(value)
+
+        """
         
         // when
-        // ...
+        run(script: script)
         
         // then
         // ...
@@ -291,13 +489,21 @@ class ArrayClassTests: XCTestCase {
      
      */
     func test_MethodAppendContent_NonNilArray() {
-        symbolTable.removeAll()
-
         // given
-        // ...
+        let script = """
+        import Test
+
+        const array1 = [1, 2, 3]
+        const array2 = [4, 5, 6]
+
+        array1.append(contentOf: array2)
+
+        Test.export(array1, label: "array1")
+
+        """
         
         // when
-        // ...
+        run(script: script)
         
         // then
         // ...
@@ -310,13 +516,19 @@ class ArrayClassTests: XCTestCase {
      
      */
     func test_MethodAppendContent_NilArray() {
-        symbolTable.removeAll()
-
         // given
-        // ...
+        let script = """
+        import Test
+
+        const array1 = [1, 2, 3]
+        const array2: Array = nil
+
+        array1.append(contentOf: array2)
+
+        """
         
         // when
-        // ...
+        run(script: script)
         
         // then
         // ...
@@ -329,13 +541,22 @@ class ArrayClassTests: XCTestCase {
      
      */
     func test_MethodSetElementAt_NonNilElement() {
-        symbolTable.removeAll()
-
         // given
-        // ...
+        let script = """
+        import Test
+
+        const array = [1, 2, 3]
+
+        array.setElement(4, at: 0)
+        array.setElement(5, at: 1)
+        array.setElement(6, at: 2)
+
+        Test.export(array, label: "array")
+
+        """
         
         // when
-        // ...
+        run(script: script)
         
         // then
         // ...
@@ -348,13 +569,19 @@ class ArrayClassTests: XCTestCase {
      
      */
     func test_MethodSetElementAt_NilElement() {
-        symbolTable.removeAll()
-
         // given
-        // ...
+        let script = """
+        import Test
+
+        const array = [1, 2, 3]
+        const value: Int = nil
+
+        array.setElement(value, at: 0)
+
+        """
         
         // when
-        // ...
+        run(script: script)
         
         // then
         // ...
@@ -365,31 +592,75 @@ class ArrayClassTests: XCTestCase {
      
      - replace with non nil element at index out of range
      
+        - index < 0
+     
      */
-    func test_MethodSetElementAt_IndexOutOfRange() {
-        symbolTable.removeAll()
-
+    func test_MethodSetElementAt_IndexOutOfRange_Bottom() {
         // given
-        // ...
+        let script = """
+        import Test
+
+        const array = [1, 2, 3]
+
+        array.setElement(4, at: -1)
+
+        """
         
-        // when
-        // ...
+        // when & then
+        XCTAssertThrowsError(try session.run(script: script)) {
+            (error) in
+            XCTAssertEqual((error as? ProgramError)?.errorType as? InterpreterError,
+                           InterpreterError.subscriptIndexOutOfRange)
+        }
+    }
+
+    /**
+     func setElement(#element: Any, at: Int)
+     
+     - replace with non nil element at index out of range
+     
+        - index >= size
+     
+     */
+    func test_MethodSetElementAt_IndexOutOfRange_Upper() {
+        // given
+        let script = """
+        import Test
+
+        const array = [1, 2, 3]
+
+        array.setElement(4, at: 3)
+
+        """
         
-        // then
-        // ...
+        // when & then
+        XCTAssertThrowsError(try session.run(script: script)) {
+            (error) in
+            XCTAssertEqual((error as? ProgramError)?.errorType as? InterpreterError,
+                           InterpreterError.subscriptIndexOutOfRange)
+        }
     }
 
     /**
      func remove(at: <index>)
      */
     func test_MethodRemoveAt() {
-        symbolTable.removeAll()
-
         // given
-        // ...
+        let script = """
+        import Test
+
+        const array = [1, 2, 3, 4, 5]
+
+        array.remove(at: 2) // Remove in the middle
+        array.remove(at: 3) // remove at the end
+        array.remove(at: 0) // remove at the begining
+
+        Test.export(array, label: "array")
+
+        """
         
         // when
-        // ...
+        run(script: script)
         
         // then
         // ...
@@ -400,29 +671,71 @@ class ArrayClassTests: XCTestCase {
 
      - remove at index out of range
      
+        - index < 0
+     
      */
-    func test_MethodRemoveAt_IndexOutOfRange() {
-        symbolTable.removeAll()
-
+    func test_MethodRemoveAt_IndexOutOfRange_Bottom() {
         // given
-        // ...
+        let script = """
+        import Test
+
+        const array = [1, 2, 3]
+
+        array.remove(at: -1)
+
+        """
         
-        // when
-        // ...
+        // when & then
+        XCTAssertThrowsError(try session.run(script: script)) {
+            (error) in
+            XCTAssertEqual((error as? ProgramError)?.errorType as? InterpreterError,
+                           InterpreterError.subscriptIndexOutOfRange)
+        }
+    }
+    
+    /**
+     func remove(at: <index>)
+     
+     - remove at index out of range
+     
+     - index >= size
+     
+     */
+    func test_MethodRemoveAt_IndexOutOfRange_Upper() {
+        // given
+        let script = """
+        import Test
+
+        const array = [1, 2, 3]
+
+        array.remove(at: 3)
+
+        """
         
-        // then
-        // ...
+        // when & then
+        XCTAssertThrowsError(try session.run(script: script)) {
+            (error) in
+            XCTAssertEqual((error as? ProgramError)?.errorType as? InterpreterError,
+                           InterpreterError.subscriptIndexOutOfRange)
+        }
     }
     
     // func removeAll()
     func test_MethodRemoveAll() {
-        symbolTable.removeAll()
-
         // given
-        // ...
+        let script = """
+        import Test
+
+        const array = [1, 2, 3]
+
+        array.removeAll()
+
+        Test.export(array, label: "array")
+
+        """
         
         // when
-        // ...
+        run(script: script)
         
         // then
         // ...
@@ -435,13 +748,20 @@ class ArrayClassTests: XCTestCase {
      
      */
     func test_MethodInsertAt() {
-        symbolTable.removeAll()
-
         // given
-        // ...
+        let script = """
+        import Test
+
+        const array = [1, 3]
+
+        array.insert(2, at: 1)
+
+        Test.export(array, label: "array")
+
+        """
         
         // when
-        // ...
+        run(script: script)
         
         // then
         // ...
@@ -454,13 +774,20 @@ class ArrayClassTests: XCTestCase {
      
      */
     func test_MethodInsertAt_TheEnd() {
-        symbolTable.removeAll()
-
         // given
-        // ...
+        let script = """
+        import Test
+
+        const array = [1, 2]
+
+        array.insert(3, at: 2)
+
+        Test.export(array, label: "array")
+
+        """
         
         // when
-        // ...
+        run(script: script)
         
         // then
         // ...
@@ -469,20 +796,55 @@ class ArrayClassTests: XCTestCase {
     /**
      func insert(#element: Any, at: Int)
      
-     - insert at index out of range (i.e. index < 0 || index > size array)
+     - insert at index out of range
+     
+        - index < 0
      
      */
-    func test_MethodInsertAt_IndexOutOfRange() {
-        symbolTable.removeAll()
-
+    func test_MethodInsertAt_IndexOutOfRange_Bottom() {
         // given
-        // ...
+        let script = """
+        import Test
+
+        const array = [1, 2]
+
+        array.insert(3, at: -1)
+
+        """
         
-        // when
-        // ...
-        
-        // then
-        // ...
+        // when & then
+        XCTAssertThrowsError(try session.run(script: script)) {
+            (error) in
+            XCTAssertEqual((error as? ProgramError)?.errorType as? InterpreterError,
+                           InterpreterError.subscriptIndexOutOfRange)
+        }
+    }
+    
+    /**
+     func insert(#element: Any, at: Int)
+     
+     - insert at index out of range
+     
+        - index > size
+     
+     */
+    func test_MethodInsertAt_IndexOutOfRange_Upper() {
+        // given
+        let script = """
+        import Test
+
+        const array = [1, 2]
+
+        array.insert(3, at: 3)
+
+        """
+
+        // when & then
+        XCTAssertThrowsError(try session.run(script: script)) {
+            (error) in
+            XCTAssertEqual((error as? ProgramError)?.errorType as? InterpreterError,
+                           InterpreterError.subscriptIndexOutOfRange)
+        }
     }
 
     /**
@@ -492,13 +854,21 @@ class ArrayClassTests: XCTestCase {
      
      */
     func test_MethodPopFirst_NonEmptyArray() {
-        symbolTable.removeAll()
-
         // given
-        // ...
+        let script = """
+        import Test
+
+        const array = [1, 2]
+
+        const firstValue = array.popFirst()
+
+        Test.export(array, label: "array")
+        Test.export(firstValue, label: "firstValue")
+
+        """
         
         // when
-        // ...
+        run(script: script)
         
         // then
         // ...
@@ -511,13 +881,21 @@ class ArrayClassTests: XCTestCase {
      
      */
     func test_MethodPopFirst_EmptyArray() {
-        symbolTable.removeAll()
-
         // given
-        // ...
+        let script = """
+        import Test
+
+        const array = []
+
+        const firstValue = array.popFirst()
+
+        Test.export(array, label: "array")
+        Test.export(firstValue, label: "firstValue")
+
+        """
         
         // when
-        // ...
+        run(script: script)
         
         // then
         // ...
@@ -530,13 +908,21 @@ class ArrayClassTests: XCTestCase {
      
      */
     func test_MethodPopLast_NonEmptyArray() {
-        symbolTable.removeAll()
-
         // given
-        // ...
+        let script = """
+        import Test
+
+        const array = [1, 2]
+
+        const lastValue = array.popLast()
+
+        Test.export(array, label: "array")
+        Test.export(lastValue, label: "lastValue")
+
+        """
         
         // when
-        // ...
+        run(script: script)
         
         // then
         // ...
@@ -549,13 +935,21 @@ class ArrayClassTests: XCTestCase {
      
      */
     func test_MethodPopLast_EmptyArray() {
-        symbolTable.removeAll()
-
         // given
-        // ...
+        let script = """
+        import Test
+
+        const array = []
+
+        const lastValue = array.popLast()
+
+        Test.export(array, label: "array")
+        Test.export(lastValue, label: "lastValue")
+
+        """
         
         // when
-        // ...
+        run(script: script)
         
         // then
         // ...
@@ -568,13 +962,21 @@ class ArrayClassTests: XCTestCase {
      
      */
     func test_MethodFirst_NonEmptyArray() {
-        symbolTable.removeAll()
-
         // given
-        // ...
-        
+        let script = """
+        import Test
+
+        const array = [1, 2]
+
+        const firstValue = array.first()
+
+        Test.export(array, label: "array")
+        Test.export(firstValue, label: "firstValue")
+
+        """
+
         // when
-        // ...
+        run(script: script)
         
         // then
         // ...
@@ -587,13 +989,21 @@ class ArrayClassTests: XCTestCase {
 
      */
     func test_MethodFirst_EmptyArray() {
-        symbolTable.removeAll()
-
         // given
-        // ...
+        let script = """
+        import Test
+
+        const array = []
+
+        const firstValue = array.first()
+
+        Test.export(array, label: "array")
+        Test.export(firstValue, label: "firstValue")
+
+        """
         
         // when
-        // ...
+        run(script: script)
         
         // then
         // ...
@@ -606,13 +1016,21 @@ class ArrayClassTests: XCTestCase {
      
      */
     func test_MethodLast_NonEmptyArray() {
-        symbolTable.removeAll()
-
         // given
-        // ...
-        
+        let script = """
+        import Test
+
+        const array = [1, 2]
+
+        const lastValue = array.last()
+
+        Test.export(array, label: "array")
+        Test.export(lastValue, label: "lastValue")
+
+        """
+
         // when
-        // ...
+        run(script: script)
         
         // then
         // ...
@@ -625,13 +1043,21 @@ class ArrayClassTests: XCTestCase {
      
      */
     func test_MethodLast_EmptyArray() {
-        symbolTable.removeAll()
-
         // given
-        // ...
+        let script = """
+        import Test
+
+        const array = []
+
+        const lastValue = array.last()
+
+        Test.export(array, label: "array")
+        Test.export(lastValue, label: "lastValue")
+
+        """
         
         // when
-        // ...
+        run(script: script)
         
         // then
         // ...
@@ -639,13 +1065,24 @@ class ArrayClassTests: XCTestCase {
 
     // func element(at: Int) -> Any
     func testMethodElementAt() {
-        symbolTable.removeAll()
-
         // given
-        // ...
+        let script = """
+        import Test
+
+        const array = [1, 2, 3]
+
+        const valueAtIndex0 = array.element(at: 0)
+        const valueAtIndex1 = array.element(at: 1)
+        const valueAtIndex2 = array.element(at: 2)
+
+        Test.export(valueAtIndex0, label: "valueAtIndex0")
+        Test.export(valueAtIndex1, label: "valueAtIndex1")
+        Test.export(valueAtIndex2, label: "valueAtIndex2")
+
+        """
         
         // when
-        // ...
+        run(script: script)
         
         // then
         // ...
@@ -656,18 +1093,53 @@ class ArrayClassTests: XCTestCase {
      
      - get element at index out of range
      
+        - index < 0
+     
      */
-    func testMethodElementAt_IndexOutOfRange() {
-        symbolTable.removeAll()
-
+    func testMethodElementAt_IndexOutOfRange_Bottom() {
         // given
-        // ...
+        let script = """
+        import Test
+
+        const array = [1, 2, 3]
+
+        const value = array.element(at: -1)
+
+        """
         
-        // when
-        // ...
+        // when & then
+        XCTAssertThrowsError(try session.run(script: script)) {
+            (error) in
+            XCTAssertEqual((error as? ProgramError)?.errorType as? InterpreterError,
+                           InterpreterError.subscriptIndexOutOfRange)
+        }
+    }
+
+    /**
+     func element(at: Int) -> Any
+     
+     - get element at index out of range
+     
+        - index >= size
+     
+     */
+    func testMethodElementAt_IndexOutOfRange_Upper() {
+        // given
+        let script = """
+        import Test
+
+        const array = [1, 2, 3]
+
+        const value = array.element(at: 3)
+
+        """
         
-        // then
-        // ...
+        // when & then
+        XCTAssertThrowsError(try session.run(script: script)) {
+            (error) in
+            XCTAssertEqual((error as? ProgramError)?.errorType as? InterpreterError,
+                           InterpreterError.subscriptIndexOutOfRange)
+        }
     }
 
     /**
@@ -677,16 +1149,25 @@ class ArrayClassTests: XCTestCase {
      
      */
     func testMethodIsEmpty_NonEmptyArray() {
-        symbolTable.removeAll()
-
         // given
-        // ...
+        let script = """
+        import Test
+
+        const array = [1, 2, 3]
+
+        Test.export(array.isEmpty(), label: "isEmpty")
+
+        """
         
         // when
-        // ...
+        run(script: script)
         
         // then
-        // ...
+        guard let isEmpty = symbolTable["isEmpty"] as? Bool,
+            isEmpty == false else {
+                XCTFail("Error: array should not be considered as empty!")
+                return
+        }
     }
 
     /**
@@ -696,16 +1177,25 @@ class ArrayClassTests: XCTestCase {
 
      */
     func testMethodIsEmpty_EmptyArray() {
-        symbolTable.removeAll()
-
         // given
-        // ...
+        let script = """
+        import Test
+
+        const array = []
+
+        Test.export(array.isEmpty(), label: "isEmpty")
+
+        """
         
         // when
-        // ...
+        run(script: script)
         
         // then
-        // ...
+        guard let isEmpty = symbolTable["isEmpty"] as? Bool,
+            isEmpty == true else {
+                XCTFail("Error: array should be considered as empty!")
+                return
+        }
     }
 
     /**
@@ -715,16 +1205,25 @@ class ArrayClassTests: XCTestCase {
      
      */
     func testMethodCount_NonEmptyArray() {
-        symbolTable.removeAll()
-
         // given
-        // ...
+        let script = """
+        import Test
+
+        const array = [1, 2, 3]
+
+        Test.export(array.count(), label: "count")
+
+        """
         
         // when
-        // ...
+        run(script: script)
         
         // then
-        // ...
+        guard let count = symbolTable["count"] as? Int,
+            count == 3 else {
+                XCTFail("Error: filled array count error!")
+                return
+        }
     }
 
     /**
@@ -734,16 +1233,25 @@ class ArrayClassTests: XCTestCase {
      
      */
     func testMethodCount_EmptyArray() {
-        symbolTable.removeAll()
-
         // given
-        // ...
+        let script = """
+        import Test
+
+        const array = []
+
+        Test.export(array.count(), label: "count")
+
+        """
         
         // when
-        // ...
+        run(script: script)
         
         // then
-        // ...
+        guard let count = symbolTable["count"] as? Int,
+            count == 0 else {
+                XCTFail("Error: empty array count error!")
+                return
+        }
     }
 
     /**
@@ -753,13 +1261,28 @@ class ArrayClassTests: XCTestCase {
      
      */
     func testMethodShuffled_NonEmptyArray() {
-        symbolTable.removeAll()
-
         // given
-        // ...
+        let script = """
+        import Test
+
+        const array = [1, 2, 3]
+        const shuffledArray = array.shuffled()
+
+        Test.export(shuffledArray, label: "shuffledArray")
+
+        """
+
+        /*
+         != 1 2 3
+         1 3 2
+         2 1 3
+         2 3 1
+         3 1 2
+         3 2 1
+        */
         
         // when
-        // ...
+        run(script: script)
         
         // then
         // ...
@@ -772,13 +1295,19 @@ class ArrayClassTests: XCTestCase {
      
      */
     func testMethodShuffled_EmptyArray() {
-        symbolTable.removeAll()
-
         // given
-        // ...
+        let script = """
+        import Test
+
+        const array = []
+        const shuffledArray = array.shuffled()
+
+        Test.export(shuffledArray, label: "shuffledArray")
+
+        """
         
         // when
-        // ...
+        run(script: script)
         
         // then
         // ...
@@ -791,13 +1320,26 @@ class ArrayClassTests: XCTestCase {
      
      */
     func testMethodShuffled_VariablesCopying() {
-        symbolTable.removeAll()
-
         // given
-        // ...
+        let script = """
+        import Test
+
+        const array = [1, 2, 3]
+        const shuffledArray = array.shuffled()
         
+        // Set new values in array
+        array[0] = 4
+        array[1] = 5
+        array[2] = 6
+
+        // Shuffled array values should still the same!
+
+        Test.export(shuffledArray, label: "shuffledArray")
+
+        """
+
         // when
-        // ...
+        run(script: script)
         
         // then
         // ...
@@ -810,13 +1352,19 @@ class ArrayClassTests: XCTestCase {
      
      */
     func testMethodReversed_NonEmptyArray() {
-        symbolTable.removeAll()
-
         // given
-        // ...
+        let script = """
+        import Test
+
+        const array = [1, 2, 3]
+        const reversedArray = array.reversed()
+
+        Test.export(reversedArray, label: "reversedArray")
+
+        """
         
         // when
-        // ...
+        run(script: script)
         
         // then
         // ...
@@ -829,13 +1377,19 @@ class ArrayClassTests: XCTestCase {
      
      */
     func testMethodReversed_EmptyArray() {
-        symbolTable.removeAll()
-
         // given
-        // ...
+        let script = """
+        import Test
+
+        const array = []
+        const reversedArray = array.reversed()
+
+        Test.export(reversedArray, label: "reversedArray")
+
+        """
         
         // when
-        // ...
+        run(script: script)
         
         // then
         // ...
@@ -848,13 +1402,26 @@ class ArrayClassTests: XCTestCase {
      
      */
     func testMethodReversed_VariablesCopying() {
-        symbolTable.removeAll()
-
         // given
-        // ...
+        let script = """
+        import Test
+
+        const array = [1, 2, 3]
+        const reversedArray = array.reversed()
+
+        // Set new values in array
+        array[0] = 4
+        array[1] = 5
+        array[2] = 6
+
+        // Shuffled array values should still the same!
+
+        Test.export(reversedArray, label: "reversedArray")
+
+        """
         
         // when
-        // ...
+        run(script: script)
         
         // then
         // ...

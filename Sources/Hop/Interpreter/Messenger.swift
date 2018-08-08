@@ -17,7 +17,7 @@ public struct Message {
     
     let type: MessageType
     public let identifier: String?
-    public let data: Any
+    public let data: Any?
     
 }
 

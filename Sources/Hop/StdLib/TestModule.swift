@@ -30,10 +30,7 @@ private func getExportVariableDeclaration(declarationScope: Scope) -> Closure {
         (arguments, session) in
 
         // Variable argument
-        guard let argumentValue = arguments?[0].value else {
-                throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError,
-                                   debugInfo: nil)
-        }
+        let variableValue = arguments?[0].value
         
         // Label argument
         guard let labelValue = arguments?[1].value as? String else {
@@ -43,7 +40,7 @@ private func getExportVariableDeclaration(declarationScope: Scope) -> Closure {
         
         session.messenger?.post(message: Message(type: .export,
                                                  identifier: labelValue,
-                                                 data: argumentValue))
+                                                 data: variableValue))
         return nil
     }
 

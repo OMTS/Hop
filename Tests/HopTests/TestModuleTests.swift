@@ -60,7 +60,6 @@ class TestModuleTests: XCTestCase {
     // Test import of Test module
     func test_importModule() {
         // given
-        
         let script = """
         import Test
 
@@ -76,10 +75,7 @@ class TestModuleTests: XCTestCase {
     
     // Test function func export(#variable: Any, label: String)
     func test_FunctionExportVariable() {
-        symbolTable.removeAll()
-        
         // given
-        
         let script = """
         import Test
 
@@ -151,8 +147,7 @@ class TestModuleTests: XCTestCase {
      
      */
     func test_FunctionExportVariable_NilVariableParameter() {
-        symbolTable.removeAll()
-        
+        // given
         let script = """
         import Test
 
@@ -162,41 +157,48 @@ class TestModuleTests: XCTestCase {
 
         """
         
-        XCTAssertThrowsError(try session.run(script: script)) {
-            (error) in
-            XCTAssertEqual((error as? ProgramError)?.errorType as? InterpreterError,
-                           InterpreterError.nativeFunctionCallParameterError)
-        }
+        // when
+        run(script: script)
+
+        // then
+        let variable = symbolTable["variable"]
+        XCTAssertNil(variable, "Error: variable value should be nil!")
         
+        // given
+
         // Test added as long as nil management won't be unit tested
         let script2 = """
         import Test
 
-        Test.export(nil, label: "")
+        Test.export(nil, label: "variable2")
 
         """
-        
-        XCTAssertThrowsError(try session.run(script: script2)) {
-            (error) in
-            XCTAssertEqual((error as? ProgramError)?.errorType as? InterpreterError,
-                           InterpreterError.nativeFunctionCallParameterError)
-        }
 
+        // when
+        run(script: script2)
+
+        // then
+        let variable2 = symbolTable["variable2"]
+        XCTAssertNil(variable2, "Error: variable value should be nil!")
+
+        // given
+        
         // Test added as long as nil management won't be unit tested
         let script3 = """
         import Test
 
         var variable: Any = nil
 
-        Test.export(variable, label: "variable")
+        Test.export(variable, label: "variable3")
 
         """
         
-        XCTAssertThrowsError(try session.run(script: script3)) {
-            (error) in
-            XCTAssertEqual((error as? ProgramError)?.errorType as? InterpreterError,
-                           InterpreterError.nativeFunctionCallParameterError)
-        }
+        // when
+        run(script: script3)
+
+        // then
+        let variable3 = symbolTable["variable3"]
+        XCTAssertNil(variable3, "Error: variable value should be nil!")
     }
     
     /**
@@ -206,8 +208,6 @@ class TestModuleTests: XCTestCase {
      
      */
     func test_FunctionExportVariable_NilLabelParameter() {
-        symbolTable.removeAll()
-        
         let script = """
         import Test
 

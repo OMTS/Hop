@@ -552,16 +552,19 @@ struct ArrayClass {
             // Self argument
             guard let selfInstance = arguments?[0].value as? Instance,
                 let index = arguments?[1].value as? Int else {
-                    throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError, debugInfo: nil)
+                    throw ProgramError(errorType: InterpreterError.nativeFunctionCallParameterError,
+                                       debugInfo: nil)
             }
             
             guard let arrayVariable = selfInstance.scope.getSymbolValue(for: backendInstanceHashId) as? Variable,
                 let array = arrayVariable.value as? NSMutableArray else {
-                    throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: nil)
+                    throw ProgramError(errorType: InterpreterError.expressionEvaluationError,
+                                       debugInfo: nil)
             }
             
-            guard index >= 0 || index < array.count - 1 else {
-                throw ProgramError(errorType: InterpreterError.expressionEvaluationError, debugInfo: nil)
+            guard index >= 0 && index < array.count else {
+                throw ProgramError(errorType: InterpreterError.subscriptIndexOutOfRange,
+                                   debugInfo: nil)
             }
             
             let elementVariable = array.object(at: index) as! Variable
