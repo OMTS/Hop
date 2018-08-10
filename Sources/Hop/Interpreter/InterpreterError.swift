@@ -49,6 +49,7 @@ enum InterpreterError: String, ErrorType {
     case subscriptNotAvailable
     case subscriptIndexTypeMismatch
     case subscriptIndexOutOfRange
+    case missingConstantInitialization
 
     func getDescription() -> String {
         return self.rawValue

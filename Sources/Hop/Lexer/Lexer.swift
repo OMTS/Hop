@@ -26,7 +26,6 @@ public class Lexer {
 
     private var chars: [Character]!
     public private(set) var nextCharIndex: Int = 0
-    private var lineIndex: Int = 0
     private var currentChar: Character! {
         if nextCharIndex < chars.count {
             return chars[nextCharIndex]
@@ -44,10 +43,6 @@ public class Lexer {
     
     public func getCurrentPosition() -> Int {
         return nextCharIndex
-    }
-
-    public func getLineNumber() -> Int {
-        return lineIndex - 1 
     }
 
     public func getNextChar() {
@@ -81,7 +76,6 @@ public class Lexer {
         // Consume line feeds
         while currentChar == "\n" || currentChar == "\r\n" {
             getNextChar()   // Consume '\n' or \r\n
-            lineIndex += 1
             if currentChar != "\n" && currentChar != "\r\n" {
                 return Token.lf
             }
@@ -107,11 +101,7 @@ public class Lexer {
                         if currentChar == nil {
                             return Token.eof
                         }
-                        
-                        if currentChar == "\n" || currentChar == "\r\n" {
-                            lineIndex += 1
-                        }
-                        
+
                         if currentChar == "*" {
                             getNextChar()
                             if currentChar != nil && currentChar == "/" {

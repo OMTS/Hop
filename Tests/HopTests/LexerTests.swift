@@ -11,6 +11,11 @@ import XCTest
 
 class LexerTests: XCTestCase {
 
+    static let allTests = [("testCreationFromScript", testCreationFromScript),
+                           ("testGetNextTokenForLineFeeds", testGetNextTokenForLineFeeds),
+                           ("testGetDebugInfo", testGetDebugInfo),
+                           ("testGetLineIndexForPosition",testGetLineIndexForPosition)]
+
     override func setUp() {
         super.setUp()
     }
@@ -48,7 +53,7 @@ class LexerTests: XCTestCase {
             for _ in 0...10 {
                 tokensWithCRLF.append(try lexer.getNextToken())
             }
-        } catch (_) {
+        } catch _ {
             XCTAssert(false)
         }
 
@@ -61,7 +66,38 @@ class LexerTests: XCTestCase {
         XCTAssertEqual(tokensWithLF[10], tokensWithCRLF[10])
     }
 
-    static let allTests = [("testCreationFromScript", testCreationFromScript),
-                           ("testGetNextTokenForLineFeeds", testGetNextTokenForLineFeeds)]
+    func testGetDebugInfo() {
+        let lexer = Lexer(script: "import Sys\n const a = 42\n", isDebug: true)
+        do {
+            _ = try lexer.getNextToken() //Consume import
+
+            var debugInfo = lexer.debugInfo //get forst debug Info
+            XCTAssertNotNil(debugInfo)
+            XCTAssertEqual(debugInfo!.lineNumber, 1)
+            XCTAssertEqual(debugInfo!.position,0)
+
+            _ = try lexer.getNextToken() //Consume Sys
+            _ = try lexer.getNextToken() //Consume \n
+            _ = try lexer.getNextToken() //Consume const
+
+
+            debugInfo = lexer.debugInfo //get last debug Info
+            XCTAssertNotNil(debugInfo)
+            XCTAssertEqual(debugInfo!.lineNumber, 2)
+            XCTAssertEqual(debugInfo!.position,12)
+
+        } catch _{
+            XCTFail("Should not fail")
+        }
+    }
+
+    func testGetLineIndexForPosition() {
+        let lexer = Lexer(script: "\n\nimport\n Sys\n const\n a = 42\n", isDebug: true)
+        let lineNumber = lexer.getLineIndex(forCursorPosition: 15) //const position
+        XCTAssertEqual(lineNumber, 4)
+
+        let lineNumber2 = lexer.getLineIndex(forCursorPosition: 100) // out of range position
+        XCTAssertEqual(lineNumber2, 6) //points to the last line
+    }
 
 }
