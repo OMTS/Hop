@@ -1658,7 +1658,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = YLEKY4JP87;
+				DEVELOPMENT_TEAM = 359PQS5A86;
 				INFOPLIST_FILE = Editor/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1679,7 +1679,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = YLEKY4JP87;
+				DEVELOPMENT_TEAM = 359PQS5A86;
 				INFOPLIST_FILE = Editor/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
