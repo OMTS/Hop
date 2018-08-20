@@ -683,10 +683,13 @@ struct ArrayClass {
             
             // Shuffle elements copies
             var last = newElements.count - 1
-            
+
             while last > 0 {
+#if os(Linux)
+                let rand = Int(random() % last) // Should user Int.random(in: 0...last) in Swift 4.2 instead
+#else
                 let rand = Int(arc4random_uniform(UInt32(last)))
-                
+#endif
                 newElements.swapAt(last, rand)
                 
                 last -= 1
