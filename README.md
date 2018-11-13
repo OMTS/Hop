@@ -10,7 +10,7 @@ Hop is provided with a Dockerfile for this
 In the same directory as the Dockerfile run:  
 
 ```
-docker build .
+docker build . 
 ```
 This will build the docker image to run and prompt the image name => "Successfully built **_{imageName}_**"
 
